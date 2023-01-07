@@ -87,4 +87,17 @@ public class TwilioTest
 
         return Uri.EscapeUriString(response.ToString());
     }
+
+    public void Dial(string phoneNo)
+    {
+        var response = new VoiceResponse();
+        // response.Dial("415-123-4567");
+        // Twilio では、Dial の中で callerId パラメータ を省略すると、相手に「非通知」として発信します。
+        response.Dial(
+            callerId: m_twilioPhoneNo,// 中継するtwilioの番号
+            number: phoneNo);// 占い師の番号
+        response.Say("Goodbye");
+
+        Console.WriteLine(response.ToString());
+    }
 }
