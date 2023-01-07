@@ -15,7 +15,7 @@ public class TwilioTestButton : MonoBehaviour
         twilioTest = new TwilioTest(
             twilioAccountSid: "AC63b5338a8c09ba458c2b5798517196bc",
             twilioAuthToken: "f73124266847896ecfdff34b81c296c1",
-            twilioPhoneNo: "+8109022784843"
+            twilioPhoneNo: ""
         );
 
         if (callButton) callButton.onClick.AddListener(OnClickCallBtn);
@@ -24,6 +24,7 @@ public class TwilioTestButton : MonoBehaviour
 
     void OnClickCallBtn()
     {
+        // twilio番号からこの番号に着信
         twilioTest.Call("あああ", "+8109022784843");
     }
 

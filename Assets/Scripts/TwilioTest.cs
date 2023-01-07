@@ -4,8 +4,7 @@ using Twilio;
 using Twilio.TwiML;
 using Twilio.Rest.Api.V2010.Account;
 using Cysharp.Threading.Tasks;
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine;
 
 
 public class TwilioTest
@@ -98,6 +97,30 @@ public class TwilioTest
             number: phoneNo);// 占い師の番号
         response.Say("Goodbye");
 
-        Console.WriteLine(response.ToString());
+        Debug.Log(response.ToString());
+    }
+
+    public void Test(string from, string to)
+    {
+        callAsyncTest(from, to).Forget();
+    }
+
+    private async UniTask callAsyncTest(string from, string to)
+    {
+        var response = new VoiceResponse();
+        // Twilio では、Dial の中で callerId パラメータ を省略すると、相手に「非通知」として発信します。
+        response.Dial(
+            callerId: m_twilioPhoneNo,// 中継するtwilioの番号
+            number: to);// 占い師の番号
+
+        //Client初期化
+        TwilioClient.Init(m_twilioAccountSid, m_twilioAuthToken);
+
+        //発信
+        m_callResource = await CallResource.CreateAsync(
+            twiml: response.ToString(),
+            to: new Twilio.Types.PhoneNumber(m_twilioPhoneNo),
+            from: new Twilio.Types.PhoneNumber(from)
+        );
     }
 }
