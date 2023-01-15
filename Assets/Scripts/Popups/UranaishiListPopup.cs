@@ -8,7 +8,9 @@ public class UranaishiListPopup : BasePopup
     public override void OnStart()
     {
         base.OnStart();
+        uranaishiButtonManager.Initialize();
         uranaishiButtonManager.ShowButtons(11);
+
     }
 
     public void Open()

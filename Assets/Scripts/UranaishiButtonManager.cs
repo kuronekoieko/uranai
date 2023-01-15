@@ -10,7 +10,7 @@ public class UranaishiButtonManager : MonoBehaviour
 
     public void Initialize()
     {
-        pos = initRT.position;
+        pos = initRT.localPosition;
         initRT.gameObject.SetActive(false);
     }
 
@@ -19,7 +19,7 @@ public class UranaishiButtonManager : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
             var uranaishiButton = Instantiate(uranaishiButtonPrefab, transform);
-            uranaishiButton.rectTransform.position = pos;
+            uranaishiButton.rectTransform.localPosition = pos;
             float margin = 10f;
             pos.y -= margin + initRT.sizeDelta.y;
 
