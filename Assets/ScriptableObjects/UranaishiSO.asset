@@ -1,0 +1,70 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c5a5859072994c45a0f4d0693235679, type: 3}
+  m_Name: UranaishiSO
+  m_EditorClassIdentifier: 
+  uranaishi:
+  - id: 001
+    iconSr: {fileID: 21300000, guid: 4f84f44f84069164b84596bbad85164b, type: 3}
+    name: "\u5982\u6708\u6C99\u7F85"
+    keywords: []
+    status: 0
+  - id: 002
+    iconSr: {fileID: 21300000, guid: 5a55f220fbab0f64298e622f9f0bdc6e, type: 3}
+    name: "\u30A2\u30A4\u30EA\u30B9"
+    keywords: []
+    status: 0
+  - id: 003
+    iconSr: {fileID: 21300000, guid: f3cd43c4e9adf3d45961be4b1ae1c1e9, type: 3}
+    name: "\u826F\u5BDB"
+    keywords: []
+    status: 0
+  - id: 0031
+    iconSr: {fileID: 21300000, guid: a415486e3903207458f7da8231f5dc22, type: 3}
+    name: 
+    keywords: []
+    status: 0
+  - id: 004
+    iconSr: {fileID: 21300000, guid: 55df73fdb29aa7940b6a30755fe42d6a, type: 3}
+    name: "\u6B69"
+    keywords: []
+    status: 0
+  - id: 005
+    iconSr: {fileID: 21300000, guid: 1d05b6ba67d568e45ac865f1c7f764da, type: 3}
+    name: "\u30DF\u30EB\u30D5\u30A3\u30FC"
+    keywords: []
+    status: 0
+  - id: 006
+    iconSr: {fileID: 21300000, guid: b1882905b137cd94ca8072997c48d248, type: 3}
+    name: "\u83EF\u68A8"
+    keywords: []
+    status: 0
+  - id: 007
+    iconSr: {fileID: 21300000, guid: 65aae3e144c1aa94f88e212cbef9fd5c, type: 3}
+    name: "\u308A\u3048"
+    keywords: []
+    status: 0
+  - id: 008
+    iconSr: {fileID: 21300000, guid: 10d60110e35ba4e4ba25cb8cbf35d804, type: 3}
+    name: "\u98DB\u9CE5"
+    keywords: []
+    status: 0
+  - id: 009
+    iconSr: {fileID: 21300000, guid: e6a1182900c0bfe4086697bad497380f, type: 3}
+    name: "\u77E5\u5343"
+    keywords: []
+    status: 0
+  - id: 010
+    iconSr: {fileID: 21300000, guid: 69fc74f09bdfba649ad5a14d314e064a, type: 3}
+    name: "\u8A13\u4E45"
+    keywords: []
+    status: 0
