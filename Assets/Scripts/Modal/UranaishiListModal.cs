@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UranaishiListPopup : BasePopup
+public class UranaishiListModal : BaseModal
 {
     [SerializeField] UranaishiButtonManager uranaishiButtonManager;
     public override void OnStart()

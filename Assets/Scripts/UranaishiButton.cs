@@ -23,7 +23,7 @@ public class UranaishiButton : MonoBehaviour
 
     void OnClickButton()
     {
-        UIManager.i.uranaishiPageManager.Open(uranaishi);
+        UIManager.i.uranaishiModal.Open(uranaishi);
     }
 
     public void ShowData(Uranaishi uranaishi)

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class BasePopup : MonoBehaviour
+public class BaseModal : MonoBehaviour
 {
     [SerializeField] Button xButton;
     RectTransform rectTransform;

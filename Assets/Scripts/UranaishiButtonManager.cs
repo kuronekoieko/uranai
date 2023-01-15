@@ -16,7 +16,7 @@ public class UranaishiButtonManager : MonoBehaviour
 
     public void ShowButtons(int count)
     {
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < count; i++)
         {
             var uranaishiButton = Instantiate(uranaishiButtonPrefab, transform);
             uranaishiButton.rectTransform.localPosition = pos;

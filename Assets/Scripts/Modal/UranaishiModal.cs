@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
-public class UranaishiPageManager : BasePopup
+
+public class UranaishiModal : BaseModal
 {
 
     [SerializeField] Image iconImage;
