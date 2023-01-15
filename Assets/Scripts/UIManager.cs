@@ -17,11 +17,11 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         i = this;
+        SaveDataManager.i.LoadSaveData();
         StartPages();
         uranaishiModal.OnStart();
         uranaishiListModal.OnStart();
         StartBannerToggles();
-        SaveDataManager.i.LoadSaveData();
     }
 
     void StartPages()

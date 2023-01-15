@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public class UranaishiListModal : BaseModal
 {
@@ -9,8 +10,7 @@ public class UranaishiListModal : BaseModal
     {
         base.OnStart();
         uranaishiButtonManager.OnStart();
-        uranaishiButtonManager.ShowButtons(11);
-
+        uranaishiButtonManager.ShowButtons(UranaishiSO.Instance.uranaishiAry.Take(20).ToArray());
     }
 
     public void Open()

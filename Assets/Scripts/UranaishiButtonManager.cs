@@ -14,16 +14,16 @@ public class UranaishiButtonManager : MonoBehaviour
         initRT.gameObject.SetActive(false);
     }
 
-    public void ShowButtons(int count)
+    public void ShowButtons(Uranaishi[] uranaishiAry)
     {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < uranaishiAry.Length; i++)
         {
             var uranaishiButton = Instantiate(uranaishiButtonPrefab, transform);
             uranaishiButton.rectTransform.localPosition = pos;
             float margin = 10f;
             pos.y -= margin + initRT.sizeDelta.y;
 
-            uranaishiButton.ShowData(UranaishiSO.Instance.uranaishiAry[i]);
+            uranaishiButton.ShowData(uranaishiAry[i]);
         }
     }
 }
