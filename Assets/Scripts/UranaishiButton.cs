@@ -9,6 +9,7 @@ public class UranaishiButton : MonoBehaviour
     [SerializeField] Image iconImage;
     [SerializeField] Text nameTxt;
     public RectTransform rectTransform;
+    Uranaishi uranaishi;
 
     public void Initialize()
     {
@@ -22,13 +23,14 @@ public class UranaishiButton : MonoBehaviour
 
     void OnClickButton()
     {
-        UIManager.i.uranaishiPageManager.Open();
+        UIManager.i.uranaishiPageManager.Open(uranaishi);
     }
 
     public void ShowData(Uranaishi uranaishi)
     {
         iconImage.sprite = uranaishi.iconSr;
         nameTxt.text = uranaishi.name;
+        this.uranaishi = uranaishi;
     }
 
 }

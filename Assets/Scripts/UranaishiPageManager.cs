@@ -8,6 +8,8 @@ public class UranaishiPageManager : MonoBehaviour
 {
     [SerializeField] Button xButton;
     [SerializeField] RectTransform rectTransform;
+    [SerializeField] Image iconImage;
+    [SerializeField] Text nameTxt;
     Vector3 initPos;
 
     public void OnStart()
@@ -33,11 +35,14 @@ public class UranaishiPageManager : MonoBehaviour
     }
 
 
-    public void Open()
+    public void Open(Uranaishi uranaishi)
     {
         gameObject.SetActive(true);
         rectTransform
             .DOMoveY(initPos.y, 0.3f)
             .SetEase(Ease.OutCirc);
+
+        iconImage.sprite = uranaishi.iconSr;
+        nameTxt.text = uranaishi.name;
     }
 }
