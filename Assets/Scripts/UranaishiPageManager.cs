@@ -8,33 +8,36 @@ public class UranaishiPageManager : MonoBehaviour
 {
     [SerializeField] Button xButton;
     [SerializeField] RectTransform rectTransform;
-    public static UranaishiPageManager i;
     Vector3 initPos;
 
-    public void Initialize()
-    {
-
-    }
-
-    void Start()
+    public void OnStart()
     {
         initPos = rectTransform.position;
-        i = this;
-        // gameObject.SetActive(false);
+        gameObject.SetActive(false);
         xButton.onClick.AddListener(OnClickXButton);
+        Vector3 pos = initPos;
+        pos.y = -Screen.height / 2f;
+        rectTransform.position = pos;
     }
 
     void OnClickXButton()
     {
-        // gameObject.SetActive(false);
-        rectTransform.DOMoveY(-Screen.height / 2f, 0.3f).SetEase(Ease.OutCirc);
 
+        rectTransform
+            .DOMoveY(-Screen.height / 2f, 0.3f)
+            .SetEase(Ease.OutCirc)
+            .OnComplete(() =>
+            {
+                gameObject.SetActive(false);
+            });
     }
 
 
     public void Open()
     {
-        // gameObject.SetActive(true);
-        rectTransform.DOMoveY(initPos.y, 0.3f).SetEase(Ease.OutCirc);
+        gameObject.SetActive(true);
+        rectTransform
+            .DOMoveY(initPos.y, 0.3f)
+            .SetEase(Ease.OutCirc);
     }
 }
