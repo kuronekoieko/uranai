@@ -17,7 +17,6 @@ public class LikeToggleController : MonoBehaviour
     public void OnOpen(Uranaishi uranaishi)
     {
         this.uranaishi = uranaishi;
-        Debug.Log(SaveData.i.likedUranaishiIdList.Contains(uranaishi.id));
         toggle.isOn = SaveData.i.likedUranaishiIdList.Contains(uranaishi.id);
     }
 

@@ -14,6 +14,27 @@ public class OkiniiriPage : BasePageManager
         base.SetPageAction(Page.Okiniiri);
         uranaishiButtonManager.OnStart();
 
+        ShowLikedList();
+    }
+
+    public override void OnUpdate()
+    {
+    }
+
+    protected override void OnClose()
+    {
+        gameObject.SetActive(false);
+    }
+
+    protected override void OnOpen()
+    {
+        gameObject.SetActive(true);
+        ShowLikedList();
+    }
+
+
+    void ShowLikedList()
+    {
         List<Uranaishi> likedList = new List<Uranaishi>();
 
 
@@ -29,21 +50,5 @@ public class OkiniiriPage : BasePageManager
         }
 
         uranaishiButtonManager.ShowButtons(likedList.ToArray());
-    }
-
-    public override void OnUpdate()
-    {
-    }
-
-    protected override void OnClose()
-    {
-        gameObject.SetActive(false);
-    }
-
-    protected override void OnOpen()
-    {
-        gameObject.SetActive(true);
-
-
     }
 }
