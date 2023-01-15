@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
         uranaishiModal.OnStart();
         uranaishiListModal.OnStart();
         StartBannerToggles();
+        SaveDataManager.i.LoadSaveData();
     }
 
     void StartPages()
