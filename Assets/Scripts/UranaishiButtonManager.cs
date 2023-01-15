@@ -8,7 +8,7 @@ public class UranaishiButtonManager : MonoBehaviour
     [SerializeField] RectTransform initRT;
     Vector3 pos;
 
-    public void Initialize()
+    public void OnStart()
     {
         pos = initRT.localPosition;
         initRT.gameObject.SetActive(false);

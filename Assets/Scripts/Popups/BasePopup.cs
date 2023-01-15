@@ -40,5 +40,7 @@ public class BasePopup : MonoBehaviour
         rectTransform
             .DOMoveY(initPos.y, 0.3f)
             .SetEase(Ease.OutCirc);
+        // 今いる自分の階層の一番下に移動して、一番手前に表示されます。
+        transform.SetAsLastSibling();
     }
 }

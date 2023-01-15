@@ -12,7 +12,7 @@ public class UranauPage : BasePageManager
     public override void OnStart()
     {
         base.SetPageAction(Page.Uranau);
-        uranaishiButtonManager.Initialize();
+        uranaishiButtonManager.OnStart();
         uranaishiButtonManager.ShowButtons(10);
         uranaishiListButton.onClick.AddListener(() => UIManager.i.uranaishiListPopup.Open());
     }
