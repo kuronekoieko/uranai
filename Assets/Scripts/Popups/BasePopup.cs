@@ -4,16 +4,15 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class UranaishiPageManager : MonoBehaviour
+public class BasePopup : MonoBehaviour
 {
     [SerializeField] Button xButton;
-    [SerializeField] RectTransform rectTransform;
-    [SerializeField] Image iconImage;
-    [SerializeField] Text nameTxt;
+    RectTransform rectTransform;
     Vector3 initPos;
 
-    public void OnStart()
+    public virtual void OnStart()
     {
+        rectTransform = GetComponent<RectTransform>();
         initPos = rectTransform.position;
         gameObject.SetActive(false);
         xButton.onClick.AddListener(OnClickXButton);
@@ -35,14 +34,11 @@ public class UranaishiPageManager : MonoBehaviour
     }
 
 
-    public void Open(Uranaishi uranaishi)
+    public virtual void OpenAnim()
     {
         gameObject.SetActive(true);
         rectTransform
             .DOMoveY(initPos.y, 0.3f)
             .SetEase(Ease.OutCirc);
-
-        iconImage.sprite = uranaishi.iconSr;
-        nameTxt.text = uranaishi.name;
     }
 }

@@ -1,32 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UranauPage : BasePageManager
 {
-    [SerializeField] UranaishiButton uranaishiButtonPrefab;
-    List<UranaishiButton> uranaishiButtons = new List<UranaishiButton>();
-    [SerializeField] RectTransform initRT;
-    [SerializeField] Transform uranaishiButtonsParent;
+
+    [SerializeField] UranaishiButtonManager uranaishiButtonManager;
+    [SerializeField] Button uranaishiListButton;
 
     public override void OnStart()
     {
         base.SetPageAction(Page.Uranau);
-
-        Vector3 pos = initRT.position;
-        for (int i = 0; i < 10; i++)
-        {
-            var uranaishiButton = Instantiate(uranaishiButtonPrefab, uranaishiButtonsParent);
-            uranaishiButton.rectTransform.position = pos;
-            float margin = 10f;
-            pos.y -= margin + initRT.sizeDelta.y;
-
-            uranaishiButton.ShowData(UranaishiSO.Instance.uranaishiAry[i]);
-        }
+        uranaishiButtonManager.Initialize();
+        uranaishiButtonManager.ShowButtons(10);
+        uranaishiListButton.onClick.AddListener(() => UIManager.i.uranaishiListPopup.Open());
     }
 
     public override void OnUpdate()
     {
+
     }
 
     protected override void OnClose()

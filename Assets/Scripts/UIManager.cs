@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] ToggleGroup bannerToggleGroup;
     [SerializeField] Transform pagesTf;
     public UranaishiPageManager uranaishiPageManager;
+    public UranaishiListPopup uranaishiListPopup;
     public static UIManager i;
     public Page activePage { get; set; } = Page.Uranau;
     BasePageManager[] basePageManagers;
@@ -19,6 +20,7 @@ public class UIManager : MonoBehaviour
         basePageManagers = pagesTf.GetComponentsInChildren<BasePageManager>(true);
         StartPages();
         uranaishiPageManager.OnStart();
+        uranaishiListPopup.OnStart();
     }
 
     void StartPages()
