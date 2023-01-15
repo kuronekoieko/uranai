@@ -6,7 +6,7 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MyGame/Create " + nameof(UranaishiSO), fileName = nameof(UranaishiSO))]
 public class UranaishiSO : SingletonScriptableObject<UranaishiSO>
 {
-    public Uranaishi[] uranaishi;
+    public Uranaishi[] uranaishiAry;
 
 }
 

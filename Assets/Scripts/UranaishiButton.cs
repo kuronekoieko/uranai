@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class UranaishiButton : MonoBehaviour
 {
     [SerializeField] Button button;
+    [SerializeField] Image iconImage;
+    [SerializeField] Text nameTxt;
+    public RectTransform rectTransform;
 
     public void Initialize()
     {
@@ -20,6 +23,12 @@ public class UranaishiButton : MonoBehaviour
     void OnClickButton()
     {
         UIManager.i.uranaishiPageManager.Open();
+    }
+
+    public void ShowData(Uranaishi uranaishi)
+    {
+        iconImage.sprite = uranaishi.iconSr;
+        nameTxt.text = uranaishi.name;
     }
 
 }
