@@ -8,10 +8,11 @@ public class BannerToggleController : MonoBehaviour
     Toggle toggle;
     [SerializeField] Page page;
 
-    void Start()
+    public void OnStart(Page initPage)
     {
         toggle = GetComponent<Toggle>();
         toggle.onValueChanged.AddListener(ToggleValueChanged);
+        toggle.isOn = (initPage == page);
     }
 
     void ToggleValueChanged(bool isOn)
