@@ -2,7 +2,9 @@
   <packages>
     <package>com.android.support:customtabs:23.0.0</package>
   </packages>
-  <files />
+  <files>
+    <file>Assets/Plugins/Android/com.android.support.customtabs-23.0.0.aar</file>
+  </files>
   <settings>
     <setting name="androidAbis" value="armeabi-v7a" />
     <setting name="bundleId" value="com.uranai.ieko" />
