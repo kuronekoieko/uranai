@@ -8,9 +8,9 @@ public class WebViewSample : MonoBehaviour
     {
 
         ChromeCustomTabs.OpenURL("https://www.google.co.jp");
-    
 
-       
+
+
     }
 
 

@@ -11,6 +11,7 @@ public static class ChromeCustomTabs
     {
 #if UNITY_EDITOR
         // Application.OpenURL(url);
+        Debug.Log("open webview : " + url);
 #elif UNITY_ANDROID
         using ( var unityPlayer = new AndroidJavaClass( "com.unity3d.player.UnityPlayer" ) )
         using ( var activity = unityPlayer.GetStatic<AndroidJavaObject>( "currentActivity" ) )
