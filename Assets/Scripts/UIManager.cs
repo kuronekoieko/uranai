@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
         uranaishiModal.OnStart();
         uranaishiListModal.OnStart();
         StartBannerToggles();
+
+        Application.targetFrameRate = 60;
     }
 
     void StartPages()
