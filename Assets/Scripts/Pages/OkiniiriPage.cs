@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System;
+using UniRx;
 
 public class OkiniiriPage : BasePageManager
 {
@@ -15,6 +15,11 @@ public class OkiniiriPage : BasePageManager
         uranaishiButtonManager.OnStart();
 
         ShowLikedList();
+
+        this.ObserveEveryValueChanged(listCount => SaveData.i.likedUranaishiIdList.Count)
+            .Where(listCount => UIManager.i.activePage == Page.Okiniiri)
+            .Subscribe(listCount => ShowLikedList())
+            .AddTo(this.gameObject);
     }
 
     public override void OnUpdate()
@@ -36,7 +41,6 @@ public class OkiniiriPage : BasePageManager
     void ShowLikedList()
     {
         List<Uranaishi> likedList = new List<Uranaishi>();
-
 
         foreach (var uranaishi in UranaishiSO.Instance.uranaishiAry)
         {
