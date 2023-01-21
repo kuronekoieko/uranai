@@ -6,11 +6,12 @@ using Firebase.Storage;
 
 public class FirebaseStorageManager : MonoBehaviour
 {
-
+    public static FirebaseStorageManager i;
     StorageReference storageRef;
 
     private void Awake()
     {
+        i = this;
         // Get a reference to the storage service, using the default Firebase App
         FirebaseStorage storage = FirebaseStorage.DefaultInstance;
 
@@ -22,10 +23,10 @@ public class FirebaseStorageManager : MonoBehaviour
     }
 
 
-    void UploadFromLocalFile()
+    public void UploadFromLocalFile(string localFile)
     {
         // File located on disk
-        string localFile = "...";
+        // string localFile = "...";
 
         // Create a reference to the file you want to upload
         StorageReference iconRef = storageRef.Child("images").Child("icon.jpg");
