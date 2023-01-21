@@ -30,5 +30,7 @@
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:585716704007:ios:49c5e802222c61d7471ba2</string>
+	<key>DATABASE_URL</key>
+	<string>https://ikevo-uranai-default-rtdb.asia-southeast1.firebasedatabase.app</string>
 </dict>
 </plist>

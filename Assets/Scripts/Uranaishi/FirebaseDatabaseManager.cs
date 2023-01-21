@@ -1,18 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Firebase;
+using Firebase.Database;
 
 public class FirebaseDatabaseManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static FirebaseDatabaseManager i;
+
+    DatabaseReference reference;
+
+    private void Awake()
     {
-        
+        // Get the root reference location of the database.
+        reference = FirebaseDatabase.DefaultInstance.RootReference;
+        i = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetUserData(Uranaishi uranaishi)
     {
-        
+        string json = JsonUtility.ToJson(uranaishi);
+        reference.Child("users").Child(uranaishi.id).SetRawJsonValueAsync(json);
+
     }
+
 }
