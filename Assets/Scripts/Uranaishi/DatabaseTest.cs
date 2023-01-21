@@ -20,7 +20,9 @@ public class DatabaseTest : MonoBehaviour
     void SendData()
     {
         Uranaishi uranaishi = new Uranaishi();
-        uranaishi.id = Random.Range(100, 999).ToString();
+        //uranaishi.id = Random.Range(100, 999).ToString();
+        uranaishi.id = "901";
+
         uranaishi.name = userNameIF.text;
         FirebaseDatabaseManager.i.SetUserData(uranaishi);
     }
