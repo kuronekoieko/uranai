@@ -95,6 +95,7 @@ public class FirebaseStorageManager : MonoBehaviour
         {
             try
             {
+                // https://www.hanachiru-blog.com/entry/2019/07/12/233000
                 texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
                 Debug.Log("ダウンロード完了");
                 onComplete(texture);
