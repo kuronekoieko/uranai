@@ -3,6 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Threading.Tasks;
 using Firebase.Storage;
+using Firebase.Extensions;
+using UnityEngine.Networking;
+using System;
+using UnityEngine.Events;
+
 
 public class FirebaseStorageManager : MonoBehaviour
 {
@@ -51,5 +56,57 @@ public class FirebaseStorageManager : MonoBehaviour
                 }
             });
     }
+
+
+    public void DownloadFile(Uranaishi uranaishi, UnityAction<Texture2D> onComplete)
+    {
+
+        StorageReference iconRef = storageRef.Child(uranaishi.id).Child("images").Child("icon.jpg");
+
+        // Fetch the download URL
+        iconRef.GetDownloadUrlAsync().ContinueWithOnMainThread(task =>
+        {
+            if (!task.IsFaulted && !task.IsCanceled)
+            {
+                Debug.Log("Download URL: " + task.Result.ToString());
+                StartCoroutine(LoadTexture(task.Result.ToString(), onComplete));
+
+                // ... now download the file via WWW or UnityWebRequest.
+            }
+        });
+    }
+
+
+    private IEnumerator LoadTexture(string uri, UnityAction<Texture2D> onComplete)
+    {
+        Texture2D texture = null;
+        Debug.Log("画像の取得開始");
+        var request = UnityWebRequestTexture.GetTexture(uri);
+        yield return request.SendWebRequest();
+        Debug.Log("画像の取得完了");
+
+
+        if (request.isNetworkError || request.isHttpError)
+        {
+            Debug.Log(request.error);
+            onComplete(texture);
+        }
+        else
+        {
+            try
+            {
+                texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+                Debug.Log("ダウンロード完了");
+                onComplete(texture);
+            }
+            catch (Exception ex)
+            {
+                Debug.Log(ex.Message);
+                onComplete(texture);
+            }
+        }
+    }
+
+
 
 }

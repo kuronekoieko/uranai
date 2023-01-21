@@ -12,19 +12,25 @@ public class DatabaseTest : MonoBehaviour
     [SerializeField] Button imageButton;
     [SerializeField] Image image;
     string iconLocalFilePath;
-
+    Uranaishi uranaishi;
 
     void Start()
     {
+        uranaishi = new Uranaishi();
+        uranaishi.id = "901";
+
         sendButton.onClick.AddListener(SendData);
         imageButton.onClick.AddListener(SetIcon);
+        FirebaseStorageManager.i.DownloadFile(uranaishi, (texture) =>
+        {
+            image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+        });
     }
 
     void SendData()
     {
-        Uranaishi uranaishi = new Uranaishi();
+
         //uranaishi.id = Random.Range(100, 999).ToString();
-        uranaishi.id = "901";
 
         uranaishi.name = userNameIF.text;
 
