@@ -14,10 +14,15 @@ public class UranaishiSO : SingletonScriptableObject<UranaishiSO>
 public class Uranaishi
 {
     public string id;
-    public Sprite iconSr;
+    public string iconStorageFilePath;
     public string name;
     public string[] keywords;
     public int status;
+
+    public Sprite GetSprite()
+    {
+        return null;
+    }
 }
 
 [System.Serializable]

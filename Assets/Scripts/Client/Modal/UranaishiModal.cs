@@ -24,7 +24,7 @@ public class UranaishiModal : BaseModal
         base.OpenAnim();
         likeToggleController.OnOpen(uranaishi);
 
-        iconImage.sprite = uranaishi.iconSr;
+        iconImage.sprite = uranaishi.GetSprite();
         nameTxt.text = uranaishi.name;
 
     }
