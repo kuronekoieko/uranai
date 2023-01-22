@@ -23,7 +23,7 @@ public class UranaishiModal : BaseModal
     {
         base.OpenAnim();
         likeToggleController.OnOpen(uranaishi);
-
+        iconImage.sprite = null;
         uranaishi.GetIcon((sprite) =>
         {
             iconImage.sprite = sprite;

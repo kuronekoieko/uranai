@@ -26,11 +26,15 @@ public class Uranaishi
         if (_iconSprite)
         {
             onComplete(_iconSprite);
+            return;
         }
-        else
+
+        FirebaseStorageManager.i.DownloadFile(this, (sprite) =>
         {
-            FirebaseStorageManager.i.DownloadFile(this, onComplete);
-        }
+            _iconSprite = sprite;
+            onComplete(sprite);
+        });
+
     }
 }
 

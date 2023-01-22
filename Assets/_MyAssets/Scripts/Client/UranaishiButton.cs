@@ -28,6 +28,7 @@ public class UranaishiButton : MonoBehaviour
 
     public void ShowData(Uranaishi uranaishi)
     {
+        iconImage.sprite = null;
         uranaishi.GetIcon((sprite) =>
         {
             iconImage.sprite = sprite;

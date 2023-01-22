@@ -70,6 +70,7 @@ public class FirebaseStorageManager : MonoBehaviour
         // Fetch the download URL
         iconRef.GetDownloadUrlAsync().ContinueWithOnMainThread(async task =>
         {
+            //    await task;
             if (!task.IsFaulted && !task.IsCanceled)
             {
                 Debug.Log("Download URL: " + task.Result.ToString());

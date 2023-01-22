@@ -31,8 +31,6 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
     public async Task GetUserData(Uranaishi uranaishi)
     {
-
-
         await reference.Child("users").Child(uranaishi.id)
         .GetValueAsync().ContinueWithOnMainThread(task =>
         {
