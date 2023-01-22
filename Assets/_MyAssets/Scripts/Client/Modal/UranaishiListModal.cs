@@ -6,19 +6,16 @@ using System.Linq;
 public class UranaishiListModal : BaseModal
 {
     [SerializeField] UranaishiButtonManager uranaishiButtonManager;
-    public override async void OnStart()
+    public override  void OnStart()
     {
         base.OnStart();
         uranaishiButtonManager.OnStart();
 
-        Uranaishi[] uranaishiAry = await FirebaseDatabaseManager.i.GetUranaishiAry(20);
-        uranaishiButtonManager.ShowButtons(uranaishiAry);
+        uranaishiButtonManager.ShowButtons(UIManager.i.uranaishiAry.Take(20).ToArray());
     }
 
     public void Open()
     {
         base.OpenAnim();
-
-
     }
 }

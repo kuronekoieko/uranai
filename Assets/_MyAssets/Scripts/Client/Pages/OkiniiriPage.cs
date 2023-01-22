@@ -8,14 +8,11 @@ public class OkiniiriPage : BasePageManager
 {
 
     [SerializeField] UranaishiButtonManager uranaishiButtonManager;
-    Uranaishi[] uranaishiAry;
 
-    public async override void OnStart()
+    public override void OnStart()
     {
         base.SetPageAction(Page.Okiniiri);
         uranaishiButtonManager.OnStart();
-
-        uranaishiAry = await FirebaseDatabaseManager.i.GetUranaishiAry(10);
 
         ShowLikedList();
 
@@ -45,7 +42,7 @@ public class OkiniiriPage : BasePageManager
     {
         List<Uranaishi> likedList = new List<Uranaishi>();
 
-        foreach (var uranaishi in uranaishiAry)
+        foreach (var uranaishi in UIManager.i.uranaishiAry)
         {
             foreach (var likedUranaishiId in SaveData.i.likedUranaishiIdList)
             {

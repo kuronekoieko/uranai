@@ -73,8 +73,8 @@ public class FirebaseStorageManager : MonoBehaviour
             //    await task;
             if (!task.IsFaulted && !task.IsCanceled)
             {
-                Debug.Log("Download URL: " + task.Result.ToString());
-
+                // Debug.Log("Download URL: " + task.Result.ToString());
+                Debug.Log("画像のダウンロード開始 " + uranaishi.id);
                 // ... now download the file via WWW or UnityWebRequest.
                 Sprite sprite = await LoadTexture(task.Result.ToString());
                 onComplete(sprite);
@@ -87,10 +87,10 @@ public class FirebaseStorageManager : MonoBehaviour
     private async Task<Sprite> LoadTexture(string uri)
     {
         Sprite sprite = null;
-        Debug.Log("画像のダウンロード開始");
+        // Debug.Log("画像のダウンロード開始");
         var request = UnityWebRequestTexture.GetTexture(uri);
         await request.SendWebRequest();
-        Debug.Log("画像のダウンロード終了");
+        // Debug.Log("画像のダウンロード終了");
 
 
         if (request.result == UnityWebRequest.Result.ConnectionError
@@ -105,7 +105,7 @@ public class FirebaseStorageManager : MonoBehaviour
             // https://www.hanachiru-blog.com/entry/2019/07/12/233000
             Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
             sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero); ;
-            Debug.Log("ダウンロード完了");
+            // Debug.Log("ダウンロード完了");
             return sprite;
         }
         catch (Exception ex)

@@ -55,7 +55,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
         List<Uranaishi> uranaishiList = new List<Uranaishi>();
 
 
-        await reference.Child("users").LimitToFirst(count)
+        await reference.Child("users")
         .GetValueAsync().ContinueWithOnMainThread(async task =>
         {
             await task;

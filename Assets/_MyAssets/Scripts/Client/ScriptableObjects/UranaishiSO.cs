@@ -7,7 +7,7 @@ using UnityEngine.Events;
 [CreateAssetMenu(menuName = "MyGame/Create " + nameof(UranaishiSO), fileName = nameof(UranaishiSO))]
 public class UranaishiSO : SingletonScriptableObject<UranaishiSO>
 {
-    public Uranaishi[] uranaishiAry;
+    //public Uranaishi[] uranaishiAry;
 
 }
 
