@@ -1,17 +1,8 @@
-
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(menuName = "MyGame/Create " + nameof(UranaishiSO), fileName = nameof(UranaishiSO))]
-public class UranaishiSO : SingletonScriptableObject<UranaishiSO>
-{
-    //public Uranaishi[] uranaishiAry;
-
-}
-
-[System.Serializable]
 public class Uranaishi
 {
     public string id;
@@ -36,13 +27,4 @@ public class Uranaishi
         });
 
     }
-}
-
-[System.Serializable]
-public class Review
-{
-    public string writerId;
-    public string uranaishiId;
-    public string text;
-    public int starCount;
 }
