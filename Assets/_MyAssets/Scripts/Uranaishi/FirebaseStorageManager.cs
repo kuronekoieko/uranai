@@ -28,7 +28,7 @@ public class FirebaseStorageManager : MonoBehaviour
     }
 
 
-    public void UploadFromLocalFile(Uranaishi uranaishi, string iconLocalFilePath)
+    public async Task UploadFromLocalFile(Uranaishi uranaishi, string iconLocalFilePath)
     {
         // 画像を選択しなかったとき
         if (iconLocalFilePath == null) return;
@@ -41,23 +41,23 @@ public class FirebaseStorageManager : MonoBehaviour
         // uranaishi.iconStorageFilePath = iconRef.Path;
 
         // Upload the file to the path "images/rivers.jpg"
-        iconRef.PutFileAsync(localFile)
-            .ContinueWith((Task<StorageMetadata> task) =>
+        await iconRef.PutFileAsync(localFile)
+        .ContinueWith((Task<StorageMetadata> task) =>
+        {
+            if (task.IsFaulted || task.IsCanceled)
             {
-                if (task.IsFaulted || task.IsCanceled)
-                {
-                    Debug.Log(task.Exception.ToString());
-                    // Uh-oh, an error occurred!
-                }
-                else
-                {
-                    // Metadata contains file metadata such as size, content-type, and download URL.
-                    StorageMetadata metadata = task.Result;
-                    string md5Hash = metadata.Md5Hash;
-                    Debug.Log("Finished uploading...");
-                    Debug.Log("md5 hash = " + md5Hash);
-                }
-            });
+                Debug.Log(task.Exception.ToString());
+                // Uh-oh, an error occurred!
+            }
+            else
+            {
+                // Metadata contains file metadata such as size, content-type, and download URL.
+                StorageMetadata metadata = task.Result;
+                string md5Hash = metadata.Md5Hash;
+                Debug.Log("Finished uploading...");
+                Debug.Log("md5 hash = " + md5Hash);
+            }
+        });
     }
 
 

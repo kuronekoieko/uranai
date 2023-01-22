@@ -40,16 +40,17 @@ public class DatabaseTest : MonoBehaviour
 
     }
 
-    void SendData()
+    async void SendData()
     {
 
         uranaishi.id = userIdIF.text;
 
         uranaishi.name = userNameIF.text;
 
-        FirebaseStorageManager.i.UploadFromLocalFile(uranaishi, iconLocalFilePath);
-
         FirebaseDatabaseManager.i.SetUserData(uranaishi);
+
+        await FirebaseStorageManager.i.UploadFromLocalFile(uranaishi, iconLocalFilePath);
+        Debug.Log("登録完了");
     }
 
     void SetIcon()
