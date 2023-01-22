@@ -26,7 +26,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(uranaishi);
         reference.Child("users").Child(uranaishi.id).SetRawJsonValueAsync(json);
-
+        //reference.Child("users").Push().SetRawJsonValueAsync(json);
     }
 
     public async Task GetUserData(Uranaishi uranaishi)
@@ -50,5 +50,50 @@ public class FirebaseDatabaseManager : MonoBehaviour
         });
     }
 
+
+    public async Task<Uranaishi[]> GetUranaishiAry(int count)
+    {
+
+        List<Uranaishi> uranaishiList = new List<Uranaishi>();
+
+
+        await reference.Child("users").LimitToFirst(count)
+        .GetValueAsync().ContinueWithOnMainThread(async task =>
+        {
+            if (task.IsFaulted)
+            {
+                // Handle the error...
+            }
+            else if (task.IsCompleted)
+            {
+
+                // https://www.project-unknown.jp/entry/firebase-login-vol3_1#DataSnapshot-snapshot--taskResult
+                DataSnapshot snapshot = task.Result;
+                IEnumerator<DataSnapshot> result = snapshot.Children.GetEnumerator();
+
+                while (result.MoveNext())
+                {
+                    DataSnapshot data = result.Current;
+                    Uranaishi uranaishi = new Uranaishi();
+                    JsonUtility.FromJsonOverwrite(data.GetRawJsonValue(), uranaishi);
+                    uranaishiList.Add(uranaishi);
+                    Debug.Log(uranaishi.id);
+                }
+            }
+        });
+        Debug.Log("bbb");
+
+        return uranaishiList.ToArray();
+    }
+
+    void HandleValueChanged(object sender, ValueChangedEventArgs args)
+    {
+        if (args.DatabaseError != null)
+        {
+            Debug.LogError(args.DatabaseError.Message);
+            return;
+        }
+        // Do something with the data in args.Snapshot
+    }
 
 }

@@ -10,11 +10,12 @@ public class UranauPage : BasePageManager
     [SerializeField] UranaishiButtonManager uranaishiButtonManager;
     [SerializeField] Button uranaishiListButton;
 
-    public override void OnStart()
+    public override async void OnStart()
     {
         base.SetPageAction(Page.Uranau);
         uranaishiButtonManager.OnStart();
-        uranaishiButtonManager.ShowButtons(UranaishiSO.Instance.uranaishiAry.Take(10).ToArray());
+        Uranaishi[] a = await FirebaseDatabaseManager.i.GetUranaishiAry(10);
+        uranaishiButtonManager.ShowButtons(a);
         uranaishiListButton.onClick.AddListener(() => UIManager.i.uranaishiListModal.Open());
     }
 
