@@ -89,25 +89,25 @@ public class FirebaseStorageManager : MonoBehaviour
         Debug.Log("画像の取得完了");
 
 
-        if (request.isNetworkError || request.isHttpError)
+        if (request.result == UnityWebRequest.Result.ConnectionError
+        || request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(request.error);
             onComplete(texture);
+            yield return null;
         }
-        else
+
+        try
         {
-            try
-            {
-                // https://www.hanachiru-blog.com/entry/2019/07/12/233000
-                texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
-                Debug.Log("ダウンロード完了");
-                onComplete(texture);
-            }
-            catch (Exception ex)
-            {
-                Debug.Log(ex.Message);
-                onComplete(texture);
-            }
+            // https://www.hanachiru-blog.com/entry/2019/07/12/233000
+            texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            Debug.Log("ダウンロード完了");
+            onComplete(texture);
+        }
+        catch (Exception ex)
+        {
+            Debug.Log(ex.Message);
+            onComplete(texture);
         }
     }
 
