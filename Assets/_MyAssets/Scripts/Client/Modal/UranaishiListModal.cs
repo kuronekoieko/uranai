@@ -11,8 +11,8 @@ public class UranaishiListModal : BaseModal
         base.OnStart();
         uranaishiButtonManager.OnStart();
 
-        Uranaishi[] a = await FirebaseDatabaseManager.i.GetUranaishiAry(20);
-        uranaishiButtonManager.ShowButtons(a);
+        Uranaishi[] uranaishiAry = await FirebaseDatabaseManager.i.GetUranaishiAry(20);
+        uranaishiButtonManager.ShowButtons(uranaishiAry);
     }
 
     public void Open()

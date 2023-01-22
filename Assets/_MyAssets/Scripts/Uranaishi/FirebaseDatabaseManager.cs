@@ -58,6 +58,7 @@ public class FirebaseDatabaseManager : MonoBehaviour
         await reference.Child("users").LimitToFirst(count)
         .GetValueAsync().ContinueWithOnMainThread(async task =>
         {
+            await task;
             if (task.IsFaulted)
             {
                 // Handle the error...
