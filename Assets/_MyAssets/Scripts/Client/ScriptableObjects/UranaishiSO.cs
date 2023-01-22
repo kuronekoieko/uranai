@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [CreateAssetMenu(menuName = "MyGame/Create " + nameof(UranaishiSO), fileName = nameof(UranaishiSO))]
 public class UranaishiSO : SingletonScriptableObject<UranaishiSO>
@@ -18,10 +19,18 @@ public class Uranaishi
     public string name;
     public string[] keywords;
     public int status;
+    [System.NonSerialized] Sprite _iconSprite;
 
-    public Sprite GetSprite()
+    public void GetIcon(UnityAction<Sprite> onComplete)
     {
-        return null;
+        if (_iconSprite)
+        {
+            onComplete(_iconSprite);
+        }
+        else
+        {
+            FirebaseStorageManager.i.DownloadFile(this, onComplete);
+        }
     }
 }
 

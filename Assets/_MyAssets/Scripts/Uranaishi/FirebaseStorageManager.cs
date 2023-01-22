@@ -61,7 +61,7 @@ public class FirebaseStorageManager : MonoBehaviour
     }
 
 
-    public void DownloadFile(Uranaishi uranaishi, UnityAction<Texture2D> onComplete)
+    public void DownloadFile(Uranaishi uranaishi, UnityAction<Sprite> onComplete)
     {
 
         StorageReference iconRef = storageRef.Child(uranaishi.id).Child("images").Child("icon.jpg");
@@ -75,18 +75,17 @@ public class FirebaseStorageManager : MonoBehaviour
                 Debug.Log("Download URL: " + task.Result.ToString());
 
                 // ... now download the file via WWW or UnityWebRequest.
-                Texture2D texture = await LoadTexture(task.Result.ToString());
-
-                onComplete(texture);
+                Sprite sprite = await LoadTexture(task.Result.ToString());
+                onComplete(sprite);
             }
         });
 
     }
 
 
-    private async Task<Texture2D> LoadTexture(string uri)
+    private async Task<Sprite> LoadTexture(string uri)
     {
-        Texture2D texture = null;
+        Sprite sprite = null;
         Debug.Log("画像のダウンロード開始");
         var request = UnityWebRequestTexture.GetTexture(uri);
         await request.SendWebRequest();
@@ -97,20 +96,21 @@ public class FirebaseStorageManager : MonoBehaviour
         || request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(request.error);
-            return texture;
+            return sprite;
         }
 
         try
         {
             // https://www.hanachiru-blog.com/entry/2019/07/12/233000
-            texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            Texture2D texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
+            sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero); ;
             Debug.Log("ダウンロード完了");
-            return texture;
+            return sprite;
         }
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
-            return texture;
+            return sprite;
         }
     }
 

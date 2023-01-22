@@ -14,9 +14,10 @@ public class UranauPage : BasePageManager
     {
         base.SetPageAction(Page.Uranau);
         uranaishiButtonManager.OnStart();
+        uranaishiListButton.onClick.AddListener(() => UIManager.i.uranaishiListModal.Open());
+
         Uranaishi[] a = await FirebaseDatabaseManager.i.GetUranaishiAry(10);
         uranaishiButtonManager.ShowButtons(a);
-        uranaishiListButton.onClick.AddListener(() => UIManager.i.uranaishiListModal.Open());
     }
 
     public override void OnUpdate()

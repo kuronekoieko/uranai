@@ -31,13 +31,12 @@ public class DatabaseTest : MonoBehaviour
 
         Debug.Log("ストレージに接続開始");
 
-
-        FirebaseStorageManager.i.DownloadFile(uranaishi, (texture) =>
+        uranaishi.GetIcon((sprite) =>
         {
-            image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            image.sprite = sprite;
             Debug.Log("ストレージに接続終了");
-        });
 
+        });
     }
 
     async void SendData()
