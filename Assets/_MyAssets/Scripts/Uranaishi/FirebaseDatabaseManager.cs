@@ -5,6 +5,8 @@ using Firebase;
 using Firebase.Database;
 using Firebase.Extensions;
 using UnityEngine.Events;
+using System.Threading.Tasks;
+
 
 
 public class FirebaseDatabaseManager : MonoBehaviour
@@ -27,11 +29,11 @@ public class FirebaseDatabaseManager : MonoBehaviour
 
     }
 
-    public void GetUserData(Uranaishi uranaishi, UnityAction onComplete)
+    public async Task GetUserData(Uranaishi uranaishi)
     {
 
 
-        reference.Child("users").Child(uranaishi.id)
+        await reference.Child("users").Child(uranaishi.id)
         .GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -43,7 +45,6 @@ public class FirebaseDatabaseManager : MonoBehaviour
                 DataSnapshot snapshot = task.Result;
                 Debug.Log(snapshot.GetRawJsonValue());
                 JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), uranaishi);
-                onComplete();
                 // Do something with snapshot...
             }
         });

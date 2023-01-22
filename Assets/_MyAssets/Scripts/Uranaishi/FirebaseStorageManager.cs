@@ -66,35 +66,38 @@ public class FirebaseStorageManager : MonoBehaviour
 
         StorageReference iconRef = storageRef.Child(uranaishi.id).Child("images").Child("icon.jpg");
 
+
         // Fetch the download URL
-        iconRef.GetDownloadUrlAsync().ContinueWithOnMainThread(task =>
+        iconRef.GetDownloadUrlAsync().ContinueWithOnMainThread(async task =>
         {
             if (!task.IsFaulted && !task.IsCanceled)
             {
                 Debug.Log("Download URL: " + task.Result.ToString());
-                StartCoroutine(LoadTexture(task.Result.ToString(), onComplete));
 
                 // ... now download the file via WWW or UnityWebRequest.
+                Texture2D texture = await LoadTexture(task.Result.ToString());
+
+                onComplete(texture);
             }
         });
+
     }
 
 
-    private IEnumerator LoadTexture(string uri, UnityAction<Texture2D> onComplete)
+    private async Task<Texture2D> LoadTexture(string uri)
     {
         Texture2D texture = null;
-        Debug.Log("画像の取得開始");
+        Debug.Log("画像のダウンロード開始");
         var request = UnityWebRequestTexture.GetTexture(uri);
-        yield return request.SendWebRequest();
-        Debug.Log("画像の取得完了");
+        await request.SendWebRequest();
+        Debug.Log("画像のダウンロード終了");
 
 
         if (request.result == UnityWebRequest.Result.ConnectionError
         || request.result == UnityWebRequest.Result.ProtocolError)
         {
             Debug.Log(request.error);
-            onComplete(texture);
-            yield return null;
+            return texture;
         }
 
         try
@@ -102,12 +105,12 @@ public class FirebaseStorageManager : MonoBehaviour
             // https://www.hanachiru-blog.com/entry/2019/07/12/233000
             texture = ((DownloadHandlerTexture)request.downloadHandler).texture;
             Debug.Log("ダウンロード完了");
-            onComplete(texture);
+            return texture;
         }
         catch (Exception ex)
         {
             Debug.Log(ex.Message);
-            onComplete(texture);
+            return texture;
         }
     }
 

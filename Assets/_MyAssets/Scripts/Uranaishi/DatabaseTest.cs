@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System.Threading.Tasks;
 
 public class DatabaseTest : MonoBehaviour
 {
@@ -14,7 +14,7 @@ public class DatabaseTest : MonoBehaviour
     string iconLocalFilePath;
     Uranaishi uranaishi;
 
-    void Start()
+    async Task Start()
     {
         uranaishi = new Uranaishi();
         uranaishi.id = "901";
@@ -23,21 +23,20 @@ public class DatabaseTest : MonoBehaviour
         sendButton.onClick.AddListener(SendData);
         imageButton.onClick.AddListener(SetIcon);
 
+        Debug.Log("ユーザーデータ取得開始");
+        await FirebaseDatabaseManager.i.GetUserData(uranaishi);
+        Debug.Log("ユーザーデータ取得終了");
 
-        FirebaseDatabaseManager.i.GetUserData(uranaishi, () =>
+        userNameIF.text = uranaishi.name.ToString();
+
+        Debug.Log("ストレージに接続開始");
+
+
+        FirebaseStorageManager.i.DownloadFile(uranaishi, (texture) =>
         {
-            userNameIF.text = uranaishi.name.ToString();
-
-
-            FirebaseStorageManager.i.DownloadFile(uranaishi, (texture) =>
-            {
-                image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
-            });
-
+            image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            Debug.Log("ストレージに接続終了");
         });
-
-
-
 
     }
 
