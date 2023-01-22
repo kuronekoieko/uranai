@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_MyAssets/Scenes/Client.unity
     guid: 3ba21c58dd14a0145976786124b7606e
+  - enabled: 1
+    path: Assets/_MyAssets/Scenes/Uranaishi.unity
+    guid: 6c681fbcdecaa914e8511c7d4420fe5d
   m_configObjects: {}

@@ -30,12 +30,15 @@ public class FirebaseStorageManager : MonoBehaviour
 
     public void UploadFromLocalFile(Uranaishi uranaishi, string iconLocalFilePath)
     {
+        // 画像を選択しなかったとき
+        if (iconLocalFilePath == null) return;
+
         // File located on disk
         string localFile = iconLocalFilePath;
 
         // Create a reference to the file you want to upload
         StorageReference iconRef = storageRef.Child(uranaishi.id).Child("images").Child("icon.jpg");
-        uranaishi.iconStorageFilePath = iconRef.Path;
+        // uranaishi.iconStorageFilePath = iconRef.Path;
 
         // Upload the file to the path "images/rivers.jpg"
         iconRef.PutFileAsync(localFile)

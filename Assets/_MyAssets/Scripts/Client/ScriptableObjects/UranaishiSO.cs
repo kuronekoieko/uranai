@@ -14,7 +14,7 @@ public class UranaishiSO : SingletonScriptableObject<UranaishiSO>
 public class Uranaishi
 {
     public string id;
-    public string iconStorageFilePath;
+    // public string iconStorageFilePath;
     public string name;
     public string[] keywords;
     public int status;

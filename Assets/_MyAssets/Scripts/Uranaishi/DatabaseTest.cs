@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DatabaseTest : MonoBehaviour
 {
-
+    [SerializeField] InputField userIdIF;
     [SerializeField] InputField userNameIF;
     [SerializeField] Button sendButton;
     [SerializeField] Button imageButton;
@@ -18,19 +18,33 @@ public class DatabaseTest : MonoBehaviour
     {
         uranaishi = new Uranaishi();
         uranaishi.id = "901";
+        userIdIF.text = uranaishi.id.ToString();
 
         sendButton.onClick.AddListener(SendData);
         imageButton.onClick.AddListener(SetIcon);
-        FirebaseStorageManager.i.DownloadFile(uranaishi, (texture) =>
+
+
+        FirebaseDatabaseManager.i.GetUserData(uranaishi, () =>
         {
-            image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            userNameIF.text = uranaishi.name.ToString();
+
+
+            FirebaseStorageManager.i.DownloadFile(uranaishi, (texture) =>
+            {
+                image.sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.zero);
+            });
+
         });
+
+
+
+
     }
 
     void SendData()
     {
 
-        //uranaishi.id = Random.Range(100, 999).ToString();
+        uranaishi.id = userIdIF.text;
 
         uranaishi.name = userNameIF.text;
 
