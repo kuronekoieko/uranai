@@ -34,14 +34,13 @@ public class UranaishiProfile_Review : BaseUranaishiProfile
             .ToArray();
 
         var reviews = pickUpReviews.Concat(notPickUpReviews).ToArray();
-        Debug.Log(reviews.Count());
-
+        
         for (int i = 0; i < reviews.Length; i++)
         {
             titleContentTexts[i].gameObject.SetActive(true);
             titleContentTexts[i].contentTxt.value.text = reviews[i].text;
             titleContentTexts[i].titleTxt.value.text = reviews[i].GetTitleText();
-            titleContentTexts[i].HighlightStars(reviews[i].starCount);
+            titleContentTexts[i].reviewStarHighlight.HighlightStars(reviews[i].starCount);
             titleContentTexts[i].pickUpImage.value.gameObject.SetActive(reviews[i].isPickUp);
         }
     }
