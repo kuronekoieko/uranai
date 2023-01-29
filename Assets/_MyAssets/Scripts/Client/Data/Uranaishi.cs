@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using System;
+using System.Threading.Tasks;
 
 [System.Serializable]
 public class Uranaishi
@@ -14,10 +15,11 @@ public class Uranaishi
     public int callChargePerSec;
     [TextArea(5, 10)] public string message;
     public Schedule[] schedules;
+    public Review[] reviews;
 
     [System.NonSerialized] Sprite _iconSprite;
 
-    public void GetIcon(UnityAction<Sprite> onComplete)
+    public async void GetIcon(UnityAction<Sprite> onComplete)
     {
         if (_iconSprite)
         {
@@ -31,7 +33,7 @@ public class Uranaishi
             // return;
         }
 
-        FirebaseStorageManager.i.DownloadFile(this, (sprite) =>
+        await FirebaseStorageManager.i.DownloadFile(this, (sprite) =>
         {
             _iconSprite = sprite;
             onComplete(sprite);
@@ -112,4 +114,48 @@ public class SerializableDateTime
     {
         return new DateTime(year, month, day, hour, minute, second);
     }
+}
+
+[System.Serializable]
+public class Review
+{
+    public int starCount;
+    public string text;
+    public string reviewerName;
+    public int age;
+    public Sex sex;
+    public bool isPickUp;
+    public SerializableDateTime writtenDate;
+
+    public string GetTitleText()
+    {
+        string title = "";
+        title += reviewerName == "" ? "匿名" : reviewerName;
+        title += "・" + age + "代";
+
+        switch (sex)
+        {
+            case Sex.Man:
+                title += "・男性";
+                break;
+            case Sex.Woman:
+                title += "・女性";
+                break;
+            case Sex.None:
+
+                break;
+            default:
+                break;
+        }
+        return title;
+
+    }
+}
+
+[System.Serializable]
+public enum Sex
+{
+    Man,
+    Woman,
+    None,
 }

@@ -61,14 +61,14 @@ public class FirebaseStorageManager : MonoBehaviour
     }
 
 
-    public void DownloadFile(Uranaishi uranaishi, UnityAction<Sprite> onComplete)
+    public async Task DownloadFile(Uranaishi uranaishi, UnityAction<Sprite> onComplete)
     {
 
         StorageReference iconRef = storageRef.Child(uranaishi.id).Child("images").Child("icon.jpg");
 
 
         // Fetch the download URL
-        iconRef.GetDownloadUrlAsync().ContinueWithOnMainThread(async task =>
+        await iconRef.GetDownloadUrlAsync().ContinueWithOnMainThread(async task =>
         {
             //    await task;
             if (!task.IsFaulted && !task.IsCanceled)

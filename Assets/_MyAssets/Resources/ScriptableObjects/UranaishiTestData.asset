@@ -131,3 +131,82 @@ MonoBehaviour:
         hour: 1
         minute: 30
         second: 0
+    reviews:
+    - starCount: 4
+      text: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
+      reviewerName: 
+      age: 20
+      sex: 1
+      isPickUp: 0
+      writtenDate:
+        year: 0
+        month: 0
+        day: 0
+        hour: 0
+        minute: 0
+        second: 0
+    - starCount: 3
+      text: "\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044\u3044"
+      reviewerName: "\u30E6\u30FC\u30B6\u30FCa"
+      age: 30
+      sex: 1
+      isPickUp: 1
+      writtenDate:
+        year: 0
+        month: 0
+        day: 0
+        hour: 0
+        minute: 0
+        second: 0
+    - starCount: 2
+      text: "\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046\u3046"
+      reviewerName: "\u30E6\u30FC\u30B6\u30FCb"
+      age: 40
+      sex: 1
+      isPickUp: 0
+      writtenDate:
+        year: 0
+        month: 0
+        day: 0
+        hour: 0
+        minute: 0
+        second: 0
+    - starCount: 5
+      text: "\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048\u3048"
+      reviewerName: "\u30E6\u30FC\u30B6\u30FCc"
+      age: 50
+      sex: 0
+      isPickUp: 1
+      writtenDate:
+        year: 0
+        month: 0
+        day: 0
+        hour: 0
+        minute: 0
+        second: 0
+    - starCount: 3
+      text: "\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A\u304A"
+      reviewerName: "\u30E6\u30FC\u30B6\u30FCd"
+      age: 20
+      sex: 2
+      isPickUp: 0
+      writtenDate:
+        year: 0
+        month: 0
+        day: 0
+        hour: 0
+        minute: 0
+        second: 0
+    - starCount: 4
+      text: "\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B\u304B"
+      reviewerName: "\u30E6\u30FC\u30B6\u30FCe"
+      age: 30
+      sex: 1
+      isPickUp: 1
+      writtenDate:
+        year: 0
+        month: 0
+        day: 0
+        hour: 0
+        minute: 0
+        second: 0
