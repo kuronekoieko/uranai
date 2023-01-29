@@ -86,13 +86,7 @@ public class SerializableDateTime
 
     public bool IsFutureFromNow()
     {
-        DateTime now = DateTime.Now;
-        if (year < now.Year) return false;
-        if (month < now.Month) return false;
-        if (day < now.Day) return false;
-        if (minute < now.Minute) return false;
-        if (second < now.Second) return false;
-        return true;
+        return GetDateTime() > DateTime.Now;
     }
 
     public string GetString()

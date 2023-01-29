@@ -24,23 +24,10 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
     public override void OnOpen(Uranaishi uranaishi)
     {
         var schedulesGroupList = uranaishi.schedules
-            //.Where(schedule => schedule.IsFutureFromNow())
+            .Where(schedule => schedule.start.IsFutureFromNow())
             .OrderBy(schedule => schedule.start.GetString())
-            .GroupBy(schedule => schedule.start.GetDateString());
-        //.Take(5);
-
-
-        foreach (var group in schedulesGroupList)
-        {
-            string text = "";
-            foreach (var schedule in group)
-            {
-
-                text += schedule.start.hour + ":" + schedule.start.minute
-                + "～" + schedule.end.hour + ":" + schedule.end.minute + "\n";
-            }
-
-        }
+            .GroupBy(schedule => schedule.start.GetDateString())
+            .Take(titleContentTexts.Count);
 
         for (int i = 0; i < schedulesGroupList.Count(); i++)
         {
