@@ -2,17 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UranaishiProfile_Schedule : MonoBehaviour
+public class UranaishiProfile_Schedule : BaseUranaishiProfile
 {
-    // Start is called before the first frame update
-    void Start()
+
+    public override void OnStart()
     {
-        
+    }
+    public override void OnOpen(Uranaishi uranaishi)
+    {
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
+
 }
