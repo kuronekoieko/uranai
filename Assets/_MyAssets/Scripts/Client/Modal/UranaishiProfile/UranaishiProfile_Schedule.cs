@@ -53,7 +53,7 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
                 + "～" + schedule.end.GetDateTime().ToString("hh:mm") + "\n";
                 dateText = schedule.start.GetDateTime().ToString("M月d日(ddd)");
             }
-
+            text = text.TrimEnd('\n');
             titleContentTexts[i].gameObject.SetActive(true);
             titleContentTexts[i].titleTxt.value.text = dateText;
             titleContentTexts[i].contentTxt.value.text = text;
