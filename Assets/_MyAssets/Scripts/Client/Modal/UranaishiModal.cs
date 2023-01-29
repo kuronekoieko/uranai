@@ -10,12 +10,23 @@ public class UranaishiModal : BaseModal
     [SerializeField] Image iconImage;
     [SerializeField] Text nameTxt;
     [SerializeField] LikeToggleController likeToggleController;
+    [SerializeField] Transform contentTf;
 
 
     public override void OnStart()
     {
         base.OnStart();
         likeToggleController.OnStart();
+        StartLayoutElements();
+    }
+
+    void StartLayoutElements()
+    {
+        LayoutElement[] layoutElements = contentTf.GetComponentsInChildren<LayoutElement>(true);
+        foreach (var item in layoutElements)
+        {
+            item.gameObject.SetActive(true);
+        }
     }
 
 
