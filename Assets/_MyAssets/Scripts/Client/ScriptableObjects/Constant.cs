@@ -5,10 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "MyGame/Create " + nameof(Constant), fileName = nameof(Constant))]
 public class Constant : SingletonScriptableObject<Constant>
 {
-    [SerializeField] UranaishiStatusDisplayName[] _uranaishiStatusDisplayNames;
-    public UranaishiStatusDisplayName[] uranaishiStatusDisplayNames => _uranaishiStatusDisplayNames;
-
-
+    public ReadOnlyValue<string[]> expertises;
+    public ReadOnlyValue<string>[] divinations;
 }
 
 [System.Serializable]

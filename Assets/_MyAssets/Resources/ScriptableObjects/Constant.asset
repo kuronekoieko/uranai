@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1fa3a739f2eda458b204a9486faf9f, type: 3}
   m_Name: Constant
   m_EditorClassIdentifier: 
-  _uranaishiStatusDisplayNames:
-  - uranaishiStatus: 0
-    displayName: "\u76F8\u8AC7\u4E2D"
-  - uranaishiStatus: 1
-    displayName: 
-  - uranaishiStatus: 2
-    displayName: 
-  - uranaishiStatus: 3
-    displayName: 
+  expertises:
+    _value:
+    - "\u604B\u611B\u7DCF\u5408"
+    - "\u7247\u601D\u3044"
+    - "\u4E0D\u502B"
+    - "\u7D50\u5A5A\u7DCF\u5408"
+  divinations:
+  - _value: "\u30BF\u30ED\u30C3\u30C8"
+  - _value: "\u30B9\u30D4\u30EA\u30C1\u30E5\u30A2\u30EB"
+  - _value: "\u970A\u8996\u30FB\u30AA\u30FC\u30E9"
