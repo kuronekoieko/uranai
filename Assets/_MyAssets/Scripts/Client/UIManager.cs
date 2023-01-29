@@ -11,18 +11,30 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform pagesTf;
     public UranaishiModal uranaishiModal;
     public UranaishiListModal uranaishiListModal;
-    public Uranaishi[] uranaishiAry;
+    public Uranaishi[] uranaishiAry { get; set; }
     public static UIManager i;
     public Page activePage { get; set; } = Page.Uranau;
+    public bool isLocalTestData { get; } = true;
+    public Dictionary<UranaishiStatus, string> a;
+
 
     async void Start()
     {
         i = this;
         SaveDataManager.i.LoadSaveData();
 
-        Debug.Log("ユーザーデータ取得開始");
-        uranaishiAry = await FirebaseDatabaseManager.i.GetUranaishiAry(10);
-        Debug.Log("ユーザーデータ取得終了");
+
+
+        if (isLocalTestData)
+        {
+            uranaishiAry = UranaishiTestData.Instance.uranaishis;
+        }
+        else
+        {
+            Debug.Log("ユーザーデータ取得開始");
+            uranaishiAry = await FirebaseDatabaseManager.i.GetUranaishiAry(10);
+            Debug.Log("ユーザーデータ取得終了");
+        }
 
         StartPages();
         uranaishiModal.OnStart();

@@ -7,4 +7,6 @@ using UnityEngine;
 public class UranaishiTestData : SingletonScriptableObject<UranaishiTestData>
 {
     public Uranaishi[] uranaishis;
+
+    
 }

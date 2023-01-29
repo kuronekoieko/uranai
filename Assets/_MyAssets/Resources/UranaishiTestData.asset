@@ -12,4 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8c4b9fe1db242043842260ad12401ee, type: 3}
   m_Name: UranaishiTestData
   m_EditorClassIdentifier: 
-  uranaishis: []
+  uranaishis:
+  - id: 001
+    name: 001
+    keywords: []
+    status: 0
+    callChargesPerSec: 360
