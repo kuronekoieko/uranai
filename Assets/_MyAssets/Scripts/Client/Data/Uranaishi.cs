@@ -11,7 +11,7 @@ public class Uranaishi
     public string name;
     public string[] keywords;
     public UranaishiStatus status;
-    public int callChargesPerSec;
+    public int callChargePerSec;
 
     [System.NonSerialized] Sprite _iconSprite;
 
@@ -34,8 +34,26 @@ public class Uranaishi
             _iconSprite = sprite;
             onComplete(sprite);
         });
+    }
+
+    public string GetStatusDisplayName()
+    {
+        switch (status)
+        {
+            case UranaishiStatus.Counseling:
+                return "相談中(X人待ち)";
+            case UranaishiStatus.Free:
+                return "今すぐOK";
+            case UranaishiStatus.Closed:
+                return "本日終了";
+            case UranaishiStatus.DatTime:
+                return "X/XX XX:XX～";
+            default:
+                return "";
+        }
 
     }
+
 }
 
 [System.Serializable]

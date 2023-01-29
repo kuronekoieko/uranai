@@ -17,4 +17,4 @@ MonoBehaviour:
     name: 001
     keywords: []
     status: 0
-    callChargesPerSec: 360
+    callChargePerSec: 360

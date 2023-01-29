@@ -8,6 +8,9 @@ public class UranaishiProfile_FirstView : BaseUranaishiProfile
     [SerializeField] Image iconImage;
     [SerializeField] Text nameTxt;
     [SerializeField] LikeToggleController likeToggleController;
+    [SerializeField] Text statusTxt;
+    [SerializeField] Text chargeTxt;
+
 
 
     public override void OnStart()
@@ -24,5 +27,7 @@ public class UranaishiProfile_FirstView : BaseUranaishiProfile
             iconImage.sprite = sprite;
         });
         nameTxt.text = uranaishi.name;
+        statusTxt.text = uranaishi.GetStatusDisplayName();
+        chargeTxt.text = uranaishi.callChargePerSec + "円/1分";
     }
 }
