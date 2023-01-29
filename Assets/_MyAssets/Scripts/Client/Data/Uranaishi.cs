@@ -12,6 +12,7 @@ public class Uranaishi
     public string[] keywords;
     public UranaishiStatus status;
     public int callChargePerSec;
+    [TextArea(5, 10)] public string message;
 
     [System.NonSerialized] Sprite _iconSprite;
 
