@@ -9,10 +9,11 @@ public class Uranaishi
 {
     public string id;
     public string name;
-    public string[] keywords;
+    // public string[] keywords;
     public UranaishiStatus status;
     public int callChargePerSec;
     [TextArea(5, 10)] public string message;
+    public Schedule[] schedules;
 
     [System.NonSerialized] Sprite _iconSprite;
 
@@ -66,3 +67,55 @@ public enum UranaishiStatus
     DatTime = 3
 }
 
+[System.Serializable]
+public class Schedule
+{
+    public SerializableDateTime start;
+    public SerializableDateTime end;
+}
+
+[System.Serializable]
+public class SerializableDateTime
+{
+    public int year;
+    public int month;
+    public int day;
+    public int hour;
+    public int minute;
+    public int second;
+
+    public bool IsFutureFromNow()
+    {
+        DateTime now = DateTime.Now;
+        if (year < now.Year) return false;
+        if (month < now.Month) return false;
+        if (day < now.Day) return false;
+        if (minute < now.Minute) return false;
+        if (second < now.Second) return false;
+        return true;
+    }
+
+    public string GetString()
+    {
+        return year.ToString("0000")
+            + month.ToString("00")
+            + day.ToString("00")
+            + hour.ToString("00")
+            + minute.ToString("00")
+            + second.ToString("00");
+    }
+
+
+
+    public string GetDateString()
+    {
+        return year.ToString("0000")
+            + month.ToString("00")
+            + day.ToString("00");
+    }
+
+    public DateTime GetDateTime()
+    {
+        return new DateTime(year, month, day, hour, minute, second);
+    }
+}
