@@ -139,9 +139,9 @@ MonoBehaviour:
       sex: 1
       isPickUp: 0
       writtenDate:
-        year: 0
-        month: 0
-        day: 0
+        year: 2022
+        month: 1
+        day: 1
         hour: 0
         minute: 0
         second: 0
@@ -152,9 +152,9 @@ MonoBehaviour:
       sex: 1
       isPickUp: 1
       writtenDate:
-        year: 0
-        month: 0
-        day: 0
+        year: 2023
+        month: 1
+        day: 1
         hour: 0
         minute: 0
         second: 0
@@ -165,9 +165,9 @@ MonoBehaviour:
       sex: 1
       isPickUp: 0
       writtenDate:
-        year: 0
-        month: 0
-        day: 0
+        year: 2023
+        month: 2
+        day: 1
         hour: 0
         minute: 0
         second: 0
@@ -178,9 +178,9 @@ MonoBehaviour:
       sex: 0
       isPickUp: 1
       writtenDate:
-        year: 0
-        month: 0
-        day: 0
+        year: 2023
+        month: 3
+        day: 1
         hour: 0
         minute: 0
         second: 0
@@ -191,9 +191,9 @@ MonoBehaviour:
       sex: 2
       isPickUp: 0
       writtenDate:
-        year: 0
-        month: 0
-        day: 0
+        year: 2023
+        month: 4
+        day: 1
         hour: 0
         minute: 0
         second: 0
@@ -204,9 +204,9 @@ MonoBehaviour:
       sex: 1
       isPickUp: 1
       writtenDate:
-        year: 0
-        month: 0
-        day: 0
+        year: 2023
+        month: 5
+        day: 1
         hour: 0
         minute: 0
         second: 0

@@ -25,6 +25,7 @@ public class UranaishiProfile_Review : BaseUranaishiProfile
     {
         var pickUpReviews = uranaishi.reviews
             .Where(review => review.isPickUp)
+            .OrderBy(review => review.writtenDate.GetString())
             .ToArray();
         var notPickUpReviews = uranaishi.reviews
             .Where(review => !review.isPickUp)
