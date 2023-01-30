@@ -4,9 +4,9 @@ using UnityEngine;
 
 [CreateAssetMenu(menuName = "MyGame/Create " + nameof(UranaishiTestData), fileName = nameof(UranaishiTestData))]
 
-public class UranaishiTestData : SingletonScriptableObject<UranaishiTestData>
+public class UranaishiTestData : ScriptableObject
 {
     public Uranaishi[] uranaishis;
 
-    
+
 }

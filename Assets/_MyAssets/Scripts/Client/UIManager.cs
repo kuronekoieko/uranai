@@ -10,11 +10,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] ToggleGroup bannerToggleGroup;
     [SerializeField] Transform pagesTf;
     [SerializeField] Transform modalsTf;
+    [SerializeField] UranaishiTestData uranaishiTestData;
     public Uranaishi[] uranaishiAry { get; set; }
     public static UIManager i;
     public Page activePage { get; set; } = Page.Uranau;
     public bool isLocalTestData { get; } = true;
-    public Dictionary<UranaishiStatus, string> a;
 
 
     async void Start()
@@ -26,7 +26,7 @@ public class UIManager : MonoBehaviour
 
         if (isLocalTestData)
         {
-            uranaishiAry = UranaishiTestData.Instance.uranaishis;
+            uranaishiAry = uranaishiTestData.uranaishis;
         }
         else
         {
