@@ -9,14 +9,12 @@ using System;
 using UnityEngine.Events;
 
 
-public class FirebaseStorageManager : MonoBehaviour
+public class FirebaseStorageManager : Singleton<FirebaseStorageManager>
 {
-    public static FirebaseStorageManager i;
     StorageReference storageRef;
 
-    private void Awake()
+    public void Initialize()
     {
-        i = this;
         // Get a reference to the storage service, using the default Firebase App
         FirebaseStorage storage = FirebaseStorage.DefaultInstance;
 

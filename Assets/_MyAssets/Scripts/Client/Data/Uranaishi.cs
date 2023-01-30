@@ -14,10 +14,10 @@ public class Uranaishi
     public UranaishiStatus status;
     public int callChargePerSec;
     [TextArea(5, 10)] public string message;
-    public string[] expertises;
-    public string[] divinations;
-    public Schedule[] schedules;
-    public Review[] reviews;
+    public string[] expertises = new string[0];
+    public string[] divinations = new string[0];
+    public Schedule[] schedules = new Schedule[0];
+    public Review[] reviews = new Review[0];
 
     [System.NonSerialized] Sprite _iconSprite;
 

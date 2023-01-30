@@ -2,11 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using System;
 public static class TextExtension
 {
     public static void SetLimitedText(this Text self, string originalText, int lineLimit)
     {
+        if (string.IsNullOrEmpty(originalText))
+        {
+            self.text = "";
+            return;
+        }
         var text = originalText;
         var textLength = originalText.Length;
         //TextGenerationSettingにはTextのRectSizeを渡す

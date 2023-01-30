@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
     {
         i = this;
         SaveDataManager.i.LoadSaveData();
+        FirebaseDatabaseManager.i.Initialize();
+        FirebaseStorageManager.i.Initialize();
 
         if (isLocalTestData)
         {

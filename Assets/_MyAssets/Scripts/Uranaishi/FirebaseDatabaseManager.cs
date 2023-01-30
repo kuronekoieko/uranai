@@ -9,17 +9,14 @@ using System.Threading.Tasks;
 
 
 
-public class FirebaseDatabaseManager : MonoBehaviour
+public class FirebaseDatabaseManager : Singleton<FirebaseDatabaseManager>
 {
-    public static FirebaseDatabaseManager i;
-
     DatabaseReference reference;
 
-    private void Awake()
+    public void Initialize()
     {
         // Get the root reference location of the database.
         reference = FirebaseDatabase.DefaultInstance.RootReference;
-        i = this;
     }
 
     public void SetUserData(Uranaishi uranaishi)
@@ -76,11 +73,12 @@ public class FirebaseDatabaseManager : MonoBehaviour
                     Uranaishi uranaishi = new Uranaishi();
                     JsonUtility.FromJsonOverwrite(data.GetRawJsonValue(), uranaishi);
                     uranaishiList.Add(uranaishi);
-                    Debug.Log(uranaishi.id);
+                    Debug.Log(data.GetRawJsonValue());
+
+                    // Debug.Log(uranaishi.id);
                 }
             }
         });
-        Debug.Log("bbb");
 
         return uranaishiList.ToArray();
     }
