@@ -15,13 +15,74 @@ MonoBehaviour:
   uranaishis:
   - id: 001
     name: 001
-    status: 0
-    callChargePerSec: 0
-    message: 
-    expertises: []
-    divinations: []
-    schedules: []
-    reviews: []
+    status: 1
+    callChargePerSec: 360
+    message: "\u3053\u3093\u306B\u3061\u306F\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\n\n\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\uFF1D\uFF1D\uFF1D\uFF1D\uFF1D\uFF1D\uFF1D\uFF1D\n\n\u3088\u308D\u3057\u304F\u306D\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\n\n\U0001F600"
+    expertises:
+    - "\u3042\u3042\u3042"
+    - "\u3044\u3044\u3044\u3044\u3044"
+    - "\u3046\u3046\u3046\u3046\u3046"
+    divinations:
+    - aaaaaaa
+    - bbbbbbb
+    - ccccccc
+    - ddddddddd
+    schedules:
+    - start:
+        year: 2023
+        month: 3
+        day: 1
+        hour: 18
+        minute: 0
+        second: 0
+      end:
+        year: 2023
+        month: 3
+        day: 1
+        hour: 19
+        minute: 30
+        second: 0
+    - start:
+        year: 2023
+        month: 4
+        day: 1
+        hour: 18
+        minute: 0
+        second: 0
+      end:
+        year: 2023
+        month: 4
+        day: 1
+        hour: 18
+        minute: 0
+        second: 0
+    reviews:
+    - starCount: 4
+      text: "\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01"
+      reviewerName: "A\u5B50"
+      age: 30
+      sex: 1
+      isPickUp: 0
+      writtenDate:
+        year: 2023
+        month: 3
+        day: 1
+        hour: 0
+        minute: 0
+        second: 0
+    - starCount: 3
+      text: "\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01"
+      reviewerName: 
+      age: 40
+      sex: 0
+      isPickUp: 1
+      writtenDate:
+        year: 2023
+        month: 3
+        day: 1
+        hour: 0
+        minute: 0
+        second: 0
   - id: 002
     name: 002
     status: 0

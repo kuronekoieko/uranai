@@ -58,7 +58,7 @@ public class Uranaishi
                     .OrderBy(schedule => schedule.start.GetString())
                     .FirstOrDefault();
                 if (schedule == null) return "本日終了";
-                return schedule.start.GetDateTime().ToString("M/dd hh:mm～");
+                return schedule.start.GetDateTime().ToString("M/dd HH:mm～");
             default:
                 return "";
         }
@@ -127,7 +127,7 @@ public class SerializableDateTime
 public class Review
 {
     public int starCount;
-    public string text;
+    [TextArea(5, 10)] public string text;
     public string reviewerName;
     public int age;
     public Sex sex;

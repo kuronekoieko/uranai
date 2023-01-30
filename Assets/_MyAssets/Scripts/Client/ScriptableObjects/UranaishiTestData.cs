@@ -26,13 +26,13 @@ public class UranaishiTestData : ScriptableObject
     }
 
     [Button]
-    public void Send()
+    public async void Send()
     {
         FirebaseDatabaseManager.i.Initialize();
 
         foreach (var uranaishi in uranaishis)
         {
-            FirebaseDatabaseManager.i.SetUserData(uranaishi);
+            await FirebaseDatabaseManager.i.SetUserData(uranaishi);
         }
 
     }
