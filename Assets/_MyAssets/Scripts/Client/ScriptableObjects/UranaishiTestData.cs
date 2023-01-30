@@ -6,6 +6,10 @@ using UnityEngine;
 
 public class UranaishiTestData : ScriptableObject
 {
+    public void Pull() { 
+
+    }
+
     public Uranaishi[] uranaishis;
 
 

@@ -14,15 +14,13 @@ public class UIManager : MonoBehaviour
     public Uranaishi[] uranaishiAry { get; set; }
     public static UIManager i;
     public Page activePage { get; set; } = Page.Uranau;
-    public bool isLocalTestData { get; } = true;
+    public bool isLocalTestData { get; } = false;
 
 
     async void Start()
     {
         i = this;
         SaveDataManager.i.LoadSaveData();
-
-
 
         if (isLocalTestData)
         {
