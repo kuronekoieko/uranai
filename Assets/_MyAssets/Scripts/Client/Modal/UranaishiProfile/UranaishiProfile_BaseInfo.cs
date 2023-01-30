@@ -15,25 +15,24 @@ public class UranaishiProfile_BaseInfo : BaseUranaishiProfile
         {
             titleContentTexts.Add(Instantiate(titleContentTextOrigin, transform));
         }
-
-        titleContentTexts[0].titleTxt.value.text = "得意分野";
-
-        string tmp = "";
-        foreach (var item in Constant.Instance.expertises.value)
+        for (int i = 0; i < titleContentTexts.Count; i++)
         {
-            tmp += item + "、";
+            titleContentTexts[i].gameObject.SetActive(false);
         }
-        titleContentTexts[0].contentTxt.value.text = tmp;
-
-        titleContentTexts[1].titleTxt.value.text = "占術";
-        tmp = "";
-        foreach (var item in Constant.Instance.divinations)
-        {
-            tmp += item.value + "、";
-        }
-        titleContentTexts[1].contentTxt.value.text = "";
     }
+
     public override void OnOpen(Uranaishi uranaishi)
     {
+        titleContentTexts[0].SetTexts("得意分野", GetJoinedText(uranaishi.expertises));
+        titleContentTexts[1].SetTexts("占術", GetJoinedText(uranaishi.divinations));
+
+
     }
+
+
+    string GetJoinedText(string[] texts)
+    {
+        return string.Join("、", texts);
+    }
+
 }

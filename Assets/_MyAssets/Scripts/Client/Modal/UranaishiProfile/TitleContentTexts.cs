@@ -10,4 +10,11 @@ public class TitleContentTexts : MonoBehaviour
     public ReadOnlyValue<Image> pickUpImage;
     public ReviewStarHighlight reviewStarHighlight;
 
+    public void SetTexts(string title, string content)
+    {
+        titleTxt.value.text = title;
+        contentTxt.value.text = content;
+        gameObject.SetActive(true);
+    }
+
 }

@@ -10,10 +10,11 @@ public class Uranaishi
 {
     public string id;
     public string name;
-    // public string[] keywords;
     public UranaishiStatus status;
     public int callChargePerSec;
     [TextArea(5, 10)] public string message;
+    public string[] expertises;
+    public string[] divinations;
     public Schedule[] schedules;
     public Review[] reviews;
 
