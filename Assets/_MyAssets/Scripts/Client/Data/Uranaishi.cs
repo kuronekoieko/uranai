@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
 
 [System.Serializable]
 public class Uranaishi
@@ -52,7 +53,12 @@ public class Uranaishi
             case UranaishiStatus.Closed:
                 return "本日終了";
             case UranaishiStatus.DatTime:
-                return "X/XX XX:XX～";
+                Schedule schedule = schedules
+                    .Where(schedule => schedule.start.IsFutureFromNow())
+                    .OrderBy(schedule => schedule.start.GetString())
+                    .FirstOrDefault();
+                if (schedule == null) return "本日終了";
+                return schedule.start.GetDateTime().ToString("M/dd hh:mm～");
             default:
                 return "";
         }
