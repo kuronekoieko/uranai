@@ -15,14 +15,16 @@ public class UranaishiProfile_Review : BaseUranaishiProfile
         {
             titleContentTexts.Add(Instantiate(titleContentTextOrigin, transform));
         }
-        for (int i = 0; i < titleContentTexts.Count; i++)
-        {
-            titleContentTexts[i].gameObject.SetActive(false);
-        }
+
     }
 
     public override void OnOpen(Uranaishi uranaishi)
     {
+        for (int i = 0; i < titleContentTexts.Count; i++)
+        {
+            titleContentTexts[i].gameObject.SetActive(false);
+        }
+        
         var pickUpReviews = uranaishi.reviews
             .Where(review => review.isPickUp)
             .OrderBy(review => review.writtenDate.GetString())

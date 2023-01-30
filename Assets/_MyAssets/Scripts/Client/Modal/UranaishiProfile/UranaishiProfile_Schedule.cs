@@ -15,14 +15,14 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
         {
             titleContentTexts.Add(Instantiate(titleContentTextOrigin, transform));
         }
-        for (int i = 0; i < titleContentTexts.Count; i++)
-        {
-            titleContentTexts[i].gameObject.SetActive(false);
-        }
     }
 
     public override void OnOpen(Uranaishi uranaishi)
     {
+        for (int i = 0; i < titleContentTexts.Count; i++)
+        {
+            titleContentTexts[i].gameObject.SetActive(false);
+        }
         var schedulesGroupList = uranaishi.schedules
             .Where(schedule => schedule.start.IsFutureFromNow())
             .OrderBy(schedule => schedule.start.GetString())

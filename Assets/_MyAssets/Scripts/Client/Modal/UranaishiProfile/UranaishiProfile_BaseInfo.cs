@@ -15,14 +15,15 @@ public class UranaishiProfile_BaseInfo : BaseUranaishiProfile
         {
             titleContentTexts.Add(Instantiate(titleContentTextOrigin, transform));
         }
-        for (int i = 0; i < titleContentTexts.Count; i++)
-        {
-            titleContentTexts[i].gameObject.SetActive(false);
-        }
+
     }
 
     public override void OnOpen(Uranaishi uranaishi)
     {
+        for (int i = 0; i < titleContentTexts.Count; i++)
+        {
+            titleContentTexts[i].gameObject.SetActive(false);
+        }
         titleContentTexts[0].SetTexts("得意分野", GetJoinedText(uranaishi.expertises));
         titleContentTexts[1].SetTexts("占術", GetJoinedText(uranaishi.divinations));
 
