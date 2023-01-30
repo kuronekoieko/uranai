@@ -19,10 +19,23 @@ public class FirebaseDatabaseManager : Singleton<FirebaseDatabaseManager>
         reference = FirebaseDatabase.DefaultInstance.RootReference;
     }
 
-    public void SetUserData(Uranaishi uranaishi)
+    public async Task SetUserData(Uranaishi uranaishi)
     {
+        // 空のidを送ると、サーバーのデータ全部消える
+        if (string.IsNullOrEmpty(uranaishi.id)) return;
         string json = JsonUtility.ToJson(uranaishi);
-        reference.Child("users").Child(uranaishi.id).SetRawJsonValueAsync(json);
+        await reference.Child("users").Child(uranaishi.id)
+        .SetRawJsonValueAsync(json).ContinueWithOnMainThread(task =>
+        {
+            if (task.IsCompletedSuccessfully)
+            {
+                // Debug.Log("成功" + uranaishi.id);
+            }
+            else
+            {
+                // Debug.Log("失敗" + uranaishi.id);
+            }
+        });
         //reference.Child("users").Push().SetRawJsonValueAsync(json);
     }
 
@@ -73,7 +86,7 @@ public class FirebaseDatabaseManager : Singleton<FirebaseDatabaseManager>
                     Uranaishi uranaishi = new Uranaishi();
                     JsonUtility.FromJsonOverwrite(data.GetRawJsonValue(), uranaishi);
                     uranaishiList.Add(uranaishi);
-                    Debug.Log(data.GetRawJsonValue());
+                    // Debug.Log(data.GetRawJsonValue());
 
                     // Debug.Log(uranaishi.id);
                 }
