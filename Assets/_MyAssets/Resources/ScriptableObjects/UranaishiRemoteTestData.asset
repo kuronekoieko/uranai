@@ -15,7 +15,7 @@ MonoBehaviour:
   uranaishis:
   - id: 001
     name: 001
-    status: 1
+    status: 3
     callChargePerSec: 360
     message: "\u3053\u3093\u306B\u3061\u306F\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\n\n\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\uFF1D\uFF1D\uFF1D\uFF1D\uFF1D\uFF1D\uFF1D\uFF1D\n\n\u3088\u308D\u3057\u304F\u306D\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\uFF5E\n\n\U0001F600"
     expertises:
