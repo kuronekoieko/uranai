@@ -12,8 +12,7 @@ public class UranaishiProfile_FirstView : BaseUranaishiProfile
     [SerializeField] Text statusTxt;
     [SerializeField] Text chargeTxt;
     [SerializeField] ReviewStarHighlight reviewStarHighlight;
-
-
+    [SerializeField] Text messageTxt;
 
     public override void OnStart()
     {
@@ -34,5 +33,6 @@ public class UranaishiProfile_FirstView : BaseUranaishiProfile
 
         double avr = uranaishi.reviews.Select(r => r.starCount).Average();
         reviewStarHighlight.HighlightStars((float)avr);
+        messageTxt.text = uranaishi.message;
     }
 }
