@@ -33,6 +33,6 @@ public class UranaishiProfile_FirstView : BaseUranaishiProfile
 
         double avr = uranaishi.reviews.Select(r => r.starCount).Average();
         reviewStarHighlight.HighlightStars((float)avr);
-        messageTxt.text = uranaishi.message;
+        messageTxt.SetLimitedText(uranaishi.message, 3);
     }
 }
