@@ -9,8 +9,7 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] ToggleGroup bannerToggleGroup;
     [SerializeField] Transform pagesTf;
-    public UranaishiModal uranaishiModal;
-    public UranaishiListModal uranaishiListModal;
+    [SerializeField] Transform modalsTf;
     public Uranaishi[] uranaishiAry { get; set; }
     public static UIManager i;
     public Page activePage { get; set; } = Page.Uranau;
@@ -37,8 +36,7 @@ public class UIManager : MonoBehaviour
         }
 
         StartPages();
-        uranaishiModal.OnStart();
-        uranaishiListModal.OnStart();
+        StartModals();
         StartBannerToggles();
 
         Application.targetFrameRate = 60;
@@ -52,6 +50,16 @@ public class UIManager : MonoBehaviour
             basePageManager.OnStart();
         }
     }
+
+    void StartModals()
+    {
+        BaseModal[] baseModals = modalsTf.GetComponentsInChildren<BaseModal>(true);
+        foreach (var baseModal in baseModals)
+        {
+            baseModal.OnStart();
+        }
+    }
+
 
     void StartBannerToggles()
     {

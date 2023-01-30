@@ -10,10 +10,11 @@ public class UranaishiModal : BaseModal
 
     [SerializeField] Transform contentTf;
     BaseUranaishiProfile[] baseUranaishiProfiles;
-
+    public static UranaishiModal i;
 
     public override void OnStart()
     {
+        i = this;
         base.OnStart();
         StartLayoutElements();
     }

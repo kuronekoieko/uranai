@@ -6,8 +6,10 @@ using System.Linq;
 public class UranaishiListModal : BaseModal
 {
     [SerializeField] UranaishiButtonManager uranaishiButtonManager;
-    public override  void OnStart()
+    public static UranaishiListModal i;
+    public override void OnStart()
     {
+        i = this;
         base.OnStart();
         uranaishiButtonManager.OnStart();
 

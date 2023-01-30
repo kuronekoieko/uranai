@@ -14,7 +14,7 @@ public class UranauPage : BasePageManager
     {
         base.SetPageAction(Page.Uranau);
         uranaishiButtonManager.OnStart();
-        uranaishiListButton.onClick.AddListener(() => UIManager.i.uranaishiListModal.Open());
+        uranaishiListButton.onClick.AddListener(() => UranaishiListModal.i.Open());
 
         uranaishiButtonManager.ShowButtons(UIManager.i.uranaishiAry.Take(10).ToArray());
     }
