@@ -7,13 +7,22 @@ using System.Linq;
 public class UranaishiProfile_Review : BaseUranaishiProfile
 {
     [SerializeField] TitleContentTexts titleContentTextOrigin;
+    [SerializeField] Button moreButton;
     List<TitleContentTexts> titleContentTexts = new List<TitleContentTexts>();
+    readonly int showReviewCount = 6;
+
     public override void OnStart()
     {
-        titleContentTexts.Add(titleContentTextOrigin);
-        for (int i = 0; i < 4; i++)
+        for (int i = 0; i < showReviewCount; i++)
         {
-            titleContentTexts.Add(Instantiate(titleContentTextOrigin, transform));
+            if (i == 0)
+            {
+                titleContentTexts.Add(titleContentTextOrigin);
+            }
+            else
+            {
+                titleContentTexts.Add(Instantiate(titleContentTextOrigin, transform));
+            }
         }
 
     }
@@ -25,9 +34,10 @@ public class UranaishiProfile_Review : BaseUranaishiProfile
             titleContentTexts[i].gameObject.SetActive(false);
         }
 
-        var reviews = uranaishi.GetOrderedReviews(titleContentTexts.Count);
+        var reviews = uranaishi.GetOrderedReviews();
+        var showingReviews = reviews.Take(showReviewCount).ToArray();
 
-        for (int i = 0; i < titleContentTexts.Count && i < reviews.Length; i++)
+        for (int i = 0; i < showingReviews.Length; i++)
         {
             titleContentTexts[i].gameObject.SetActive(true);
             titleContentTexts[i].contentTxt.value.text = reviews[i].text;
@@ -35,5 +45,16 @@ public class UranaishiProfile_Review : BaseUranaishiProfile
             titleContentTexts[i].reviewStarHighlight.HighlightStars(reviews[i].starCount);
             titleContentTexts[i].pickUpImage.value.gameObject.SetActive(reviews[i].isPickUp);
         }
+
+        bool isShowBoreButton = reviews.Count() > showReviewCount;
+
+        moreButton.gameObject.SetActive(isShowBoreButton);
+        if (isShowBoreButton == false) return;
+        moreButton.transform.SetAsLastSibling();
+        moreButton.onClick.AddListener(() =>
+        {
+
+        });
     }
+
 }

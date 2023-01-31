@@ -83,7 +83,7 @@ public class Uranaishi
         return (float)avr;
     }
 
-    public Review[] GetOrderedReviews(int takeCount)
+    public Review[] GetOrderedReviews()
     {
         var pickUpReviews = reviews
             .Where(review => review.isPickUp)
@@ -95,12 +95,12 @@ public class Uranaishi
             .OrderBy(review => review.writtenDate.dateTime)
             .ToArray();
 
-        return pickUpReviews.Concat(notPickUpReviews).Take(takeCount).ToArray();
+        return pickUpReviews.Concat(notPickUpReviews).ToArray();
     }
 
     public Review GetFirstReview()
     {
-        Review[] reviews = GetOrderedReviews(1);
+        Review[] reviews = GetOrderedReviews();
         if (reviews.Length > 0)
         {
             return reviews[0];
