@@ -72,7 +72,7 @@ public class FirebaseStorageManager : Singleton<FirebaseStorageManager>
             if (!task.IsFaulted && !task.IsCanceled)
             {
                 // Debug.Log("Download URL: " + task.Result.ToString());
-                Debug.Log("画像のダウンロード開始 " + uranaishi.id);
+                // Debug.Log("画像のダウンロード開始 " + uranaishi.id);
                 // ... now download the file via WWW or UnityWebRequest.
                 Sprite sprite = await LoadTexture(task.Result.ToString());
                 onComplete(sprite);

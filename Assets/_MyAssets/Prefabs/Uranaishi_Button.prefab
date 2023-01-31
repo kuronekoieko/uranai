@@ -150,7 +150,7 @@ GameObject:
   - component: {fileID: 4379436057034204205}
   - component: {fileID: 4379436057034204206}
   m_Layer: 5
-  m_Name: Text (Legacy) (3)
+  m_Name: content Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -173,8 +173,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 169.14, y: 0}
-  m_SizeDelta: {x: 796.13, y: 105.09}
+  m_AnchoredPosition: {x: 169.14, y: -11.7358}
+  m_SizeDelta: {x: 796.13, y: 128.5616}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4379436057034204205
 CanvasRenderer:
@@ -211,13 +211,13 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 66
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
+  m_Text: "\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042\u3042"
 --- !u!1 &4379436057330410415
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,7 +614,7 @@ GameObject:
   - component: {fileID: 4379436059121492805}
   - component: {fileID: 4379436059121492806}
   m_Layer: 5
-  m_Name: Text (Legacy) (4)
+  m_Name: title Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -637,7 +637,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 169.14, y: -65}
+  m_AnchoredPosition: {x: 169.14, y: -97}
   m_SizeDelta: {x: 796.13, y: 105.09}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4379436059121492805

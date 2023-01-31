@@ -19,7 +19,6 @@ public class UranaishiButton : MonoBehaviour
     public void Initialize()
     {
         button.onClick.AddListener(OnClickButton);
-        gameObject.SetActive(false);
     }
 
     void OnClickButton()
@@ -41,7 +40,7 @@ public class UranaishiButton : MonoBehaviour
         Review review = uranaishi.GetFirstReview();
         if (review != null)
         {
-            titleContentTexts.SetTexts(review.GetTitleText(), review.text);
+            titleContentTexts.SetTexts(review.GetTitleText(), review.text, 3);
         }
         reviewStarHighlight.HighlightStars(uranaishi.GetReviewAvr());
         statusText.text = uranaishi.GetStatusDisplayName();

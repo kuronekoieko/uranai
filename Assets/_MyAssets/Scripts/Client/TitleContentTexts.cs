@@ -17,4 +17,10 @@ public class TitleContentTexts : MonoBehaviour
         gameObject.SetActive(true);
     }
 
+    public void SetTexts(string title, string content, int lineLimit)
+    {
+        titleTxt.value.text = title;
+        contentTxt.value.SetLimitedText(content, lineLimit);
+        gameObject.SetActive(true);
+    }
 }

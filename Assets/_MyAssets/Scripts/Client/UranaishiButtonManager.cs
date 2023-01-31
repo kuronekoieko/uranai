@@ -21,7 +21,7 @@ public class UranaishiButtonManager : MonoBehaviour
         pos = initRT.localPosition;
         foreach (var item in uranaishiButtons)
         {
-            item.Initialize();
+            item.gameObject.SetActive(false);
         }
     }
 
@@ -52,7 +52,7 @@ public class UranaishiButtonManager : MonoBehaviour
             }
         }
         var uranaishiButton = Instantiate(uranaishiButtonPrefab, transform);
-
+        uranaishiButton.Initialize();
         return uranaishiButton;
     }
 }

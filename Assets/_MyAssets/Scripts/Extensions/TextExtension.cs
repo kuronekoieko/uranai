@@ -7,6 +7,8 @@ public static class TextExtension
 {
     public static void SetLimitedText(this Text self, string originalText, int lineLimit)
     {
+        self.verticalOverflow = VerticalWrapMode.Overflow;
+
         if (string.IsNullOrEmpty(originalText))
         {
             self.text = "";
