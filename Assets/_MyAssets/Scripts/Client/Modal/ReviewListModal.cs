@@ -21,7 +21,7 @@ public class ReviewListModal : BaseModal
 
     public void Open(Uranaishi uranaishi)
     {
-        base.OpenAnim();
+        base.OpenAnim(ModalType.Horizontal);
 
         var reviews = uranaishi.GetOrderedReviews();
 
