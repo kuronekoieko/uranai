@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UranaishiButton : MonoBehaviour
+public class UranaishiButton : ObjectPoolingElement
 {
     [SerializeField] Button button;
     [SerializeField] Image iconImage;
@@ -16,7 +16,7 @@ public class UranaishiButton : MonoBehaviour
     public RectTransform rectTransform;
     Uranaishi uranaishi;
 
-    public void Initialize()
+    public override void Initialize()
     {
         button.onClick.AddListener(OnClickButton);
     }
