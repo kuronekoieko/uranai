@@ -15,7 +15,15 @@ public class ReviewElement : ObjectPoolingElement
         contentTxt.text = review.text;
         titleTxt.text = review.GetTitleText();
         reviewStarHighlight.HighlightStars(review.starCount);
-        pickUpImage.gameObject.SetActive(review.isPickUp);
+        if (pickUpImage) pickUpImage.gameObject.SetActive(review.isPickUp);
+    }
+
+    public void ShowData(Review review, int lineLimit)
+    {
+        contentTxt.SetLimitedText(review.text, lineLimit);
+        titleTxt.text = review.GetTitleText();
+        reviewStarHighlight.HighlightStars(review.starCount);
+        if (pickUpImage) pickUpImage.gameObject.SetActive(review.isPickUp);
     }
 
     public override void Initialize()

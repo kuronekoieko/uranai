@@ -10,8 +10,7 @@ public class UranaishiButton : ObjectPoolingElement
     [SerializeField] Text nameTxt;
     [SerializeField] Text divinationsText;
     [SerializeField] Text statusText;
-    [SerializeField] TitleContentTexts titleContentTexts;
-    [SerializeField] ReviewStarHighlight reviewStarHighlight;
+    [SerializeField] ReviewElement reviewElement;
 
     public RectTransform rectTransform;
     Uranaishi uranaishi;
@@ -35,14 +34,21 @@ public class UranaishiButton : ObjectPoolingElement
             iconImage.sprite = sprite;
         });
         nameTxt.text = uranaishi.name;
+
+
+
         divinationsText.text = uranaishi.expertises.GetJoinedKeywords();
-        titleContentTexts.SetTexts("", "");
         Review review = uranaishi.GetFirstReview();
         if (review != null)
         {
-            titleContentTexts.SetTexts(review.GetTitleText(), review.text, 3);
+            reviewElement.ShowData(review, 3);
         }
-        reviewStarHighlight.HighlightStars(uranaishi.GetReviewAvr());
+        else
+        {
+            reviewElement.gameObject.SetActive(false);
+        }
+
+
         statusText.text = uranaishi.GetStatusDisplayName();
     }
 
