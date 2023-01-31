@@ -5,22 +5,20 @@ using UnityEngine.UI;
 
 public class TitleContentTexts : MonoBehaviour
 {
-    public ReadOnlyValue<Text> titleTxt;
-    public ReadOnlyValue<Text> contentTxt;
-    public ReadOnlyValue<Image> pickUpImage;
-    public ReviewStarHighlight reviewStarHighlight;
+    [SerializeField] Text titleTxt;
+    [SerializeField] Text contentTxt;
 
     public void SetTexts(string title, string content)
     {
-        titleTxt.value.text = title;
-        contentTxt.value.text = content;
+        titleTxt.text = title;
+        contentTxt.text = content;
         gameObject.SetActive(true);
     }
 
     public void SetTexts(string title, string content, int lineLimit)
     {
-        titleTxt.value.text = title;
-        contentTxt.value.SetLimitedText(content, lineLimit);
+        titleTxt.text = title;
+        contentTxt.SetLimitedText(content, lineLimit);
         gameObject.SetActive(true);
     }
 }

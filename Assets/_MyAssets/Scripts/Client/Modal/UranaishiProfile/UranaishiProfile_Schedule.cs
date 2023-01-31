@@ -42,8 +42,8 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
             }
             text = text.TrimEnd('\n');
             titleContentTexts[i].gameObject.SetActive(true);
-            titleContentTexts[i].titleTxt.value.text = dateText;
-            titleContentTexts[i].contentTxt.value.text = text;
+
+            titleContentTexts[i].SetTexts(dateText, text);
 
         }
 
