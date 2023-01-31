@@ -5,6 +5,7 @@ using UnityEngine;
 public class ObjectPooling<T> : MonoBehaviour where T : ObjectPoolingElement
 {
     [SerializeField] T prefab;
+    [SerializeField] Transform parent;
 
     protected List<T> list = new List<T>();
 
@@ -23,16 +24,21 @@ public class ObjectPooling<T> : MonoBehaviour where T : ObjectPoolingElement
 
     protected T GetInstance()
     {
+        T instance = null;
         foreach (var item in list)
         {
             if (item.gameObject.activeSelf == false)
             {
-                item.gameObject.SetActive(true);
-                return item;
+                instance = item;
+                break;
             }
         }
-        var instance = Instantiate(prefab, transform);
-        instance.Initialize();
+        if (instance == null)
+        {
+            instance = Instantiate(prefab, parent ? parent : transform);
+            instance.Initialize();
+            list.Add(instance);
+        }
         instance.gameObject.SetActive(true);
         return instance;
     }

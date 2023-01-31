@@ -18,7 +18,6 @@ public class UranaishiButtonManager : ObjectPooling<UranaishiButton>
         {
             var uranaishiButton = base.GetInstance();
             uranaishiButton.ShowData(uranaishiAry[i]);
-            base.list.Add(uranaishiButton);
         }
     }
 
