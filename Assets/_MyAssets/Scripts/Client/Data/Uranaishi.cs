@@ -55,7 +55,7 @@ public class Uranaishi
             case UranaishiStatus.DatTime:
                 Schedule schedule = schedules
                     .Where(schedule => schedule.start.IsFutureFromNow())
-                    .OrderBy(schedule => schedule.start.GetString())
+                    .OrderBy(schedule => schedule.start.dateTime)
                     .FirstOrDefault();
                 if (schedule == null) return "本日終了";
                 return schedule.start.dateTime.ToString("M/dd HH:mm～");
@@ -83,12 +83,12 @@ public class Uranaishi
     {
         var pickUpReviews = reviews
             .Where(review => review.isPickUp)
-            .OrderBy(review => review.writtenDate.GetString())
+            .OrderBy(review => review.writtenDate.dateTime)
             .ToArray();
 
         var notPickUpReviews = reviews
             .Where(review => !review.isPickUp)
-            .OrderBy(review => review.writtenDate.GetString())
+            .OrderBy(review => review.writtenDate.dateTime)
             .ToArray();
 
         return pickUpReviews.Concat(notPickUpReviews).Take(takeCount).ToArray();
@@ -159,16 +159,6 @@ public class SerializableDateTime
     public bool IsFutureFromNow()
     {
         return dateTime > DateTime.Now;
-    }
-
-    public string GetString()
-    {
-        return dateTimeStr;
-    }
-
-    public string ToShortDateString()
-    {
-        return dateTime.ToShortDateString();
     }
 }
 

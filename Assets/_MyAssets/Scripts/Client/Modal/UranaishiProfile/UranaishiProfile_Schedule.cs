@@ -25,8 +25,8 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
         }
         var schedulesGroupList = uranaishi.schedules
             .Where(schedule => schedule.start.IsFutureFromNow())
-            .OrderBy(schedule => schedule.start.GetString())
-            .GroupBy(schedule => schedule.start.ToShortDateString())
+            .OrderBy(schedule => schedule.start.dateTime)
+            .GroupBy(schedule => schedule.start.dateTime.Date)
             .Take(titleContentTexts.Count);
 
         for (int i = 0; i < schedulesGroupList.Count(); i++)
