@@ -18,6 +18,10 @@ public class Uranaishi
     public string[] divinations = new string[0];
     public Schedule[] schedules = new Schedule[0];
     public Review[] reviews = new Review[0];
+    public string twitterURL;
+    public string facebookURL;
+    public string otherURL;
+
 
     [System.NonSerialized] Sprite _iconSprite;
 
