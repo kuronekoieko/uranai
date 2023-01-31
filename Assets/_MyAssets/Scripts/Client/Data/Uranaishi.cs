@@ -58,7 +58,7 @@ public class Uranaishi
                     .OrderBy(schedule => schedule.start.GetString())
                     .FirstOrDefault();
                 if (schedule == null) return "本日終了";
-                return schedule.start.GetDateTime().ToString("M/dd HH:mm～");
+                return schedule.start.dateTime.ToString("M/dd HH:mm～");
             default:
                 return "";
         }
@@ -85,13 +85,13 @@ public class Uranaishi
             .Where(review => review.isPickUp)
             .OrderBy(review => review.writtenDate.GetString())
             .ToArray();
+
         var notPickUpReviews = reviews
             .Where(review => !review.isPickUp)
             .OrderBy(review => review.writtenDate.GetString())
-            .Take(takeCount - pickUpReviews.Count())
             .ToArray();
 
-        return reviews = pickUpReviews.Concat(notPickUpReviews).ToArray();
+        return pickUpReviews.Concat(notPickUpReviews).Take(takeCount).ToArray();
     }
 
     public Review GetFirstReview()
@@ -125,43 +125,50 @@ public class Schedule
     public SerializableDateTime end;
 }
 
+
+
 [System.Serializable]
 public class SerializableDateTime
 {
-    public int year;
-    public int month;
-    public int day;
-    public int hour;
-    public int minute;
-    public int second;
+    [Header("yyyy/MM/dd HH:mm:ss")]
+    [SerializeField] string dateTimeStr;
+
+    public DateTime dateTime
+    {
+        get
+        {
+            DateTime a = new DateTime();
+            try
+            {
+                a = DateTime.Parse(dateTimeStr);
+            }
+            catch (System.Exception)
+            {
+                Debug.LogError("日付のパース失敗 " + dateTimeStr);
+            }
+
+
+            return a;
+        }
+        set
+        {
+            dateTimeStr = value.ToString();
+        }
+    }
 
     public bool IsFutureFromNow()
     {
-        return GetDateTime() > DateTime.Now;
+        return dateTime > DateTime.Now;
     }
 
     public string GetString()
     {
-        return year.ToString("0000")
-            + month.ToString("00")
-            + day.ToString("00")
-            + hour.ToString("00")
-            + minute.ToString("00")
-            + second.ToString("00");
+        return dateTimeStr;
     }
 
-
-
-    public string GetDateString()
+    public string ToShortDateString()
     {
-        return year.ToString("0000")
-            + month.ToString("00")
-            + day.ToString("00");
-    }
-
-    public DateTime GetDateTime()
-    {
-        return new DateTime(year, month, day, hour, minute, second);
+        return dateTime.ToShortDateString();
     }
 }
 

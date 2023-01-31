@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
 
 [CreateAssetMenu(menuName = "MyGame/Create " + nameof(UranaishiTestData), fileName = nameof(UranaishiTestData))]
 
@@ -23,6 +24,8 @@ public class UranaishiTestData : ScriptableObject
     {
         FirebaseDatabaseManager.i.Initialize();
         uranaishis = await FirebaseDatabaseManager.i.GetUranaishiAry(10);
+        Debug.Log("データベース取得");
+
     }
 
     [Button]
@@ -34,6 +37,6 @@ public class UranaishiTestData : ScriptableObject
         {
             await FirebaseDatabaseManager.i.SetUserData(uranaishi);
         }
-
+        Debug.Log("データベース更新");
     }
 }

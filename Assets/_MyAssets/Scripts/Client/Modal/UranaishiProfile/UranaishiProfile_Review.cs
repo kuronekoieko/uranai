@@ -27,7 +27,7 @@ public class UranaishiProfile_Review : BaseUranaishiProfile
 
         var reviews = uranaishi.GetOrderedReviews(titleContentTexts.Count);
 
-        for (int i = 0; i < reviews.Length; i++)
+        for (int i = 0; i < titleContentTexts.Count && i < reviews.Length; i++)
         {
             titleContentTexts[i].gameObject.SetActive(true);
             titleContentTexts[i].contentTxt.value.text = reviews[i].text;

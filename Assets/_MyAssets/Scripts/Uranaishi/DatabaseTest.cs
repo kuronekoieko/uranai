@@ -46,7 +46,7 @@ public class DatabaseTest : MonoBehaviour
 
         uranaishi.name = userNameIF.text;
 
-        FirebaseDatabaseManager.i.SetUserData(uranaishi);
+        await FirebaseDatabaseManager.i.SetUserData(uranaishi);
 
         await FirebaseStorageManager.i.UploadFromLocalFile(uranaishi, iconLocalFilePath);
         Debug.Log("登録完了");

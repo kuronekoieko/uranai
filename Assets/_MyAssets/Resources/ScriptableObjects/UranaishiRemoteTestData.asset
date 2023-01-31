@@ -29,47 +29,34 @@ MonoBehaviour:
     - ddddddddd
     schedules:
     - start:
-        year: 2023
-        month: 3
-        day: 1
-        hour: 18
-        minute: 0
-        second: 0
+        dateTimeStr: 2023/01/01 18:00:00
       end:
-        year: 2023
-        month: 3
-        day: 1
-        hour: 19
-        minute: 30
-        second: 0
+        dateTimeStr: 2023/01/01 19:00:00
     - start:
-        year: 2023
-        month: 4
-        day: 1
-        hour: 18
-        minute: 0
-        second: 0
+        dateTimeStr: 2023/02/01 18:00:00
       end:
-        year: 2023
-        month: 4
-        day: 1
-        hour: 18
-        minute: 0
-        second: 0
+        dateTimeStr: 2023/02/01 19:00:00
+    - start:
+        dateTimeStr: 2023/03/01 18:00:00
+      end:
+        dateTimeStr: 2023/03/01 19:00:00
     reviews:
     - starCount: 4
       text: "\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01"
       reviewerName: "A\u5B50"
       age: 30
       sex: 1
+      isPickUp: 1
+      writtenDate:
+        dateTimeStr: 2023/01/01 19:00:00
+    - starCount: 4
+      text: "\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01\u3059\u3054\u3044\uFF01"
+      reviewerName: "B\u5B50"
+      age: 20
+      sex: 1
       isPickUp: 0
       writtenDate:
-        year: 2023
-        month: 3
-        day: 1
-        hour: 0
-        minute: 0
-        second: 0
+        dateTimeStr: 2023/01/01 19:00:00
     - starCount: 3
       text: "\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01\u3084\u3070\u3044\uFF01"
       reviewerName: 
@@ -77,12 +64,7 @@ MonoBehaviour:
       sex: 0
       isPickUp: 1
       writtenDate:
-        year: 2023
-        month: 3
-        day: 1
-        hour: 0
-        minute: 0
-        second: 0
+        dateTimeStr: 2023/01/01 19:00:00
   - id: 002
     name: 002
     status: 0
