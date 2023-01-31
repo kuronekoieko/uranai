@@ -15,6 +15,7 @@ public class ReviewStarHighlight : MonoBehaviour
         for (int i = 0; i < starImages.Length; i++)
         {
             starImages[i].type = Image.Type.Filled;
+            starImages[i].fillMethod = Image.FillMethod.Horizontal;
             starImages[i].fillAmount = starCount - i;
         }
     }
