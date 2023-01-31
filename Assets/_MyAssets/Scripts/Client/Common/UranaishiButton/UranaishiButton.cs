@@ -8,7 +8,9 @@ public class UranaishiButton : ObjectPoolingElement
     [SerializeField] Button button;
     [SerializeField] Image iconImage;
     [SerializeField] Text nameTxt;
-    [SerializeField] Text divinationsText;
+    //[SerializeField] Text divinationsText;
+    [SerializeField] Text messageText;
+    [SerializeField] Text chargeText;
     [SerializeField] Text statusText;
     [SerializeField] ReviewElement reviewElement;
 
@@ -36,12 +38,13 @@ public class UranaishiButton : ObjectPoolingElement
         nameTxt.text = uranaishi.name;
 
 
-
-        divinationsText.text = uranaishi.expertises.GetJoinedKeywords();
+        chargeText.text = uranaishi.callChargePerSec + "円/1分";
+        //divinationsText.text = uranaishi.expertises.GetJoinedKeywords();
+        messageText.SetLimitedText(uranaishi.message, 1);
         Review review = uranaishi.GetFirstReview();
         if (review != null)
         {
-            reviewElement.ShowData(review, 3);
+            reviewElement.ShowData(review, 2);
         }
         else
         {
