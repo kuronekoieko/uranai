@@ -31,16 +31,8 @@ public class UranaishiProfile_FirstView : BaseUranaishiProfile
         statusTxt.text = uranaishi.GetStatusDisplayName();
         chargeTxt.text = uranaishi.callChargePerSec + "円/1分";
 
-        double avr;
-        if (uranaishi.reviews.Count() == 0)
-        {
-            avr = 0;
-        }
-        else
-        {
-            avr = uranaishi.reviews.Select(r => r.starCount).Average();
-        }
-        reviewStarHighlight.HighlightStars((float)avr);
+
+        reviewStarHighlight.HighlightStars(uranaishi.GetReviewAvr());
         messageTxt.SetLimitedText(uranaishi.message, 3);
     }
 }

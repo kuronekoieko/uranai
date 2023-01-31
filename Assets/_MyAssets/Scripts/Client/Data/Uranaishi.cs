@@ -65,6 +65,48 @@ public class Uranaishi
 
     }
 
+    public float GetReviewAvr()
+    {
+        double avr;
+        if (reviews.Count() == 0)
+        {
+            avr = 0;
+        }
+        else
+        {
+            avr = reviews.Select(r => r.starCount).Average();
+        }
+        return (float)avr;
+    }
+
+    public Review[] GetOrderedReviews(int takeCount)
+    {
+        var pickUpReviews = reviews
+            .Where(review => review.isPickUp)
+            .OrderBy(review => review.writtenDate.GetString())
+            .ToArray();
+        var notPickUpReviews = reviews
+            .Where(review => !review.isPickUp)
+            .OrderBy(review => review.writtenDate.GetString())
+            .Take(takeCount - pickUpReviews.Count())
+            .ToArray();
+
+        return reviews = pickUpReviews.Concat(notPickUpReviews).ToArray();
+    }
+
+    public Review GetFirstReview()
+    {
+        Review[] reviews = GetOrderedReviews(1);
+        if (reviews.Length > 0)
+        {
+            return reviews[0];
+        }
+        else
+        {
+            return null;
+        }
+    }
+
 }
 
 [System.Serializable]

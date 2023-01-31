@@ -24,16 +24,7 @@ public class UranaishiProfile_BaseInfo : BaseUranaishiProfile
         {
             titleContentTexts[i].gameObject.SetActive(false);
         }
-        titleContentTexts[0].SetTexts("得意分野", GetJoinedText(uranaishi.expertises));
-        titleContentTexts[1].SetTexts("占術", GetJoinedText(uranaishi.divinations));
-
-
+        titleContentTexts[0].SetTexts("得意分野", uranaishi.expertises.GetJoinedKeywords());
+        titleContentTexts[1].SetTexts("占術", uranaishi.divinations.GetJoinedKeywords());
     }
-
-
-    string GetJoinedText(string[] texts)
-    {
-        return string.Join("、", texts);
-    }
-
 }

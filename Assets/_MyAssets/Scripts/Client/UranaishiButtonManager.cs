@@ -21,7 +21,7 @@ public class UranaishiButtonManager : MonoBehaviour
         pos = initRT.localPosition;
         foreach (var item in uranaishiButtons)
         {
-            item.gameObject.SetActive(false);
+            item.Initialize();
         }
     }
 

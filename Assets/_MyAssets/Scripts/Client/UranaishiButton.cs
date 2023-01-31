@@ -8,17 +8,18 @@ public class UranaishiButton : MonoBehaviour
     [SerializeField] Button button;
     [SerializeField] Image iconImage;
     [SerializeField] Text nameTxt;
+    [SerializeField] Text divinationsText;
+    [SerializeField] Text statusText;
+    [SerializeField] TitleContentTexts titleContentTexts;
+    [SerializeField] ReviewStarHighlight reviewStarHighlight;
+
     public RectTransform rectTransform;
     Uranaishi uranaishi;
 
     public void Initialize()
     {
-
-    }
-
-    void Start()
-    {
         button.onClick.AddListener(OnClickButton);
+        gameObject.SetActive(false);
     }
 
     void OnClickButton()
@@ -28,13 +29,22 @@ public class UranaishiButton : MonoBehaviour
 
     public void ShowData(Uranaishi uranaishi)
     {
+        this.uranaishi = uranaishi;
         iconImage.sprite = null;
         uranaishi.GetIcon((sprite) =>
         {
             iconImage.sprite = sprite;
         });
         nameTxt.text = uranaishi.name;
-        this.uranaishi = uranaishi;
+        divinationsText.text = uranaishi.expertises.GetJoinedKeywords();
+        titleContentTexts.SetTexts("", "");
+        Review review = uranaishi.GetFirstReview();
+        if (review != null)
+        {
+            titleContentTexts.SetTexts(review.GetTitleText(), review.text);
+        }
+        reviewStarHighlight.HighlightStars(uranaishi.GetReviewAvr());
+        statusText.text = uranaishi.GetStatusDisplayName();
     }
 
 }

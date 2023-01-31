@@ -24,19 +24,9 @@ public class UranaishiProfile_Review : BaseUranaishiProfile
         {
             titleContentTexts[i].gameObject.SetActive(false);
         }
-        
-        var pickUpReviews = uranaishi.reviews
-            .Where(review => review.isPickUp)
-            .OrderBy(review => review.writtenDate.GetString())
-            .ToArray();
-        var notPickUpReviews = uranaishi.reviews
-            .Where(review => !review.isPickUp)
-            .OrderBy(review => review.writtenDate.GetString())
-            .Take(titleContentTexts.Count - pickUpReviews.Count())
-            .ToArray();
 
-        var reviews = pickUpReviews.Concat(notPickUpReviews).ToArray();
-        
+        var reviews = uranaishi.GetOrderedReviews(titleContentTexts.Count);
+
         for (int i = 0; i < reviews.Length; i++)
         {
             titleContentTexts[i].gameObject.SetActive(true);

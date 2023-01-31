@@ -34,5 +34,13 @@ public static class TextExtension
                 break;
             }
         }
+
+
+
+    }
+
+    public static string GetJoinedKeywords(this string[] self)
+    {
+        return string.Join("、", self);
     }
 }
