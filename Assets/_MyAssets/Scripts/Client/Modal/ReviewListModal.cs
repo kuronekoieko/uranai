@@ -7,7 +7,8 @@ using System.Linq;
 public class ReviewListModal : BaseModal
 {
     [SerializeField] ReviewManager reviewManager;
-    
+    [SerializeField] ReviewStarHighlight reviewStarHighlight;
+
     readonly int showReviewCount = 20;
     public static ReviewListModal i;
 
@@ -25,5 +26,7 @@ public class ReviewListModal : BaseModal
         var reviews = uranaishi.GetOrderedReviews();
 
         reviewManager.ShowElements(reviews);
+
+        reviewStarHighlight.HighlightStars(uranaishi.GetReviewAvr());
     }
 }
