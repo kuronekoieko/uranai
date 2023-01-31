@@ -34,7 +34,7 @@ public class BaseModal : MonoBehaviour
     }
 
 
-    public virtual void OpenAnim()
+    protected virtual void OpenAnim()
     {
         gameObject.SetActive(true);
         rectTransform
