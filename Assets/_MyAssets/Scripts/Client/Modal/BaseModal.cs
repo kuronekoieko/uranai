@@ -13,9 +13,10 @@ public class BaseModal : MonoBehaviour
     }
     [SerializeField] Button xButton;
     [SerializeField] Button returnButton;
+
     RectTransform rectTransform;
     Vector3 initPos;
-
+    RectTransform underScreen;
     public virtual void OnStart()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -47,11 +48,23 @@ public class BaseModal : MonoBehaviour
             {
                 gameObject.SetActive(false);
             });
+
+
+        if (underScreen)
+        {
+            underScreen
+                .DOMoveX(Screen.width / 2f, 0.3f)
+                .SetEase(Ease.OutCirc);
+        }
+
     }
 
 
     protected virtual void OpenAnim(ModalType modalType = ModalType.Vertical)
     {
+        // 今いる自分の階層の一番下に移動して、一番手前に表示されます。
+        transform.SetAsLastSibling();
+
         xButton.gameObject.SetActive(modalType == ModalType.Vertical);
         returnButton.gameObject.SetActive(modalType != ModalType.Vertical);
         switch (modalType)
@@ -66,8 +79,7 @@ public class BaseModal : MonoBehaviour
                 break;
         }
 
-        // 今いる自分の階層の一番下に移動して、一番手前に表示されます。
-        transform.SetAsLastSibling();
+
     }
 
     void VerticalAnim()
@@ -83,6 +95,28 @@ public class BaseModal : MonoBehaviour
 
     void HorizontalAnim()
     {
+        Transform underModalTf = null;
+        for (int i = transform.parent.childCount - 1; i >= 0; i--)
+        {
+            var child = transform.parent.GetChild(i);
+            if (child == transform) continue;
+            if (child.gameObject.activeSelf == false) continue;
+            underModalTf = child;
+            break;
+        }
+
+
+        if (underModalTf)
+        {
+            this.underScreen = underModalTf.GetComponent<RectTransform>();
+            underScreen
+                .DOMoveX(Screen.width * 1f / 4f, 0.3f)
+                .SetEase(Ease.OutCirc);
+        }
+
+
+
+
         Vector3 pos = initPos;
         pos.x = Screen.width * 1.5f;
         rectTransform.position = pos;

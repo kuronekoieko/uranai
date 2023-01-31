@@ -18,6 +18,6 @@ public class UranaishiListModal : BaseModal
 
     public void Open()
     {
-        base.OpenAnim();
+        base.OpenAnim(ModalType.Horizontal);
     }
 }
