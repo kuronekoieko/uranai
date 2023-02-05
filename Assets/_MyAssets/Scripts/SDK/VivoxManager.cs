@@ -30,17 +30,14 @@ public class VivoxManager : MonoBehaviour
 
     private async void Awake()
     {
-        // _client.Uninitialize();
         _client = new Client();
         _client.Uninitialize();
         _client.Initialize();
 
-
-
         await UnityAuthenticationManager.i.Initialize();
         VivoxService.Instance.Initialize();
         await LoginUser(userName);
-        JoinChannel("channel-001");
+        await JoinChannel("channel-001");
     }
 
     IEnumerator LoginUser(string userName)
@@ -49,7 +46,6 @@ public class VivoxManager : MonoBehaviour
         var account = new Account(userName);
         _loginSession = _client.GetLoginSession(account);
 
-        // InvalidOperationException: LoginSession: Invalid State - must be logged in to perform this operation.
         IAsyncResult result = _loginSession.BeginLogin(_serverUri, _loginSession.GetLoginToken(tokenSigningKey, tokenExpirationDuration), ar =>
         {
             try
@@ -107,10 +103,8 @@ public class VivoxManager : MonoBehaviour
         _client.Uninitialize();
     }
 
-    void JoinChannel(string channelName)
+    IEnumerator JoinChannel(string channelName)
     {
-        Debug.Log("ddddddddddddddddd");
-
         var channel = new Unity.Services.Vivox.Channel(channelName, ChannelType.NonPositional);
         var channelSession = _loginSession.GetChannelSession(channel);
 
@@ -118,7 +112,7 @@ public class VivoxManager : MonoBehaviour
         channelSession.PropertyChanged += SourceOnChannelPropertyChanged;
 
         // チャンネルに接続する
-        channelSession.BeginConnect(true, true, true, channelSession.GetConnectToken(tokenSigningKey, tokenExpirationDuration), ar =>
+        IAsyncResult result = channelSession.BeginConnect(true, true, true, channelSession.GetConnectToken(tokenSigningKey, tokenExpirationDuration), ar =>
         {
             try
             {
@@ -127,11 +121,16 @@ public class VivoxManager : MonoBehaviour
             catch (Exception e)
             {
                 // エラー処理
-                return;
+                throw e;
             }
 
             // この点に到達することはエラーが発生していないことを示しますが、AudioState か TextState（またはその両方）が ConnectionState.Connected になるまでユーザーが「チャンネルにいる」ことにはなりません。
         });
+
+        while (result.IsCompleted == false)
+        {
+            yield return null;
+        }
     }
 
     void SourceOnChannelPropertyChanged(object sender, PropertyChangedEventArgs propertyChangedEventArgs)
