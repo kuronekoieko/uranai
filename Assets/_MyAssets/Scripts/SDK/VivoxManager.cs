@@ -21,6 +21,7 @@ public class VivoxManager : MonoBehaviour
     ILoginSession _loginSession;
     Account account;
     IChannelSession channelSession;
+    [SerializeField] string username;
 
     public void Initialize()
     {
@@ -37,7 +38,7 @@ public class VivoxManager : MonoBehaviour
 
         await UnityAuthenticationManager.i.Initialize();
         VivoxService.Instance.Initialize();
-        await LoginUser("001");
+        await LoginUser(username);
         await JoinChannel("channel-001");
         BindChannelSessionHandlers(true, channelSession);
     }
