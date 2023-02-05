@@ -15,6 +15,11 @@ public class UnityAuthenticationManager : Singleton<UnityAuthenticationManager>
         await SignInAnonymouslyAsync();
     }
 
+    public string GetPlayerId()
+    {
+        return AuthenticationService.Instance.PlayerId;
+    }
+
     async Task SignInAnonymouslyAsync()
     {
         try

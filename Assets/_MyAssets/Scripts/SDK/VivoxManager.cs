@@ -19,7 +19,6 @@ public class VivoxManager : MonoBehaviour
     string tokenIssuer = "15668-___-35308-udash";
     TimeSpan tokenExpirationDuration = new TimeSpan(0, 1, 0);
     ILoginSession _loginSession;
-    [SerializeField] string userName;
 
     public void Initialize()
     {
@@ -36,7 +35,7 @@ public class VivoxManager : MonoBehaviour
 
         await UnityAuthenticationManager.i.Initialize();
         VivoxService.Instance.Initialize();
-        await LoginUser(userName);
+        await LoginUser(UnityAuthenticationManager.i.GetPlayerId());
         await JoinChannel("channel-001");
     }
 
