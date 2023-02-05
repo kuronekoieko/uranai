@@ -19,6 +19,8 @@ public class VivoxManager : MonoBehaviour
     string tokenIssuer = "15668-___-35308-udash";
     TimeSpan tokenExpirationDuration = new TimeSpan(0, 1, 0);
     ILoginSession _loginSession;
+    Account account;
+    IChannelSession channelSession;
 
     public void Initialize()
     {
@@ -35,14 +37,15 @@ public class VivoxManager : MonoBehaviour
 
         await UnityAuthenticationManager.i.Initialize();
         VivoxService.Instance.Initialize();
-        await LoginUser(UnityAuthenticationManager.i.GetPlayerId());
+        await LoginUser("001");
         await JoinChannel("channel-001");
+        BindChannelSessionHandlers(true, channelSession);
     }
 
     IEnumerator LoginUser(string userName)
     {
         // この例では、クライアントが初期化されています。
-        var account = new Account(userName);
+        account = new Account(userName);
         _loginSession = _client.GetLoginSession(account);
 
         IAsyncResult result = _loginSession.BeginLogin(_serverUri, _loginSession.GetLoginToken(tokenSigningKey, tokenExpirationDuration), ar =>
@@ -105,7 +108,7 @@ public class VivoxManager : MonoBehaviour
     IEnumerator JoinChannel(string channelName)
     {
         var channel = new Unity.Services.Vivox.Channel(channelName, ChannelType.NonPositional);
-        var channelSession = _loginSession.GetChannelSession(channel);
+        channelSession = _loginSession.GetChannelSession(channel);
 
         // すべてのチャンネルのプロパティの変更にサブスクライブする。
         channelSession.PropertyChanged += SourceOnChannelPropertyChanged;
@@ -173,5 +176,112 @@ public class VivoxManager : MonoBehaviour
         }
 
     }
+
+    private void BindChannelSessionHandlers(bool doBind, IChannelSession channelSession)
+    {
+        //イベントへのサブスクライブ
+        if (doBind)
+        {
+            // 参加者
+            channelSession.Participants.AfterKeyAdded += OnParticipantAdded;
+            channelSession.Participants.BeforeKeyRemoved += OnParticipantRemoved;
+            channelSession.Participants.AfterValueUpdated += OnParticipantValueUpdated;
+
+            //メッセージ
+            // channelSession.MessageLog.AfterItemAdded += OnChannelMessageReceived;
+        }
+
+        //イベントのサブスクライブ解除
+        else
+        {
+            // 参加者
+            channelSession.Participants.AfterKeyAdded -= OnParticipantAdded;
+            channelSession.Participants.BeforeKeyRemoved -= OnParticipantRemoved;
+            channelSession.Participants.AfterValueUpdated -= OnParticipantValueUpdated;
+
+            //メッセージ
+            // channelSession.MessageLog.AfterItemAdded -= OnChannelMessageReceived;
+        }
+    }
+
+
+    private void OnParticipantAdded(object sender, KeyEventArg<string> keyEventArg)
+    {
+        ValidateArgs(new object[] { sender, keyEventArg });
+
+        var source = (VivoxUnity.IReadOnlyDictionary<string, IParticipant>)sender;
+        var participant = source[keyEventArg.Key];
+        var username = participant.Account.Name;
+        var channel = participant.ParentChannelSession.Key;
+        var channelSession = participant.ParentChannelSession;
+        //この情報を使用して必要な処理を実行
+        Debug.Log(username + " が参加しました");
+    }
+
+    private static void ValidateArgs(object[] objs)
+    {
+        foreach (var obj in objs)
+        {
+            if (obj == null)
+                throw new ArgumentNullException(obj.GetType().ToString(), "Specify a non-null/non-empty argument.");
+        }
+    }
+
+
+    private void OnParticipantRemoved(object sender, KeyEventArg<string> keyEventArg)
+    {
+        ValidateArgs(new object[] { sender, keyEventArg });
+
+        var source = (VivoxUnity.IReadOnlyDictionary<string, IParticipant>)sender;
+        var participant = source[keyEventArg.Key];
+        var username = participant.Account.Name;
+        var channel = participant.ParentChannelSession.Key;
+        var channelSession = participant.ParentChannelSession;
+        // uIManager.DeleteUserMuteObjectUI(username);
+        Debug.Log(username + " が退室しました");
+
+        if (participant.IsSelf)
+        {
+            BindChannelSessionHandlers(false, channelSession); //ここでイベントからサブスクライブ解除
+
+            // currentChannelID = null;
+
+            var user = _client.GetLoginSession(account);
+            user.DeleteChannelSession(channelSession.Channel);
+        }
+    }
+
+    private void OnParticipantValueUpdated(object sender, ValueEventArg<string, IParticipant> valueEventArg)
+    {
+        ValidateArgs(new object[] { sender, valueEventArg }); //ここまでの post のコードを参照
+
+        var source = (VivoxUnity.IReadOnlyDictionary<string, IParticipant>)sender;
+        var participant = source[valueEventArg.Key];
+
+        string username = valueEventArg.Value.Account.Name;
+        ChannelId channel = valueEventArg.Value.ParentChannelSession.Key;
+        string property = valueEventArg.PropertyName;
+
+        switch (property)
+        {
+            case "LocalMute":
+                {
+                    if (username != account.Name) //自分をローカルミュートすることはできないため、チェックしないでください
+                    {
+                        //ミュートされた画像を更新
+                    }
+                    break;
+                }
+            case "SpeechDetected":
+                {
+                    ///発話インジケーターの画像を更新
+                    break;
+                }
+            default:
+                break;
+        }
+    }
+
+
 }
 
