@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Threading.Tasks;
-using Unity.Services.Authentication;
+using Cysharp.Threading.Tasks;
 using Unity.Services.Vivox;
 using VivoxUnity;
 using System;
@@ -16,10 +15,13 @@ public class VivoxManager : MonoBehaviour
 {
     Client _client;
     Uri _serverUri = new Uri("https://unity.vivox.com/appconfig/15668-___-35308-udash");
+    string tokenSigningKey = "y3kqlSDvgSF6M66C8i4Mr1E3c9OMKg7o";
+    string tokenIssuer = "15668-___-35308-udash";
+    TimeSpan tokenExpirationDuration = new TimeSpan(0, 1, 0);
     ILoginSession _loginSession;
     [SerializeField] string userName;
 
-    public async void Initialize()
+    public void Initialize()
     {
 
 
@@ -30,24 +32,26 @@ public class VivoxManager : MonoBehaviour
     {
         // _client.Uninitialize();
         _client = new Client();
+        _client.Uninitialize();
         _client.Initialize();
 
 
 
         await UnityAuthenticationManager.i.Initialize();
         VivoxService.Instance.Initialize();
-        LoginUser(userName);
+        await LoginUser(userName);
         JoinChannel("channel-001");
     }
 
-    void LoginUser(string userName)
+    IEnumerator LoginUser(string userName)
     {
         // この例では、クライアントが初期化されています。
         var account = new Account(userName);
         _loginSession = _client.GetLoginSession(account);
-        _loginSession.BeginLogin(_serverUri, _loginSession.GetLoginToken(), ar =>
+
+        // InvalidOperationException: LoginSession: Invalid State - must be logged in to perform this operation.
+        IAsyncResult result = _loginSession.BeginLogin(_serverUri, _loginSession.GetLoginToken(tokenSigningKey, tokenExpirationDuration), ar =>
         {
-            Debug.Log("aaaaaaaaaaaaa");
             try
             {
                 _loginSession.EndLogin(ar);
@@ -55,11 +59,16 @@ public class VivoxManager : MonoBehaviour
             catch (Exception e)
             {
                 // エラー処理
-                return;
+                throw e;
             }
             // この時点でログインは成功しており、他の操作を実行できます。
 
         });
+
+        while (result.IsCompleted == false)
+        {
+            yield return null;
+        }
 
         _loginSession.PropertyChanged += onLoginSessionPropertyChanged;
     }
@@ -95,21 +104,21 @@ public class VivoxManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        LogOut();
         _client.Uninitialize();
     }
 
-
     void JoinChannel(string channelName)
     {
-        var channel = new Channel(channelName, ChannelType.NonPositional);
+        Debug.Log("ddddddddddddddddd");
+
+        var channel = new Unity.Services.Vivox.Channel(channelName, ChannelType.NonPositional);
         var channelSession = _loginSession.GetChannelSession(channel);
 
         // すべてのチャンネルのプロパティの変更にサブスクライブする。
         channelSession.PropertyChanged += SourceOnChannelPropertyChanged;
 
         // チャンネルに接続する
-        channelSession.BeginConnect(true, true, true, channelSession.GetConnectToken(), ar =>
+        channelSession.BeginConnect(true, true, true, channelSession.GetConnectToken(tokenSigningKey, tokenExpirationDuration), ar =>
         {
             try
             {
