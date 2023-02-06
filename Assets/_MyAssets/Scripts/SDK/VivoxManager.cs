@@ -21,7 +21,6 @@ public class VivoxManager : MonoBehaviour
     ILoginSession _loginSession;
     Account account;
     IChannelSession channelSession;
-    [SerializeField] string username;
 
     public void Initialize()
     {
@@ -36,17 +35,18 @@ public class VivoxManager : MonoBehaviour
         _client.Uninitialize();
         _client.Initialize();
 
+        // authのユーザーidは端末で決まるので、別端末でテストする必要あり
         await UnityAuthenticationManager.i.Initialize();
         VivoxService.Instance.Initialize();
-        await LoginUser(username);
+        await LoginUser();
         await JoinChannel("channel-001");
         BindChannelSessionHandlers(true, channelSession);
     }
 
-    IEnumerator LoginUser(string userName)
+    IEnumerator LoginUser()
     {
         // この例では、クライアントが初期化されています。
-        account = new Account(userName);
+        account = new Account();
         _loginSession = _client.GetLoginSession(account);
 
         IAsyncResult result = _loginSession.BeginLogin(_serverUri, _loginSession.GetLoginToken(tokenSigningKey, tokenExpirationDuration), ar =>
@@ -103,6 +103,7 @@ public class VivoxManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
+        _loginSession.Logout();
         _client.Uninitialize();
     }
 
@@ -216,7 +217,9 @@ public class VivoxManager : MonoBehaviour
         var channel = participant.ParentChannelSession.Key;
         var channelSession = participant.ParentChannelSession;
         //この情報を使用して必要な処理を実行
-        Debug.Log(username + " が参加しました");
+        if (participant.IsSelf) Debug.Log("自分 が参加しました " + username);
+        if (!participant.IsSelf) Debug.Log("相手 が参加しました " + username);
+
     }
 
     private static void ValidateArgs(object[] objs)
@@ -239,7 +242,8 @@ public class VivoxManager : MonoBehaviour
         var channel = participant.ParentChannelSession.Key;
         var channelSession = participant.ParentChannelSession;
         // uIManager.DeleteUserMuteObjectUI(username);
-        Debug.Log(username + " が退室しました");
+        if (participant.IsSelf) Debug.Log("自分 が退室しました " + username);
+        if (!participant.IsSelf) Debug.Log("相手 が退室しました " + username);
 
         if (participant.IsSelf)
         {
