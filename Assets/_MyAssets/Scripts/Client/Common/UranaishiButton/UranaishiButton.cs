@@ -38,7 +38,7 @@ public class UranaishiButton : ObjectPoolingElement
         nameTxt.text = uranaishi.name;
 
 
-        chargeText.text = uranaishi.callChargePerSec + "円/1分";
+        chargeText.text = uranaishi.GetChareText();
         //divinationsText.text = uranaishi.expertises.GetJoinedKeywords();
         messageText.SetLimitedText(uranaishi.message, 1);
         Review review = uranaishi.GetFirstReview();

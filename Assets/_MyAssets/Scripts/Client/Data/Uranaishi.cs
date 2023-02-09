@@ -23,7 +23,6 @@ public class Uranaishi
     public string facebookURL;
     public string otherURL;
 
-
     [System.NonSerialized] Sprite _iconSprite;
 
     public async void GetIcon(UnityAction<Sprite> onComplete)
@@ -110,6 +109,11 @@ public class Uranaishi
         {
             return null;
         }
+    }
+
+    public string GetChareText()
+    {
+        return callChargePerSec + "pt/1分"; ;
     }
 
 }

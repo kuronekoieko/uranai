@@ -29,7 +29,7 @@ public class UranaishiProfile_FirstView : BaseUranaishiProfile
         });
         nameTxt.text = uranaishi.name;
         statusTxt.text = uranaishi.GetStatusDisplayName();
-        chargeTxt.text = uranaishi.callChargePerSec + "円/1分";
+        chargeTxt.text = uranaishi.GetChareText();
 
 
         reviewStarHighlight.HighlightStars(uranaishi.GetReviewAvr());
