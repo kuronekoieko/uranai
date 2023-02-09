@@ -14,6 +14,7 @@ public class Uranaishi
     public UranaishiStatus status;
     public int callChargePerSec;
     [TextArea(5, 10)] public string message;
+    public string belonging;
     public string[] expertises = new string[0];
     public string[] divinations = new string[0];
     public Schedule[] schedules = new Schedule[0];

@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class UranaishiProfile_Message : BaseUranaishiProfile
 {
     [SerializeField] Text messageTxt;
+    [SerializeField] Text belongingTxt;
     [SerializeField] Button twitterButton;
     [SerializeField] Button facebookButton;
     [SerializeField] Button otherURLButton;
+
 
     public override void OnStart()
     {
@@ -18,6 +20,9 @@ public class UranaishiProfile_Message : BaseUranaishiProfile
     public override void OnOpen(Uranaishi uranaishi)
     {
         messageTxt.text = uranaishi.message;
+        belongingTxt.text = "所属: " + uranaishi.belonging;
+        belongingTxt.gameObject.SetActive(!string.IsNullOrEmpty(uranaishi.belonging));
+
         twitterButton.gameObject.SetActive(!string.IsNullOrEmpty(uranaishi.twitterURL));
         facebookButton.gameObject.SetActive(!string.IsNullOrEmpty(uranaishi.facebookURL));
         otherURLButton.gameObject.SetActive(!string.IsNullOrEmpty(uranaishi.otherURL));
