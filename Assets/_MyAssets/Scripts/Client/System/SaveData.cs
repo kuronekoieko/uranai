@@ -8,5 +8,6 @@ public class SaveData
     private static SaveData _i = new SaveData();
 
     public List<string> likedUranaishiIdList = new List<string>();
-
+    public int purchasedPoint;
+    public int freePoint = 2000;
 }
