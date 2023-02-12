@@ -4,17 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class InputReviewScreen : MonoBehaviour
+public class InputReviewScreen : BaseCallingScreen
 {
     [SerializeField] InputReviewStarManager inputReviewStarManager;
     [SerializeField] Button sendButton;
-    CallingManager callingManager;
-    Uranaishi uranaishi;
 
-    public void OnStart(CallingManager callingManager)
+
+    public override void OnStart(CallingManager callingManager)
     {
-        this.callingManager = callingManager;
-        Close();
+        base.OnStart(callingManager);
+
         inputReviewStarManager.OnStart();
         sendButton.onClick.AddListener(() =>
         {
@@ -23,16 +22,14 @@ public class InputReviewScreen : MonoBehaviour
 
     }
 
-    public void Open(Uranaishi uranaishi)
+    public override void Open(Uranaishi uranaishi)
     {
-        this.uranaishi = uranaishi;
-
-        gameObject.SetActive(true);
+        base.Open(uranaishi);
 
     }
 
-    public void Close()
+    public override void Close()
     {
-        gameObject.SetActive(false);
+        base.Close();
     }
 }

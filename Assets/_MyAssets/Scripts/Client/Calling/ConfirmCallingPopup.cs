@@ -4,28 +4,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ConfirmCallingPopup : MonoBehaviour
+public class ConfirmCallingPopup : BaseCallingScreen
 {
     [SerializeField] Button callButton;
     [SerializeField] Button cancelButton;
     [SerializeField] TextMeshProUGUI chargeText;
     [SerializeField] TextMeshProUGUI timeText;
 
-    CallingManager callingManager;
-
-    public void OnStart(CallingManager callingManager)
+    public override void OnStart(CallingManager callingManager)
     {
-        this.callingManager = callingManager;
-        Close();
+        base.OnStart(callingManager);
+
         cancelButton.onClick.AddListener(() =>
         {
             callingManager.Close();
         });
     }
 
-    public void Open(Uranaishi uranaishi)
+    public override void Open(Uranaishi uranaishi)
     {
-        gameObject.SetActive(true);
+        base.Open(uranaishi);
+
         callButton.onClick.AddListener(() => OnClickCallButton(uranaishi));
         chargeText.text = uranaishi.callChargePerSec.ToString("N0");
 
@@ -35,13 +34,13 @@ public class ConfirmCallingPopup : MonoBehaviour
 
     }
 
-    public void Close()
+    public override void Close()
     {
-        gameObject.SetActive(false);
+        base.Close();
     }
 
     void OnClickCallButton(Uranaishi uranaishi)
     {
-        callingManager.callingScreen.Open(uranaishi);
+        base.manager.callingScreen.Open(uranaishi);
     }
 }

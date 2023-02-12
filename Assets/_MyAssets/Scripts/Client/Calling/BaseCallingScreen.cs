@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class BaseCallingScreen : MonoBehaviour
 {
-    protected CallingManager callingManager;
+    protected CallingManager manager;
     protected Uranaishi uranaishi;
 
-    public virtual void OnStart(CallingManager callingManager)
+    public virtual void OnStart(CallingManager manager)
     {
-        this.callingManager = callingManager;
+        this.manager = manager;
         Close();
 
     }

@@ -30,7 +30,7 @@ public class CallingScreen : BaseCallingScreen
         });
         hangupButton.onClick.AddListener(() =>
         {
-            callingManager.confirmHangUpPopup.Open(uranaishi);
+            base.manager.confirmHangUpPopup.Open(uranaishi);
         });
         makingCallObj.SetActive(true);
         callingObj.SetActive(false);
