@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class SaveData
 {
-    public static SaveData i => _i;
-    private static SaveData _i = new SaveData();
+    public static SaveData i;
 
     public List<string> likedUranaishiIdList = new List<string>();
     public int purchasedPoint;
