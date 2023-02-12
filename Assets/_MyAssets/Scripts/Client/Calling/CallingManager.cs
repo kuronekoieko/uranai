@@ -28,7 +28,16 @@ public class CallingManager : MonoBehaviour
         confirmHangUpPopup.Close();
         inputReviewScreen.Close();
 
-        confirmCallingPopup.Open(uranaishi);
+        bool isEnoughPoint = SaveData.i.GetSumPoint() > uranaishi.callChargePerMin * 3;
+        if (isEnoughPoint)
+        {
+            confirmCallingPopup.Open(uranaishi);
+        }
+        else
+        {
+            Debug.Log("ポイントが足りないときのポップアップ");
+            Close();
+        }
     }
 
     public void Close()
