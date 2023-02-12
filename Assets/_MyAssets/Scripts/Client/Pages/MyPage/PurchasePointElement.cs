@@ -20,9 +20,9 @@ public class PurchasePointElement : ObjectPoolingElement
     public void Show(ChargeInfo chargeInfo)
     {
         this.chargeInfo = chargeInfo;
-        pointText.text = chargeInfo.point.ToString();
-        omakeText.text = $"無料ポイント{chargeInfo.omake}";
-        costText.text = "￥" + chargeInfo.cost.ToString();
+        pointText.text = chargeInfo.point.ToString("N0");
+        omakeText.text = $"無料ポイント{chargeInfo.omake.ToString("N0")}";
+        costText.text = "￥" + chargeInfo.cost.ToString("N0");
     }
 
     void OnClickPurchaseButton()

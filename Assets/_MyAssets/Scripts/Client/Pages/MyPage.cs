@@ -19,8 +19,8 @@ public class MyPage : BasePageManager
 
     void ShowTexts()
     {
-        pointsText.text = $"購入分 {SaveData.i.purchasedPoint}    " + $"無料ポイント {SaveData.i.freePoint}";
-        sumPointText.text = (SaveData.i.purchasedPoint + SaveData.i.freePoint).ToString();
+        pointsText.text = $"購入分 {SaveData.i.purchasedPoint.ToString("N0")}    " + $"無料ポイント {SaveData.i.freePoint.ToString("N0")}";
+        sumPointText.text = (SaveData.i.purchasedPoint + SaveData.i.freePoint).ToString("N0");
     }
 
     private void Update()
