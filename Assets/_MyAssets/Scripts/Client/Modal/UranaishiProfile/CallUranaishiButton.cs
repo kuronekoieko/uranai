@@ -8,11 +8,14 @@ public class CallUranaishiButton : MonoBehaviour
 {
     [SerializeField] Button button;
     [SerializeField] Text text;
+    [SerializeField] CallingManager callingManager;
+
 
     Uranaishi uranaishi;
 
     public void OnStart()
     {
+        callingManager.OnStart();
     }
 
 
@@ -44,7 +47,7 @@ public class CallUranaishiButton : MonoBehaviour
 
     void OnClickCallButton()
     {
-
+        callingManager.Open(uranaishi);
     }
 
     void OnClickReserveButton()

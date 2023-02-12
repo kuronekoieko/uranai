@@ -9,4 +9,10 @@ public class SaveData
     public List<string> likedUranaishiIdList = new List<string>();
     public int purchasedPoint;
     public int freePoint = 2000;
+
+
+    public int GetSumPoint()
+    {
+        return purchasedPoint + freePoint;
+    }
 }
