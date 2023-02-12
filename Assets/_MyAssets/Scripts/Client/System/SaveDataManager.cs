@@ -22,7 +22,8 @@ public class SaveDataManager : MonoBehaviour
 
     public void LoadSaveData()
     {
-        SaveData.i = new SaveData();
+        SaveData.i = new SaveData(0, 2000);
+        // SaveData.i.Test();
 
         //PlayerPrefsに保存済みのユーザーデータのstringを取得
         //第二引数に初回起動時のデータを入れる
