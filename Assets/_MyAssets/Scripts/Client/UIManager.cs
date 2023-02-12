@@ -10,6 +10,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] ToggleGroup bannerToggleGroup;
     [SerializeField] Transform pagesTf;
     [SerializeField] Transform modalsTf;
+    [SerializeField] HeaderManager headerManager;
     [SerializeField] UranaishiTestData uranaishiTestData;
     public Uranaishi[] uranaishiAry { get; set; }
     public static UIManager i;
@@ -38,6 +39,7 @@ public class UIManager : MonoBehaviour
         StartPages();
         StartModals();
         StartBannerToggles();
+        headerManager.OnStart();
 
         Application.targetFrameRate = 60;
     }
