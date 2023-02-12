@@ -13,7 +13,7 @@ public class CallingScreen : BaseCallingScreen
     [SerializeField] TextMeshProUGUI uranaishiNameText;
     [SerializeField] Button hangupButton;
     [SerializeField] TextMeshProUGUI leftTimeText;
-
+    public float passedTimeSec { get; private set; }
 
     public override void OnStart(CallingManager callingManager)
     {
@@ -41,16 +41,16 @@ public class CallingScreen : BaseCallingScreen
 
     IEnumerator Timer()
     {
-        float passedTime = 0;
-        float maxSeconds = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerSec * 60f;
+        passedTimeSec = 0;
+        float maxSeconds = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerMin * 60f;
 
-        while (passedTime < maxSeconds)
+        while (passedTimeSec < maxSeconds)
         {
-            var leftTimeSpan = new TimeSpan(0, 0, Mathf.CeilToInt(maxSeconds - passedTime));
+            var leftTimeSpan = new TimeSpan(0, 0, Mathf.CeilToInt(maxSeconds - passedTimeSec));
             var mmss = leftTimeSpan.ToString(@"mm\:ss");
 
             leftTimeText.text = $"残り 約{mmss}";
-            passedTime += Time.deltaTime;
+            passedTimeSec += Time.deltaTime;
             yield return null;
         }
 

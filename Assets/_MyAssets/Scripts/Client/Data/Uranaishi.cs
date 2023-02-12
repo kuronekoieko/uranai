@@ -12,7 +12,7 @@ public class Uranaishi
     public string id;
     public string name;
     public UranaishiStatus status;
-    public int callChargePerSec;
+    public int callChargePerMin;
     [TextArea(5, 10)] public string message;
     public string belonging;
     public string[] expertises = new string[0];
@@ -113,7 +113,7 @@ public class Uranaishi
 
     public string GetChareText()
     {
-        return callChargePerSec + "pt/1分"; ;
+        return callChargePerMin + "pt/1分"; ;
     }
 
 }

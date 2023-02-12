@@ -26,9 +26,9 @@ public class ConfirmCallingPopup : BaseCallingScreen
         base.Open(uranaishi);
 
         callButton.onClick.AddListener(() => OnClickCallButton(uranaishi));
-        chargeText.text = uranaishi.callChargePerSec.ToString("N0");
+        chargeText.text = uranaishi.callChargePerMin.ToString("N0");
 
-        float minuteF = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerSec;
+        float minuteF = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerMin;
         int minuteInt = Mathf.FloorToInt(minuteF);
         timeText.text = minuteInt.ToString("N0");
 
