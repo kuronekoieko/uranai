@@ -7,6 +7,7 @@ public class HeaderManager : MonoBehaviour
 {
     [SerializeField] Button infoButton;
     [SerializeField] Button purchaseButton;
+    [SerializeField] Text purchaseButtonText;
     public void OnStart()
     {
         infoButton.onClick.AddListener(() =>
@@ -20,5 +21,8 @@ public class HeaderManager : MonoBehaviour
         });
     }
 
-
+    private void Update()
+    {
+        purchaseButtonText.text = (SaveData.i.purchasedPoint + SaveData.i.freePoint).ToString("N0");
+    }
 }
