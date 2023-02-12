@@ -50,16 +50,21 @@ public class InputReviewScreen : BaseCallingScreen
         base.Close();
     }
 
-    void SendData()
+    async void SendData()
     {
-        Review review = new Review();
-        review.starCount = inputReviewStarManager.starCount;
-        review.text = reviewTextIF.text;
+        Review review = new Review
+        (
+            starCount: inputReviewStarManager.starCount,
+            text: reviewTextIF.text
+        );
+        // 他のパラメーターの入力はどうするか？
 
 
 
         uranaishi.reviews.Add(review);
 
+        // 占い師が同時に操作してると上書きされる可能性があるので、レビューだけ書き換えたい
+        await FirebaseDatabaseManager.i.SetUserData(uranaishi);
 
         SaveData.i.ConsumePoints(giftPoint);
         SaveDataManager.i.Save();

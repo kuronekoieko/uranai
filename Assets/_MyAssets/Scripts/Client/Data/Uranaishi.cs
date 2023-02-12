@@ -182,6 +182,17 @@ public class Review
     public bool isPickUp;
     public SerializableDateTime writtenDate;
 
+    public Review(
+        int starCount,
+        string text)
+    {
+        this.starCount = starCount;
+        this.text = text;
+        writtenDate = new SerializableDateTime();
+        writtenDate.dateTime = DateTime.Now;
+        sex = Sex.None;
+    }
+
     public string GetTitleText()
     {
         string title = "";

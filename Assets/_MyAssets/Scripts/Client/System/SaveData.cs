@@ -42,7 +42,7 @@ public class SaveData
             purchasedPoint -= leftPoint;
             return;
         }
-
+        purchasedPoint = 0;
         Debug.LogError("ポイントが不足しているのに購入できてしまった");
 
     }
