@@ -27,6 +27,12 @@ public class BaseModal : MonoBehaviour
         returnButton.onClick.AddListener(OnClickReturnButton);
     }
 
+    public void Clear()
+    {
+        rectTransform.position = initPos;
+        gameObject.SetActive(false);
+    }
+
     void OnClickXButton()
     {
 

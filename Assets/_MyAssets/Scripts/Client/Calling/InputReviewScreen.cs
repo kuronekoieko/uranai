@@ -68,5 +68,24 @@ public class InputReviewScreen : BaseCallingScreen
 
         SaveData.i.ConsumePoints(giftPoint);
         SaveDataManager.i.Save();
+
+        CBNativeDialog.Instance.Show(title: "",
+                    message: "評価を投稿します。よろしいですか？",
+                    positiveButtonTitle: "はい",
+                    positiveButtonAction: () => { CloseAllModals(); },
+                    negativeButtonTitle: "いいえ",
+                    negativeButtonAction: () => { Debug.Log("CANCEL"); });
+
+        if (Application.isEditor)
+        {
+            CloseAllModals();
+        }
+
+    }
+
+    void CloseAllModals()
+    {
+        base.manager.Close();
+        UIManager.i.CloseAllModals(Page.Rireki);
     }
 }

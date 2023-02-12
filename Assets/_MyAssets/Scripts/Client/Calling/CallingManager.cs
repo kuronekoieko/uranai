@@ -23,11 +23,20 @@ public class CallingManager : MonoBehaviour
     {
         gameObject.SetActive(true);
 
+        confirmCallingPopup.Close();
+        callingScreen.Close();
+        confirmHangUpPopup.Close();
+        inputReviewScreen.Close();
+
         confirmCallingPopup.Open(uranaishi);
     }
 
     public void Close()
     {
         gameObject.SetActive(false);
+        confirmCallingPopup.Close();
+        callingScreen.Close();
+        confirmHangUpPopup.Close();
+        inputReviewScreen.Close();
     }
 }

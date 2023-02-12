@@ -5,21 +5,22 @@ using UnityEngine.UI;
 
 public class BannerToggleController : MonoBehaviour
 {
-    Toggle toggle;
-    [SerializeField] Page page;
+    public Toggle toggle { get; private set; }
+    [SerializeField] Page _page;
+    public Page page => _page;
 
     public void OnStart(Page initPage)
     {
         toggle = GetComponent<Toggle>();
         toggle.onValueChanged.AddListener(ToggleValueChanged);
-        toggle.isOn = (initPage == page);
+        toggle.isOn = (initPage == _page);
     }
 
     void ToggleValueChanged(bool isOn)
     {
         if (isOn)
         {
-            UIManager.i.activePage = page;
+            UIManager.i.activePage = _page;
         }
     }
 }

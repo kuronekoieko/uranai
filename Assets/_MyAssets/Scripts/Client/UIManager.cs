@@ -16,7 +16,8 @@ public class UIManager : MonoBehaviour
     public static UIManager i;
     public Page activePage { get; set; } = Page.Uranau;
     public bool isLocalTestData { get; } = false;
-
+    BaseModal[] baseModals;
+    BannerToggleController[] bannerToggleControllers;
 
     async void Start()
     {
@@ -55,7 +56,7 @@ public class UIManager : MonoBehaviour
 
     void StartModals()
     {
-        BaseModal[] baseModals = modalsTf.GetComponentsInChildren<BaseModal>(true);
+        baseModals = modalsTf.GetComponentsInChildren<BaseModal>(true);
         foreach (var baseModal in baseModals)
         {
             baseModal.OnStart();
@@ -65,11 +66,27 @@ public class UIManager : MonoBehaviour
 
     void StartBannerToggles()
     {
-        var bannerToggleControllers = bannerToggleGroup.GetComponentsInChildren<BannerToggleController>(true);
+        bannerToggleControllers = bannerToggleGroup.GetComponentsInChildren<BannerToggleController>(true);
 
         foreach (var bannerToggleController in bannerToggleControllers)
         {
             bannerToggleController.OnStart(activePage);
+        }
+    }
+
+    public void CloseAllModals(Page transPage)
+    {
+        foreach (var baseModal in baseModals)
+        {
+            baseModal.Clear();
+        }
+
+        foreach (var bannerToggleController in bannerToggleControllers)
+        {
+            if (bannerToggleController.page == transPage)
+            {
+                bannerToggleController.toggle.isOn = true;
+            }
         }
     }
 }
