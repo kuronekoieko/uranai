@@ -26,7 +26,7 @@ public class ConfirmCallingPopup : MonoBehaviour
     public void Open(Uranaishi uranaishi)
     {
         gameObject.SetActive(true);
-        callButton.onClick.AddListener(() => Call(uranaishi));
+        callButton.onClick.AddListener(() => OnClickCallButton(uranaishi));
         chargeText.text = uranaishi.callChargePerSec.ToString("N0");
 
         float minuteF = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerSec;
@@ -40,8 +40,8 @@ public class ConfirmCallingPopup : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void Call(Uranaishi uranaishi)
+    void OnClickCallButton(Uranaishi uranaishi)
     {
-
+        callingManager.callingScreen.Open(uranaishi);
     }
 }
