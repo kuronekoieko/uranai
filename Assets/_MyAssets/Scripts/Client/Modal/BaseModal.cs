@@ -13,6 +13,7 @@ public class BaseModal : MonoBehaviour
     }
     [SerializeField] Button xButton;
     [SerializeField] Button returnButton;
+    [SerializeField] ScrollRect scrollRect;
 
     RectTransform rectTransform;
     Vector3 initPos;
@@ -62,6 +63,8 @@ public class BaseModal : MonoBehaviour
 
     protected virtual void OpenAnim(ModalType modalType = ModalType.Vertical)
     {
+        //スクロールの一番上に行くように
+        scrollRect.verticalNormalizedPosition = 1;
         // 今いる自分の階層の一番下に移動して、一番手前に表示されます。
         transform.SetAsLastSibling();
 

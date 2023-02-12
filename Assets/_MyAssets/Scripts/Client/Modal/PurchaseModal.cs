@@ -8,6 +8,7 @@ public class PurchaseModal : BaseModal
     [SerializeField] PurchasePointManager purchasePointManager;
     [SerializeField] Text sumPointText;
     [SerializeField] Text pointsText;
+
     public static PurchaseModal i;
 
     public override void OnStart()
@@ -33,7 +34,5 @@ public class PurchaseModal : BaseModal
     public void Open(ModalType modalType = ModalType.Vertical)
     {
         base.OpenAnim(modalType);
-
-
     }
 }

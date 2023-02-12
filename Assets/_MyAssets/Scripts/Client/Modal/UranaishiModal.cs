@@ -9,7 +9,6 @@ public class UranaishiModal : BaseModal
 
 
     [SerializeField] Transform contentTf;
-    [SerializeField] ScrollRect scrollRect;
     [SerializeField] CallUranaishiButton callUranaishiButton;
     [SerializeField] Button scheduleButton;
     BaseUranaishiProfile[] baseUranaishiProfiles;
@@ -40,8 +39,6 @@ public class UranaishiModal : BaseModal
     {
         this.uranaishi = uranaishi;
         base.OpenAnim();
-        //スクロールの一番上に行くように
-        scrollRect.verticalNormalizedPosition = 1;
         foreach (var item in baseUranaishiProfiles)
         {
             item.OnOpen(uranaishi);
