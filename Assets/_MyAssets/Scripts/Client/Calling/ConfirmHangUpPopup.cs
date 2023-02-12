@@ -6,12 +6,22 @@ using TMPro;
 
 public class ConfirmHangUpPopup : MonoBehaviour
 {
+    [SerializeField] Button hangupButton;
+    [SerializeField] Button cancelButton;
     CallingManager callingManager;
 
     public void OnStart(CallingManager callingManager)
     {
         this.callingManager = callingManager;
         Close();
+        cancelButton.onClick.AddListener(() =>
+        {
+            Close();
+        });
+        hangupButton.onClick.AddListener(() =>
+        {
+            HangUp();
+        });
     }
 
     public void Open(Uranaishi uranaishi)
@@ -23,5 +33,9 @@ public class ConfirmHangUpPopup : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
+    }
+
+    void HangUp()
+    {
     }
 }
