@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class ConfirmHangUpPopup : MonoBehaviour
+public class InputReviewScreen : MonoBehaviour
 {
-    [SerializeField] Button hangupButton;
-    [SerializeField] Button cancelButton;
+    [SerializeField] InputReviewStarManager inputReviewStarManager;
+    [SerializeField] Button sendButton;
     CallingManager callingManager;
     Uranaishi uranaishi;
 
@@ -15,19 +15,18 @@ public class ConfirmHangUpPopup : MonoBehaviour
     {
         this.callingManager = callingManager;
         Close();
-        cancelButton.onClick.AddListener(() =>
+        inputReviewStarManager.OnStart();
+        sendButton.onClick.AddListener(() =>
         {
-            Close();
+
         });
-        hangupButton.onClick.AddListener(() =>
-        {
-            HangUp();
-        });
+
     }
 
     public void Open(Uranaishi uranaishi)
     {
         this.uranaishi = uranaishi;
+
         gameObject.SetActive(true);
 
     }
@@ -35,10 +34,5 @@ public class ConfirmHangUpPopup : MonoBehaviour
     public void Close()
     {
         gameObject.SetActive(false);
-    }
-
-    void HangUp()
-    {
-        callingManager.inputReviewScreen.Open(uranaishi);
     }
 }

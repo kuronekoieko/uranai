@@ -8,6 +8,7 @@ public class CallingManager : MonoBehaviour
     public ConfirmCallingPopup confirmCallingPopup;
     public CallingScreen callingScreen;
     public ConfirmHangUpPopup confirmHangUpPopup;
+    public InputReviewScreen inputReviewScreen;
 
     public void OnStart()
     {
@@ -15,6 +16,7 @@ public class CallingManager : MonoBehaviour
         confirmCallingPopup.OnStart(this);
         callingScreen.OnStart(this);
         confirmHangUpPopup.OnStart(this);
+        inputReviewScreen.OnStart(this);
     }
 
     public void Open(Uranaishi uranaishi)

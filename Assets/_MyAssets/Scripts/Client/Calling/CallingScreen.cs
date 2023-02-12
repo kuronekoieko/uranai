@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 
-public class CallingScreen : MonoBehaviour
+public class CallingScreen : BaseCallingScreen
 {
     [SerializeField] GameObject makingCallObj;
     [SerializeField] GameObject callingObj;
@@ -13,19 +13,16 @@ public class CallingScreen : MonoBehaviour
     [SerializeField] TextMeshProUGUI uranaishiNameText;
     [SerializeField] Button hangupButton;
     [SerializeField] TextMeshProUGUI leftTimeText;
-    CallingManager callingManager;
-    Uranaishi uranaishi;
 
-    public void OnStart(CallingManager callingManager)
+
+    public override void OnStart(CallingManager callingManager)
     {
-        this.callingManager = callingManager;
-        Close();
+        base.OnStart(callingManager);
     }
 
-    public void Open(Uranaishi uranaishi)
+    public override void Open(Uranaishi uranaishi)
     {
-        this.uranaishi = uranaishi;
-        gameObject.SetActive(true);
+        base.Open(uranaishi);
         uranaishiNameText.text = uranaishi.name;
         uranaishi.GetIcon((sprite) =>
         {
@@ -68,8 +65,8 @@ public class CallingScreen : MonoBehaviour
         StartCoroutine(Timer());
     }
 
-    public void Close()
+    public override void Close()
     {
-        gameObject.SetActive(false);
+        base.Close();
     }
 }
