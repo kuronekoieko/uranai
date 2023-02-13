@@ -14,7 +14,7 @@ public class CallingScreen : BaseCallingScreen
     [SerializeField] Button hangupButton;
     [SerializeField] TextMeshProUGUI leftTimeText;
     public float passedTimeSec { get; private set; }
-    public Coroutine timerCoroutine { get; private set; }
+    bool isTimer;
 
     public override void OnStart(CallingManager callingManager)
     {
@@ -40,34 +40,44 @@ public class CallingScreen : BaseCallingScreen
         Invoke("Call", 3f);
     }
 
-    IEnumerator Timer()
+
+    private void Update()
     {
-        passedTimeSec = 0;
+        if (!isTimer) return;
+
         float maxSeconds = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerMin * 60f;
 
-        while (passedTimeSec < maxSeconds)
+        if (passedTimeSec < maxSeconds)
         {
             var leftTimeSpan = new TimeSpan(0, 0, Mathf.CeilToInt(maxSeconds - passedTimeSec));
             var mmss = leftTimeSpan.ToString(@"mm\:ss");
 
             leftTimeText.text = $"残り 約{mmss}";
             passedTimeSec += Time.deltaTime;
-            yield return null;
+            //  Debug.Log(leftTimeText.text);
         }
-
-        // 通話強制終了
-        manager.GetScreen<InputReviewScreen>().Open(uranaishi);
+        else
+        {
+            // 通話強制終了
+            manager.GetScreen<InputReviewScreen>().Open(uranaishi);
+        }
     }
 
     void Call()
     {
         makingCallObj.SetActive(false);
         callingObj.SetActive(true);
-        timerCoroutine = StartCoroutine(Timer());
+        isTimer = true;
+        passedTimeSec = 0;
     }
 
     public override void Close()
     {
         base.Close();
+    }
+
+    public void StopTimer()
+    {
+        isTimer = false;
     }
 }

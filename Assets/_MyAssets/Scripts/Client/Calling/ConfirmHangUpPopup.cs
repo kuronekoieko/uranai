@@ -35,7 +35,7 @@ public class ConfirmHangUpPopup : BaseCallingScreen
 
     void HangUp()
     {
-        StopCoroutine(base.manager.GetScreen<CallingScreen>().timerCoroutine);
+        base.manager.GetScreen<CallingScreen>().StopTimer();
         base.manager.GetScreen<InputReviewScreen>().Open(uranaishi);
     }
 }
