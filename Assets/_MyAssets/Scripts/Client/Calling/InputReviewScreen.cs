@@ -45,12 +45,6 @@ public class InputReviewScreen : BaseCallingScreen
     {
         base.Open(uranaishi);
 
-        // TODO : アプリ落とす対策に、リアルタイムにポイントを削るようにする
-        float pointF = manager.GetScreen<CallingScreen>().passedTimeSec * (float)uranaishi.callChargePerMin / 60f;
-        int point = Mathf.CeilToInt(pointF);
-        SaveData.i.ConsumePoints(point);
-        SaveDataManager.i.Save();
-
         myPointText.text = $"所持ポイント : {SaveData.i.GetSumPoint()}pt";
 
         uranaishiNameText.text = uranaishi.name;

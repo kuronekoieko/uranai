@@ -13,8 +13,10 @@ public class CallingScreen : BaseCallingScreen
     [SerializeField] TextMeshProUGUI uranaishiNameText;
     [SerializeField] Button hangupButton;
     [SerializeField] TextMeshProUGUI leftTimeText;
-    public float passedTimeSec { get; private set; }
+    float passedTimeSec;
     bool isTimer;
+    float maxSeconds;
+    float usePointTimerSec;
 
     public override void OnStart(CallingManager callingManager)
     {
@@ -45,30 +47,50 @@ public class CallingScreen : BaseCallingScreen
     {
         if (!isTimer) return;
 
-        float maxSeconds = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerMin * 60f;
-
-        if (passedTimeSec < maxSeconds)
-        {
-            var leftTimeSpan = new TimeSpan(0, 0, Mathf.CeilToInt(maxSeconds - passedTimeSec));
-            var mmss = leftTimeSpan.ToString(@"mm\:ss");
-
-            leftTimeText.text = $"残り 約{mmss}";
-            passedTimeSec += Time.deltaTime;
-            //  Debug.Log(leftTimeText.text);
-        }
-        else
+        if (passedTimeSec >= maxSeconds)
         {
             // 通話強制終了
             manager.GetScreen<InputReviewScreen>().Open(uranaishi);
+            return;
         }
+
+
+        var leftTimeSpan = new TimeSpan(0, 0, Mathf.CeilToInt(maxSeconds - passedTimeSec));
+        var mmss = leftTimeSpan.ToString(@"mm\:ss");
+
+        leftTimeText.text = $"残り 約{mmss}";
+        passedTimeSec += Time.deltaTime;
+
+        // nポイント消費するのに何秒いるか
+        int usePointUnit = 3;
+        float secPerPoint = 60f / (float)uranaishi.callChargePerMin * usePointUnit;
+        if (usePointTimerSec > secPerPoint)
+        {
+            usePointTimerSec = 0;
+            // Debug.Log("ポイント更新 " + secPerPoint);
+
+            SaveData.i.ConsumePoints(usePointUnit);
+            SaveDataManager.i.Save();
+        }
+
+        usePointTimerSec += Time.deltaTime;
+        // Debug.Log(leftTimeText.text);
+
     }
 
     void Call()
     {
         makingCallObj.SetActive(false);
         callingObj.SetActive(true);
+        StartTimer();
+    }
+
+    void StartTimer()
+    {
         isTimer = true;
         passedTimeSec = 0;
+        usePointTimerSec = 0;
+        maxSeconds = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerMin * 60f;
     }
 
     public override void Close()
