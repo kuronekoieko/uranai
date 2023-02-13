@@ -24,7 +24,7 @@ public class UranaishiButton : ObjectPoolingElement
 
     void OnClickButton()
     {
-        UranaishiModal.i.Open(uranaishi);
+        UIManager.i.GetModal<UranaishiModal>().Open(uranaishi);
     }
 
     public void ShowData(Uranaishi uranaishi)

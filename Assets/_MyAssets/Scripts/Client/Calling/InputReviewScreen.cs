@@ -27,7 +27,7 @@ public class InputReviewScreen : BaseCallingScreen
         });
         purchaseButton.onClick.AddListener(() =>
         {
-            PurchaseModal.i.Open();
+            UIManager.i.GetModal<PurchaseModal>().Open();
         });
 
         giftIF.contentType = TMP_InputField.ContentType.IntegerNumber;

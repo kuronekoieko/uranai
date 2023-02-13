@@ -12,7 +12,7 @@ public class MyPage : BasePageManager
         base.SetPageAction(Page.MyPage);
         purchaseButton.onClick.AddListener(() =>
         {
-            PurchaseModal.i.Open();
+            UIManager.i.GetModal<PurchaseModal>().Open();
         });
     }
 

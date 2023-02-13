@@ -10,11 +10,9 @@ public class ReviewListModal : BaseModal
     [SerializeField] ReviewStarHighlight reviewStarHighlight;
 
     readonly int showReviewCount = 20;
-    public static ReviewListModal i;
 
     public override void OnStart()
     {
-        i = this;
         base.OnStart();
         reviewManager.OnStart();
     }

@@ -17,7 +17,7 @@ public class HeaderManager : MonoBehaviour
 
         purchaseButton.onClick.AddListener(() =>
         {
-            PurchaseModal.i.Open();
+            UIManager.i.GetModal<PurchaseModal>().Open();
         });
     }
 

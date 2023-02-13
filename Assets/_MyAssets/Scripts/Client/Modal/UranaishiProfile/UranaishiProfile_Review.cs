@@ -31,7 +31,7 @@ public class UranaishiProfile_Review : BaseUranaishiProfile
         moreButton.onClick.AddListener(() =>
         {
 
-            ReviewListModal.i.Open(uranaishi);
+            UIManager.i.GetModal<ReviewListModal>().Open(uranaishi);
         });
     }
 

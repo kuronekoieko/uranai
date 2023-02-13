@@ -16,7 +16,7 @@ public class PurchasePointsPopup : BaseCallingScreen
 
         purchaseButton.onClick.AddListener(() =>
         {
-            PurchaseModal.i.Open();
+            UIManager.i.GetModal<PurchaseModal>().Open();
         });
         cancelButton.onClick.AddListener(() =>
         {

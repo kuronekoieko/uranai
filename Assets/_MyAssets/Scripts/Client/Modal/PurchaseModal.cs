@@ -9,11 +9,8 @@ public class PurchaseModal : BaseModal
     [SerializeField] Text sumPointText;
     [SerializeField] Text pointsText;
 
-    public static PurchaseModal i;
-
     public override void OnStart()
     {
-        i = this;
         base.OnStart();
         purchasePointManager.OnStart();
         purchasePointManager.ShowElements(Constant.Instance.chargeInfos.value);

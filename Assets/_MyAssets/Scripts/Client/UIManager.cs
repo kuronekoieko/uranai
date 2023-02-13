@@ -89,4 +89,11 @@ public class UIManager : MonoBehaviour
             }
         }
     }
+
+    public T GetModal<T>() where T : BaseModal
+    {
+        T subClass = baseModals.Select(_ => _ as T).FirstOrDefault(_ => _);
+        // Debug.Log(subClass.GetType());
+        return subClass;
+    }
 }
