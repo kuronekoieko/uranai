@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.Events;
+using System;
 
-public class BaseModal : MonoBehaviour
+public abstract class BaseModal : MonoBehaviour
 {
     public enum ModalType
     {
@@ -18,6 +20,8 @@ public class BaseModal : MonoBehaviour
     RectTransform rectTransform;
     Vector3 initPos;
     RectTransform underScreen;
+    public Action onClose { get; set; }
+
     public virtual void OnStart()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -33,9 +37,10 @@ public class BaseModal : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+
     void OnClickXButton()
     {
-
+        if (onClose != null) onClose.Invoke();
         rectTransform
             .DOMoveY(-Screen.height / 2f, 0.3f)
             .SetEase(Ease.OutCirc)
@@ -66,9 +71,9 @@ public class BaseModal : MonoBehaviour
 
     }
 
-
     protected virtual void OpenAnim(ModalType modalType = ModalType.Vertical)
     {
+        onClose = null;
         //スクロールの一番上に行くように
         scrollRect.verticalNormalizedPosition = 1;
         // 今いる自分の階層の一番下に移動して、一番手前に表示されます。

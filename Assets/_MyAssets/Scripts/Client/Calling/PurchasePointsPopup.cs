@@ -17,6 +17,7 @@ public class PurchasePointsPopup : BaseCallingScreen
         purchaseButton.onClick.AddListener(() =>
         {
             UIManager.i.GetModal<PurchaseModal>().Open();
+            UIManager.i.GetModal<PurchaseModal>().onClose += OnReturn;
         });
         cancelButton.onClick.AddListener(() =>
         {
@@ -35,4 +36,16 @@ public class PurchasePointsPopup : BaseCallingScreen
     {
         base.Close();
     }
+
+    void OnReturn()
+    {
+        bool isEnoughPoint = SaveData.i.GetSumPoint() > uranaishi.callChargePerMin * 3;
+        //isEnoughPoint = true;
+        if (isEnoughPoint)
+        {
+            Close();
+            base.manager.GetScreen<ConfirmCallingPopup>().Open(uranaishi);
+        }
+    }
+
 }

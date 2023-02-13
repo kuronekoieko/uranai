@@ -28,8 +28,8 @@ public class PurchaseModal : BaseModal
         ShowTexts();
     }
 
-    public void Open(ModalType modalType = ModalType.Vertical)
+    public void Open()
     {
-        base.OpenAnim(modalType);
+        base.OpenAnim();
     }
 }
