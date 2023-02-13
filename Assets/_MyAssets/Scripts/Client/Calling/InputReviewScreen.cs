@@ -12,6 +12,8 @@ public class InputReviewScreen : BaseCallingScreen
     [SerializeField] TMP_InputField giftIF;
     [SerializeField] TextMeshProUGUI myPointText;
     [SerializeField] Button purchaseButton;
+    [SerializeField] Image iconImage;
+    [SerializeField] TextMeshProUGUI uranaishiNameText;
     int giftPoint;
 
     public override void OnStart(CallingManager callingManager)
@@ -44,12 +46,18 @@ public class InputReviewScreen : BaseCallingScreen
         base.Open(uranaishi);
 
         // TODO : アプリ落とす対策に、リアルタイムにポイントを削るようにする
-        float pointF = manager.callingScreen.passedTimeSec * (float)uranaishi.callChargePerMin / 60f;
+        float pointF = manager.GetScreen<CallingScreen>().passedTimeSec * (float)uranaishi.callChargePerMin / 60f;
         int point = Mathf.CeilToInt(pointF);
         SaveData.i.ConsumePoints(point);
         SaveDataManager.i.Save();
 
         myPointText.text = $"所持ポイント : {SaveData.i.GetSumPoint()}pt";
+
+        uranaishiNameText.text = uranaishi.name;
+        uranaishi.GetIcon((sprite) =>
+        {
+            iconImage.sprite = sprite;
+        });
     }
 
     public override void Close()

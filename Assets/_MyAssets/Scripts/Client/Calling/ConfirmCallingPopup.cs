@@ -41,6 +41,6 @@ public class ConfirmCallingPopup : BaseCallingScreen
 
     void OnClickCallButton(Uranaishi uranaishi)
     {
-        base.manager.callingScreen.Open(uranaishi);
+        base.manager.GetScreen<CallingScreen>().Open(uranaishi);
     }
 }

@@ -7,6 +7,7 @@ public class SaveDataManager : MonoBehaviour
     public static SaveDataManager i;
     string KEY_SAVE_DATA = "SaveData";
 
+
     void Awake()
     {
         i = this;

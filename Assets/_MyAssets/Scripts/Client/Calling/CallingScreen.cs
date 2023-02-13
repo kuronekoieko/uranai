@@ -14,6 +14,7 @@ public class CallingScreen : BaseCallingScreen
     [SerializeField] Button hangupButton;
     [SerializeField] TextMeshProUGUI leftTimeText;
     public float passedTimeSec { get; private set; }
+    public Coroutine timerCoroutine { get; private set; }
 
     public override void OnStart(CallingManager callingManager)
     {
@@ -30,7 +31,7 @@ public class CallingScreen : BaseCallingScreen
         });
         hangupButton.onClick.AddListener(() =>
         {
-            base.manager.confirmHangUpPopup.Open(uranaishi);
+            base.manager.GetScreen<ConfirmHangUpPopup>().Open(uranaishi);
         });
         makingCallObj.SetActive(true);
         callingObj.SetActive(false);
@@ -55,14 +56,14 @@ public class CallingScreen : BaseCallingScreen
         }
 
         // 通話強制終了
-
+        manager.GetScreen<InputReviewScreen>().Open(uranaishi);
     }
 
     void Call()
     {
         makingCallObj.SetActive(false);
         callingObj.SetActive(true);
-        StartCoroutine(Timer());
+        timerCoroutine = StartCoroutine(Timer());
     }
 
     public override void Close()

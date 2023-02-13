@@ -2,50 +2,56 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class CallingManager : MonoBehaviour
 {
-    public ConfirmCallingPopup confirmCallingPopup;
-    public CallingScreen callingScreen;
-    public ConfirmHangUpPopup confirmHangUpPopup;
-    public InputReviewScreen inputReviewScreen;
+    BaseCallingScreen[] baseCallingScreens;
+
 
     public void OnStart()
     {
-        Close();
-        confirmCallingPopup.OnStart(this);
-        callingScreen.OnStart(this);
-        confirmHangUpPopup.OnStart(this);
-        inputReviewScreen.OnStart(this);
+        baseCallingScreens = GetComponentsInChildren<BaseCallingScreen>(true);
+        foreach (var item in baseCallingScreens)
+        {
+            item.OnStart(this);
+        }
     }
 
     public void Open(Uranaishi uranaishi)
     {
         gameObject.SetActive(true);
 
-        confirmCallingPopup.Close();
-        callingScreen.Close();
-        confirmHangUpPopup.Close();
-        inputReviewScreen.Close();
+        foreach (var item in baseCallingScreens)
+        {
+            item.Close();
+        }
 
         bool isEnoughPoint = SaveData.i.GetSumPoint() > uranaishi.callChargePerMin * 3;
+        //isEnoughPoint = true;
         if (isEnoughPoint)
         {
-            confirmCallingPopup.Open(uranaishi);
+            GetScreen<ConfirmCallingPopup>().Open(uranaishi);
         }
         else
         {
-            Debug.Log("ポイントが足りないときのポップアップ");
-            Close();
+            GetScreen<PurchasePointsPopup>().Open(uranaishi);
         }
     }
 
     public void Close()
     {
         gameObject.SetActive(false);
-        confirmCallingPopup.Close();
-        callingScreen.Close();
-        confirmHangUpPopup.Close();
-        inputReviewScreen.Close();
+        foreach (var item in baseCallingScreens)
+        {
+            item.Close();
+        }
+    }
+
+    public T GetScreen<T>() where T : BaseCallingScreen
+    {
+        T subClass = baseCallingScreens.Select(_ => _ as T).FirstOrDefault(_ => _);
+        // Debug.Log(subClass.GetType());
+        return subClass;
     }
 }
