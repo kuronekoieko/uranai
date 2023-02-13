@@ -14,6 +14,7 @@ public class InputReviewScreen : BaseCallingScreen
     [SerializeField] Button purchaseButton;
     [SerializeField] Image iconImage;
     [SerializeField] TextMeshProUGUI uranaishiNameText;
+    [SerializeField] ScrollRect scrollRect;
     int giftPoint;
 
     public override void OnStart(CallingManager callingManager)
@@ -44,7 +45,8 @@ public class InputReviewScreen : BaseCallingScreen
     public override void Open(Uranaishi uranaishi)
     {
         base.Open(uranaishi);
-
+        //スクロールの一番上に行くように
+        scrollRect.verticalNormalizedPosition = 1;
         myPointText.text = $"所持ポイント : {SaveData.i.GetSumPoint()}pt";
 
         uranaishiNameText.text = uranaishi.name;
