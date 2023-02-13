@@ -15,12 +15,12 @@ public class InputReviewScreen : BaseCallingScreen
     [SerializeField] Image iconImage;
     [SerializeField] TextMeshProUGUI uranaishiNameText;
     [SerializeField] ScrollRect scrollRect;
+    [SerializeField] TextMeshProUGUI characterLimitText;
     int giftPoint;
 
     public override void OnStart(CallingManager callingManager)
     {
         base.OnStart(callingManager);
-
         inputReviewStarManager.OnStart();
         sendButton.onClick.AddListener(() =>
         {
@@ -29,6 +29,21 @@ public class InputReviewScreen : BaseCallingScreen
         purchaseButton.onClick.AddListener(() =>
         {
             UIManager.i.GetModal<PurchaseModal>().Open();
+        });
+
+        reviewTextIF.characterLimit = 400;
+        characterLimitText.text = 0 + "/" + reviewTextIF.characterLimit;
+        reviewTextIF.onValueChanged.AddListener((text) =>
+        {
+            characterLimitText.text = text.Length + "/" + reviewTextIF.characterLimit;
+            if (text.Length == reviewTextIF.characterLimit)
+            {
+                characterLimitText.color = Color.red;
+            }
+            else
+            {
+                characterLimitText.color = Color.black;
+            }
         });
 
         giftIF.contentType = TMP_InputField.ContentType.IntegerNumber;
