@@ -16,6 +16,7 @@ public class CallUranaishiButton : MonoBehaviour
     public void OnStart()
     {
         callingManager.OnStart();
+        button.onClick.AddListener(OnClick);
     }
 
 
@@ -24,15 +25,14 @@ public class CallUranaishiButton : MonoBehaviour
     public void OnOpen(Uranaishi uranaishi)
     {
         this.uranaishi = uranaishi;
-        button.onClick.AddListener(OnClickReserveButton);
         text.text = $"今すぐ予約する\n({uranaishi.GetChareText()})";
 
+        // addlistenerだと、登録したメソッドを初期化したりしないといけない
         switch (uranaishi.status)
         {
             case UranaishiStatus.Counseling:
                 break;
             case UranaishiStatus.Free:
-                button.onClick.AddListener(OnClickCallButton);
                 text.text = $"電話で占う\n({uranaishi.GetChareText()})";
                 break;
             case UranaishiStatus.Closed:
@@ -42,16 +42,23 @@ public class CallUranaishiButton : MonoBehaviour
             default:
                 break;
         }
-
     }
 
-    void OnClickCallButton()
+    void OnClick()
     {
-        callingManager.Open(uranaishi);
-    }
-
-    void OnClickReserveButton()
-    {
-
+        switch (uranaishi.status)
+        {
+            case UranaishiStatus.Counseling:
+                break;
+            case UranaishiStatus.Free:
+                callingManager.Open(uranaishi);
+                break;
+            case UranaishiStatus.Closed:
+                break;
+            case UranaishiStatus.DatTime:
+                break;
+            default:
+                break;
+        }
     }
 }
