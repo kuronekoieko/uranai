@@ -29,6 +29,7 @@ public class InputReviewScreen : BaseCallingScreen
         purchaseButton.onClick.AddListener(() =>
         {
             UIManager.i.GetModal<PurchaseModal>().Open();
+            UIManager.i.GetModal<PurchaseModal>().onClose += OnReturn;
         });
 
         reviewTextIF.characterLimit = 400;
@@ -113,5 +114,10 @@ public class InputReviewScreen : BaseCallingScreen
     {
         base.manager.Close();
         UIManager.i.CloseAllModals(Page.Rireki);
+    }
+
+    void OnReturn()
+    {
+        myPointText.text = $"所持ポイント : {SaveData.i.GetSumPoint()}pt";
     }
 }
