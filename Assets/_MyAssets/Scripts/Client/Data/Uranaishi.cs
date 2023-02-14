@@ -197,7 +197,7 @@ public class Review
     {
         string title = "";
         title += reviewerName == "" ? "匿名" : reviewerName;
-        title += "・" + age + "代";
+        title += age == 0 ? "" : "・" + age + "代";
 
         switch (sex)
         {
