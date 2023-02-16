@@ -50,8 +50,14 @@ public class CallingManager : MonoBehaviour
 
     public T GetScreen<T>() where T : BaseCallingScreen
     {
-        T subClass = baseCallingScreens.Select(_ => _ as T).FirstOrDefault(_ => _);
+        // https://techblog.kayac.com/unity_advent_calendar_2018_20
+        // T subClass = baseCallingScreens.Select(_ => _ as T).FirstOrDefault(_ => _);
+        foreach (var item in baseCallingScreens)
+        {
+            T subClass = item as T;
+            if (subClass) return subClass;
+        }
         // Debug.Log(subClass.GetType());
-        return subClass;
+        return null;
     }
 }
