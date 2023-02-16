@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-public static class TextExtension
+public static class Extensions
 {
     public static void SetLimitedText(this Text self, string originalText, int lineLimit)
     {
@@ -44,5 +44,17 @@ public static class TextExtension
     public static string GetJoinedKeywords(this string[] self)
     {
         return string.Join("、", self);
+    }
+
+    public static string ToStringIncludeEmpty(this Nullable<DateTime> self, string format = "")
+    {
+        if (self == null)
+        {
+            return "n/a";
+        }
+        else
+        {
+            return self.Value.ToString(format);
+        }
     }
 }

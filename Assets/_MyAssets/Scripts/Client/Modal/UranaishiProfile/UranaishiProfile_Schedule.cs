@@ -26,7 +26,7 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
         var schedulesGroupList = uranaishi.schedules
             .Where(schedule => schedule.start.IsFutureFromNow())
             .OrderBy(schedule => schedule.start.dateTime)
-            .GroupBy(schedule => schedule.start.dateTime.Date)
+            .GroupBy(schedule => schedule.start.dateTime?.Date)
             .Take(titleContentTexts.Count);
 
         for (int i = 0; i < schedulesGroupList.Count(); i++)
@@ -36,9 +36,9 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
             string dateText = "";
             foreach (var schedule in group)
             {
-                text += schedule.start.dateTime.ToString("HH:mm")
-                + "～" + schedule.end.dateTime.ToString("HH:mm") + "\n";
-                dateText = schedule.start.dateTime.ToString("M月d日(ddd)");
+                text += schedule.start.dateTime.ToStringIncludeEmpty("HH:mm")
+                + "～" + schedule.end.dateTime.ToStringIncludeEmpty("HH:mm") + "\n";
+                dateText = schedule.start.dateTime.ToStringIncludeEmpty("M月d日(ddd)");
             }
             text = text.TrimEnd('\n');
             titleContentTexts[i].gameObject.SetActive(true);

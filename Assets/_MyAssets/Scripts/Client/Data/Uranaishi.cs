@@ -62,7 +62,7 @@ public class Uranaishi
                     .OrderBy(schedule => schedule.start.dateTime)
                     .FirstOrDefault();
                 if (schedule == null) return "本日終了";
-                return schedule.start.dateTime.ToString("M/dd HH:mm～");
+                return schedule.start.dateTime.ToStringIncludeEmpty("M/dd HH:mm～");
             default:
                 return "";
         }
@@ -140,29 +140,40 @@ public class Schedule
 public class SerializableDateTime
 {
     [Header("yyyy/MM/dd HH:mm:ss")]
-    [SerializeField] string dateTimeStr;
+    [SerializeField] string dateTimeStr = "n/a";
+    Nullable<DateTime> _dateTime;
 
-    public DateTime dateTime
+    public string GetStr()
     {
+        return dateTimeStr;
+    }
+
+    public Nullable<DateTime> dateTime
+    {
+        set
+        {
+            _dateTime = value;
+            dateTimeStr = _dateTime.ToStringIncludeEmpty();
+        }
         get
         {
-            DateTime a = new DateTime();
-
-            if (DateTime.TryParse(dateTimeStr, out a))
+            if (_dateTime != null)
             {
+                return _dateTime;
+            }
 
+            if (DateTime.TryParse(dateTimeStr, out DateTime a))
+            {
+                _dateTime = a;
+                return _dateTime;
             }
             else
             {
                 Debug.LogError("日付のパース失敗 " + dateTimeStr);
+                return null;
             }
+        }
 
-            return a;
-        }
-        set
-        {
-            dateTimeStr = value.ToString();
-        }
     }
 
     public bool IsFutureFromNow()
