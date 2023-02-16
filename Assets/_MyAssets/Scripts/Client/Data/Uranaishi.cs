@@ -147,15 +147,15 @@ public class SerializableDateTime
         get
         {
             DateTime a = new DateTime();
-            try
+
+            if (DateTime.TryParse(dateTimeStr, out a))
             {
-                a = DateTime.Parse(dateTimeStr);
+
             }
-            catch (System.Exception)
+            else
             {
                 Debug.LogError("日付のパース失敗 " + dateTimeStr);
             }
-
 
             return a;
         }
@@ -196,7 +196,7 @@ public class Review
     public string GetTitleText()
     {
         string title = "";
-        title += reviewerName == "" ? "匿名" : reviewerName;
+        title += string.IsNullOrEmpty(reviewerName) ? "匿名" : reviewerName;
         title += age == 0 ? "" : "・" + age + "代";
 
         switch (sex)
