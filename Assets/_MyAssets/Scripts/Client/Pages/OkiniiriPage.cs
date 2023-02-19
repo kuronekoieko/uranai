@@ -22,6 +22,10 @@ public class OkiniiriPage : BasePageManager
             .Where(listCount => UIManager.i.activePage == 1)
             .Subscribe(listCount => ShowLikedList())
             .AddTo(this.gameObject);
+
+        this.ObserveEveryValueChanged(count => SaveData.i.histories.Count)
+            .Subscribe(contains => OnChangedHistories())
+            .AddTo(this.gameObject);
     }
 
     public override void OnUpdate()
@@ -37,7 +41,6 @@ public class OkiniiriPage : BasePageManager
     {
         gameObject.SetActive(true);
         ShowLikedList();
-        historyManager.ShowElement(SaveData.i.histories.ToArray());
     }
 
 
@@ -57,5 +60,10 @@ public class OkiniiriPage : BasePageManager
         }
 
         uranaishiButtonManager.ShowButtons(likedList.ToArray());
+    }
+
+    void OnChangedHistories()
+    {
+        historyManager.ShowElement(SaveData.i.histories.ToArray());
     }
 }
