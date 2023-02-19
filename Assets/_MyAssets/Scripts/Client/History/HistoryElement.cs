@@ -38,10 +38,10 @@ public class HistoryElement : ObjectPoolingElement
         nameTxt.text = uranaishi.name;
 
         var leftTimeSpan = new TimeSpan(0, 0, history.durationSec);
-        var str = leftTimeSpan.ToString(@"HH時間:mm分");
+        var str = leftTimeSpan.ToString(@"h'時間'm'分'");
 
         durationText.text = str;
-        dateTimeText.text = history.startCallingSDT.dateTime.ToStringIncludeEmpty();
+        dateTimeText.text = history.startCallingSDT.dateTime.ToStringIncludeEmpty("yyyy/MM/dd H:m");
     }
 
 }

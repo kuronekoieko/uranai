@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class SaveData
 {
@@ -58,4 +59,11 @@ public class History
     public SerializableDateTime startCallingSDT;
     public int durationSec;
     public string uranaishiId;
+
+    public History(DateTime startCallingDT, string uranaishiId)
+    {
+        startCallingSDT = new SerializableDateTime();
+        startCallingSDT.dateTime = startCallingDT;
+        this.uranaishiId = uranaishiId;
+    }
 }

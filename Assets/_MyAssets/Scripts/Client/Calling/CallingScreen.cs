@@ -17,6 +17,7 @@ public class CallingScreen : BaseCallingScreen
     bool isTimer;
     float maxSeconds;
     float usePointTimerSec;
+    History history;
 
     public override void OnStart(CallingManager callingManager)
     {
@@ -39,7 +40,7 @@ public class CallingScreen : BaseCallingScreen
         callingObj.SetActive(false);
 
         // 仮
-        Invoke("Call", 3f);
+        Invoke(nameof(Call), 3f);
     }
 
 
@@ -70,6 +71,9 @@ public class CallingScreen : BaseCallingScreen
             // Debug.Log("ポイント更新 " + secPerPoint);
 
             SaveData.i.ConsumePoints(usePointUnit);
+
+            history.durationSec = Mathf.FloorToInt(passedTimeSec);
+            SaveData.i.histories[SaveData.i.histories.Count - 1] = history;
             SaveDataManager.i.Save();
         }
 
@@ -83,6 +87,8 @@ public class CallingScreen : BaseCallingScreen
         makingCallObj.SetActive(false);
         callingObj.SetActive(true);
         StartTimer();
+        history = new History(DateTime.Now, uranaishi.id);
+        SaveData.i.histories.Add(history);
     }
 
     void StartTimer()
