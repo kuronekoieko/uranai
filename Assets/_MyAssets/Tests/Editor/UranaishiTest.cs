@@ -9,7 +9,11 @@ using System;
 public class UranaishiTest
 {
 
+    [Test]
+    public void DateTime_0()
+    {
 
+    }
 
 }
 
