@@ -7,8 +7,6 @@ using System;
 [CreateAssetMenu(menuName = "MyGame/Create " + nameof(SaveDataSO), fileName = nameof(SaveDataSO))]
 public class SaveDataSO : ScriptableObject
 {
-    [SerializeField] SaveDataManager saveDataManager;
-
     [SerializeField] SaveData saveData;
 
 
@@ -17,6 +15,7 @@ public class SaveDataSO : ScriptableObject
     [Button]
     public void Pull()
     {
+        SaveDataManager saveDataManager = FindObjectOfType<SaveDataManager>();
         saveDataManager.LoadSaveData();
         saveData = SaveData.i;
         Debug.Log("セーブデータ取得");
@@ -26,6 +25,7 @@ public class SaveDataSO : ScriptableObject
     public void Send()
     {
         SaveData.i = saveData;
+        SaveDataManager saveDataManager = FindObjectOfType<SaveDataManager>();
         saveDataManager.Save();
         Debug.Log("セーブデータ更新");
     }
@@ -33,6 +33,7 @@ public class SaveDataSO : ScriptableObject
     [Button]
     public void Clear()
     {
+        SaveDataManager saveDataManager = FindObjectOfType<SaveDataManager>();
         saveDataManager.Clear();
         saveData = SaveData.i;
         Debug.Log("セーブデータ削除");
