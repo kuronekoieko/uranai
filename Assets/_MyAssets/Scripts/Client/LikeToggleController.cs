@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UniRx;
 
 public class LikeToggleController : MonoBehaviour
 {
@@ -13,12 +14,17 @@ public class LikeToggleController : MonoBehaviour
     {
         toggle = GetComponent<Toggle>();
         toggle.onValueChanged.AddListener(ToggleValueChanged);
+
+        this.ObserveEveryValueChanged(count => SaveData.i.likedUranaishiIdList.Count)
+            .Where(count => uranaishi != null)
+            .Select(contains => SaveData.i.likedUranaishiIdList.Contains(uranaishi.id))
+            .Subscribe(contains => OnChangedSaveData(contains))
+            .AddTo(this.gameObject);
     }
 
     public void OnOpen(Uranaishi uranaishi)
     {
         this.uranaishi = uranaishi;
-        toggle.isOn = SaveData.i.likedUranaishiIdList.Contains(uranaishi.id);
     }
 
     void ToggleValueChanged(bool isOn)
@@ -35,4 +41,13 @@ public class LikeToggleController : MonoBehaviour
             SaveDataManager.i.Save();
         }
     }
+
+
+    void OnChangedSaveData(bool isAdded)
+    {
+        // TODO: すべてのtoggleが変更検知してしまう
+        toggle.isOn = isAdded;
+        // Debug.Log(uranaishi.id + " " + isAdded);
+    }
+
 }
