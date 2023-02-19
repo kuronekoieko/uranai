@@ -11,6 +11,7 @@ public class KuchikomiPage : BasePageManager
     {
         base.SetPageAction(Page.Kuchikomi);
         kuchikomiManager.OnStart();
+        Order(UIManager.i.uranaishiAry);
     }
 
     public override void OnUpdate()
@@ -26,6 +27,12 @@ public class KuchikomiPage : BasePageManager
     {
         gameObject.SetActive(true);
 
+
+    }
+
+
+    void Order(Uranaishi[] uranaishis)
+    {
         var priorityDic = new Dictionary<UranaishiStatus, int>
         {
             {UranaishiStatus.Waiting,100},
@@ -35,7 +42,7 @@ public class KuchikomiPage : BasePageManager
         };
 
 
-        var groups = UIManager.i.uranaishiAry
+        var groups = uranaishis
         .SelectMany(uranaishi => uranaishi.reviews)
         .Where(review => review.isPickUp)
         .GroupBy(review => review.uranaishi.status)
@@ -67,4 +74,5 @@ public class KuchikomiPage : BasePageManager
 
         }
     }
+
 }
