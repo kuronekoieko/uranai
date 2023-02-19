@@ -64,6 +64,9 @@ public class OkiniiriPage : BasePageManager
 
     void OnChangedHistories()
     {
-        historyManager.ShowElement(SaveData.i.histories.ToArray());
+        History[] histories = SaveData.i.histories
+        .OrderByDescending(h => h.startCallingSDT.dateTime)
+        .ToArray();
+        historyManager.ShowElement(histories);
     }
 }
