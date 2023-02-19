@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using DG.Tweening;
 
 public class CallingScreen : BaseCallingScreen
 {
@@ -40,7 +41,7 @@ public class CallingScreen : BaseCallingScreen
         callingObj.SetActive(false);
 
         // 仮
-        Invoke(nameof(Call), 3f);
+        DOVirtual.DelayedCall(3, Call);
     }
 
 

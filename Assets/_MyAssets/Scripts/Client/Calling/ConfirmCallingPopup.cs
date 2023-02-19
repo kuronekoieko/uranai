@@ -10,7 +10,7 @@ public class ConfirmCallingPopup : BaseCallingScreen
     [SerializeField] Button cancelButton;
     [SerializeField] TextMeshProUGUI chargeText;
     [SerializeField] TextMeshProUGUI timeText;
-
+    Uranaishi uranaishi1;
     public override void OnStart(CallingManager callingManager)
     {
         base.OnStart(callingManager);
@@ -19,13 +19,15 @@ public class ConfirmCallingPopup : BaseCallingScreen
         {
             callingManager.Close();
         });
+        callButton.onClick.AddListener(() => OnClickCallButton());
+
     }
 
     public override void Open(Uranaishi uranaishi)
     {
+        this.uranaishi = uranaishi;
         base.Open(uranaishi);
 
-        callButton.onClick.AddListener(() => OnClickCallButton(uranaishi));
         chargeText.text = uranaishi.callChargePerMin.ToString("N0");
 
         float minuteF = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerMin;
@@ -39,7 +41,7 @@ public class ConfirmCallingPopup : BaseCallingScreen
         base.Close();
     }
 
-    void OnClickCallButton(Uranaishi uranaishi)
+    void OnClickCallButton()
     {
         base.manager.GetScreen<CallingScreen>().Open(uranaishi);
     }
