@@ -9,6 +9,9 @@ public class SaveData
     public List<string> likedUranaishiIdList = new List<string>();
     public int purchasedPoint;
     public int freePoint;
+    public List<History> histories = new List<History>();
+
+
 
     public SaveData(int freePoint, int purchasedPoint = 0)
     {
@@ -47,4 +50,12 @@ public class SaveData
 
     }
 
+}
+
+[System.Serializable]
+public class History
+{
+    public SerializableDateTime startCallingSDT;
+    public int durationSec;
+    public string uranaishiId;
 }

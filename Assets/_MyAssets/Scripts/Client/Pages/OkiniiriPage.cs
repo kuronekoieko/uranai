@@ -8,11 +8,13 @@ public class OkiniiriPage : BasePageManager
 {
 
     [SerializeField] UranaishiButtonManager uranaishiButtonManager;
+    [SerializeField] HistoryManager historyManager;
 
     public override void OnStart()
     {
         base.SetPageAction(Page.Okiniiri);
         uranaishiButtonManager.OnStart();
+        historyManager.OnStart();
 
         ShowLikedList();
 
@@ -35,6 +37,7 @@ public class OkiniiriPage : BasePageManager
     {
         gameObject.SetActive(true);
         ShowLikedList();
+        historyManager.ShowElement(SaveData.i.histories.ToArray());
     }
 
 
