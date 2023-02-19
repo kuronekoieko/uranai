@@ -19,4 +19,13 @@ public class KuchikomiManager : ObjectPooling<KuchikomiElement>
             element.Show(reviews[i]);
         }
     }
+
+    public void AddElement(Review[] reviews)
+    {
+        for (int i = 0; i < reviews.Length; i++)
+        {
+            var element = base.GetInstance();
+            element.Show(reviews[i]);
+        }
+    }
 }

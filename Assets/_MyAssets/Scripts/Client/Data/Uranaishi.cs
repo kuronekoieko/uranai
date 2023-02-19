@@ -52,7 +52,7 @@ public class Uranaishi
         {
             case UranaishiStatus.Counseling:
                 return "相談中(X人待ち)";
-            case UranaishiStatus.Free:
+            case UranaishiStatus.Waiting:
                 return "今すぐOK";
             case UranaishiStatus.Closed:
                 return "本日終了";
@@ -122,7 +122,7 @@ public class Uranaishi
 public enum UranaishiStatus
 {
     Counseling = 0,
-    Free = 1,
+    Waiting = 1,
     Closed = 2,
     DatTime = 3
 }

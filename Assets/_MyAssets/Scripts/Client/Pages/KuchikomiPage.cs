@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class KuchikomiPage : BasePageManager
 {
@@ -10,9 +11,6 @@ public class KuchikomiPage : BasePageManager
     {
         base.SetPageAction(Page.Kuchikomi);
         kuchikomiManager.OnStart();
-
-
-
     }
 
     public override void OnUpdate()
@@ -28,19 +26,45 @@ public class KuchikomiPage : BasePageManager
     {
         gameObject.SetActive(true);
 
+        var priorityDic = new Dictionary<UranaishiStatus, int>
+        {
+            {UranaishiStatus.Waiting,100},
+            {UranaishiStatus.Counseling,90},
+            {UranaishiStatus.DatTime,10},
+            {UranaishiStatus.Closed,0},
+        };
 
-        Review[] reviews = UIManager.i.uranaishiAry
+
+        var groups = UIManager.i.uranaishiAry
         .SelectMany(uranaishi => uranaishi.reviews)
         .Where(review => review.isPickUp)
-        .OrderByDescending(review => review.writtenDate.dateTime)
-        .ToArray();
+        .GroupBy(review => review.uranaishi.status)
+        .OrderByDescending(g => priorityDic[g.Key]);
 
-        foreach (var item in reviews)
+
+        foreach (var group in groups)
         {
-            Debug.Log(item.writtenDate.dateTime);
+            Review[] reviews;
+            switch (group.Key)
+            {
+                case UranaishiStatus.Counseling:
+                    reviews = group.OrderBy(i => Guid.NewGuid()).ToArray();
+                    break;
+                case UranaishiStatus.Waiting:
+                    reviews = group.OrderBy(i => Guid.NewGuid()).ToArray();
+                    break;
+                case UranaishiStatus.Closed:
+                    reviews = group.OrderByDescending(i => i.writtenDate.dateTime).ToArray();
+                    break;
+                case UranaishiStatus.DatTime:
+                    reviews = group.OrderByDescending(i => i.writtenDate.dateTime).ToArray();
+                    break;
+                default:
+                    reviews = group.OrderByDescending(i => i.writtenDate.dateTime).ToArray();
+                    break;
+            }
+            kuchikomiManager.AddElement(reviews);
+
         }
-
-        kuchikomiManager.ShowElement(reviews);
-
     }
 }

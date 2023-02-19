@@ -32,7 +32,7 @@ public class CallUranaishiButton : MonoBehaviour
         {
             case UranaishiStatus.Counseling:
                 break;
-            case UranaishiStatus.Free:
+            case UranaishiStatus.Waiting:
                 text.text = $"電話で占う\n({uranaishi.GetChareText()})";
                 break;
             case UranaishiStatus.Closed:
@@ -50,7 +50,7 @@ public class CallUranaishiButton : MonoBehaviour
         {
             case UranaishiStatus.Counseling:
                 break;
-            case UranaishiStatus.Free:
+            case UranaishiStatus.Waiting:
                 callingManager.Open(uranaishi);
                 break;
             case UranaishiStatus.Closed:
