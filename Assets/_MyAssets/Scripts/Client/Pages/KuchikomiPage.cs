@@ -9,7 +9,7 @@ public class KuchikomiPage : BasePageManager
     [SerializeField] KuchikomiManager kuchikomiManager;
     public override void OnStart()
     {
-        base.SetPageAction(Page.Kuchikomi);
+        base.SetPageAction(3);
         kuchikomiManager.OnStart();
         Order();
     }

@@ -6,7 +6,7 @@ public class RirekiPage : BasePageManager
 {
     public override void OnStart()
     {
-        base.SetPageAction(Page.Rireki);
+        base.SetPageAction(2);
 
     }
 

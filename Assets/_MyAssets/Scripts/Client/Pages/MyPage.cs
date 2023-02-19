@@ -9,7 +9,7 @@ public class MyPage : BasePageManager
 
     public override void OnStart()
     {
-        base.SetPageAction(Page.MyPage);
+        base.SetPageAction(4);
         purchaseButton.onClick.AddListener(() =>
         {
             UIManager.i.GetModal<PurchaseModal>().Open();

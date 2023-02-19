@@ -12,14 +12,14 @@ public class OkiniiriPage : BasePageManager
 
     public override void OnStart()
     {
-        base.SetPageAction(Page.Okiniiri);
+        base.SetPageAction(1);
         uranaishiButtonManager.OnStart();
         historyManager.OnStart();
 
         ShowLikedList();
 
         this.ObserveEveryValueChanged(listCount => SaveData.i.likedUranaishiIdList.Count)
-            .Where(listCount => UIManager.i.activePage == Page.Okiniiri)
+            .Where(listCount => UIManager.i.activePage == 1)
             .Subscribe(listCount => ShowLikedList())
             .AddTo(this.gameObject);
     }

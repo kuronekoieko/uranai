@@ -3,24 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 
-public enum Page
-{
-    Uranau = 0,
-    Okiniiri = 1,
-    Rireki = 2,
-    Kuchikomi = 3,
-    MyPage = 4,
-}
-
 public abstract class BasePageManager : MonoBehaviour
 {
-    Page thisPage;
+    int thisPage;
 
     /// <summary>
     /// OnOpenとOnCloseのイベント発火タイミングを設定する
     /// </summary>
     /// <param name="thisPage">セットする画面のenumを入れてください</param>
-    protected void SetPageAction(Page thisPage)
+    protected void SetPageAction(int thisPage)
     {
         this.thisPage = thisPage;
 

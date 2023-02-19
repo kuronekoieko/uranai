@@ -14,7 +14,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] UranaishiTestData uranaishiTestData;
     public Uranaishi[] uranaishiAry { get; set; }
     public static UIManager i;
-    public Page activePage { get; set; } = Page.Uranau;
+    public int activePage { get; set; } = 0;
     public bool isLocalTestData { get; } = false;
     BaseModal[] baseModals;
     BannerToggleController[] bannerToggleControllers;
@@ -74,7 +74,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void CloseAllModals(Page transPage)
+    public void CloseAllModals(int transPage)
     {
         foreach (var baseModal in baseModals)
         {

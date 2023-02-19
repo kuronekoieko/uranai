@@ -113,7 +113,7 @@ public class InputReviewScreen : BaseCallingScreen
     void CloseAllModals()
     {
         base.manager.Close();
-        UIManager.i.CloseAllModals(Page.Rireki);
+        UIManager.i.CloseAllModals(1);
     }
 
     void OnReturn()

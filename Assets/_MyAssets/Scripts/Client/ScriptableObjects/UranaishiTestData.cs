@@ -5,7 +5,6 @@ using Sirenix.OdinInspector;
 using System;
 
 [CreateAssetMenu(menuName = "MyGame/Create " + nameof(UranaishiTestData), fileName = nameof(UranaishiTestData))]
-
 public class UranaishiTestData : ScriptableObject
 {
 
