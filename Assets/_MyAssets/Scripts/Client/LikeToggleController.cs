@@ -15,6 +15,7 @@ public class LikeToggleController : MonoBehaviour
         toggle = GetComponent<Toggle>();
         toggle.onValueChanged.AddListener(ToggleValueChanged);
 
+        toggle.isOn = false;
         this.ObserveEveryValueChanged(count => SaveData.i.likedUranaishiIdList.Count)
             .Where(count => uranaishi != null)
             .Select(contains => SaveData.i.likedUranaishiIdList.Contains(uranaishi.id))
@@ -29,14 +30,17 @@ public class LikeToggleController : MonoBehaviour
 
     void ToggleValueChanged(bool isOn)
     {
+        if (uranaishi == null) return;
+        bool isContains = SaveData.i.likedUranaishiIdList.Contains(uranaishi.id);
         if (isOn)
         {
-            if (SaveData.i.likedUranaishiIdList.Contains(uranaishi.id)) return;
+            if (isContains) return;
             SaveData.i.likedUranaishiIdList.Add(uranaishi.id);
             SaveDataManager.i.Save();
         }
         else
         {
+            if (isContains == false) return;
             SaveData.i.likedUranaishiIdList.Remove(uranaishi.id);
             SaveDataManager.i.Save();
         }
