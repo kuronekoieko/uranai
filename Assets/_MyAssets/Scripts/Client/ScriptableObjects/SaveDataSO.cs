@@ -29,4 +29,12 @@ public class SaveDataSO : ScriptableObject
         saveDataManager.Save();
         Debug.Log("セーブデータ更新");
     }
+
+    [Button]
+    public void Clear()
+    {
+        saveDataManager.Clear();
+        saveData = SaveData.i;
+        Debug.Log("セーブデータ削除");
+    }
 }

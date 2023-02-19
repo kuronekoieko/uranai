@@ -55,4 +55,10 @@ public class SaveDataManager : MonoBehaviour
     void AddSaveDataInstance()
     {
     }
+
+    public void Clear()
+    {
+        PlayerPrefs.DeleteAll();
+        LoadSaveData();
+    }
 }
