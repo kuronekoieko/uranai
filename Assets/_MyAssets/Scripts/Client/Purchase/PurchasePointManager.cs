@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PurchasePointManager : ObjectPooling<PurchasePointElement>
 {
-    public void OnStart()
+    public override void OnStart()
     {
-        base.Initialize();
+        base.OnStart();
     }
 
     public void ShowElements(List<ChargeInfo> chargeInfos)

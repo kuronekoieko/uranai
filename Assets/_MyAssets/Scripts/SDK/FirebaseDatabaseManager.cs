@@ -85,6 +85,10 @@ public class FirebaseDatabaseManager : Singleton<FirebaseDatabaseManager>
                     DataSnapshot data = result.Current;
                     Uranaishi uranaishi = new Uranaishi();
                     JsonUtility.FromJsonOverwrite(data.GetRawJsonValue(), uranaishi);
+                    foreach (var review in uranaishi.reviews)
+                    {
+                        review.uranaishi = uranaishi;
+                    }
                     uranaishiList.Add(uranaishi);
                     // Debug.Log(data.GetRawJsonValue());
 

@@ -5,11 +5,10 @@ using System.Linq;
 
 public class UranaishiButtonManager : ObjectPooling<UranaishiButton>
 {
-    public void OnStart()
+    public override void OnStart()
     {
-        base.Initialize();
+        base.OnStart();
     }
-
     public void ShowButtons(Uranaishi[] uranaishiAry)
     {
         base.Clear();

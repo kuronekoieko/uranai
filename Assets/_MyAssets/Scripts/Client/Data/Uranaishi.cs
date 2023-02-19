@@ -185,6 +185,7 @@ public class SerializableDateTime
 [System.Serializable]
 public class Review
 {
+    [NonSerialized] public Uranaishi uranaishi;
     public int starCount;
     [TextArea(5, 10)] public string text;
     public string reviewerName;

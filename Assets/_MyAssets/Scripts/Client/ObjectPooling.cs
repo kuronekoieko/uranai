@@ -9,7 +9,7 @@ public class ObjectPooling<T> : MonoBehaviour where T : ObjectPoolingElement
 
     protected List<T> list = new List<T>();
 
-    protected void Initialize()
+    public virtual void OnStart()
     {
         this.prefab.gameObject.SetActive(false);
     }
