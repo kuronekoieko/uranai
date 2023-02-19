@@ -14,7 +14,7 @@ public class HistoryElement : ObjectPoolingElement
     [SerializeField] Text dateTimeText;
     Uranaishi uranaishi;
 
-    public override void Initialize()
+    public override void OnInstantiate()
     {
         uranaishiButton.onClick.AddListener(OnClickUranaishiButtonButton);
     }

@@ -36,7 +36,7 @@ public class ObjectPooling<T> : MonoBehaviour where T : ObjectPoolingElement
         if (instance == null)
         {
             instance = Instantiate(prefab, parent ? parent : transform);
-            instance.Initialize();
+            instance.OnInstantiate();
             list.Add(instance);
         }
         instance.gameObject.SetActive(true);

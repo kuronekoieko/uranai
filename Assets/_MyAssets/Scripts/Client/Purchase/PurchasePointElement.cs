@@ -12,7 +12,7 @@ public class PurchasePointElement : ObjectPoolingElement
     [SerializeField] Button button;
     ChargeInfo chargeInfo;
 
-    public override void Initialize()
+    public override void OnInstantiate()
     {
         button.onClick.AddListener(OnClickPurchaseButton);
     }

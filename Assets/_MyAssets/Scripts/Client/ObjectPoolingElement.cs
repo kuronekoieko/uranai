@@ -4,5 +4,5 @@ using UnityEngine;
 
 public abstract class ObjectPoolingElement : MonoBehaviour
 {
-    public abstract void Initialize();
+    public abstract void OnInstantiate();
 }

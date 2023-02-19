@@ -17,7 +17,7 @@ public class UranaishiButton : ObjectPoolingElement
     public RectTransform rectTransform;
     Uranaishi uranaishi;
 
-    public override void Initialize()
+    public override void OnInstantiate()
     {
         button.onClick.AddListener(OnClickButton);
     }

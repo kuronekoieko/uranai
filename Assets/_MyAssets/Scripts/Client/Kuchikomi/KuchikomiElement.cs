@@ -14,7 +14,7 @@ public class KuchikomiElement : ObjectPoolingElement
 
     Uranaishi uranaishi;
 
-    public override void Initialize()
+    public override void OnInstantiate()
     {
         uranaishiButton.onClick.AddListener(OnClickUranaishiButtonButton);
         likeToggleController.OnStart();

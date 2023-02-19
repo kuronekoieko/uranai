@@ -26,7 +26,7 @@ public class ReviewElement : ObjectPoolingElement
         if (pickUpImage) pickUpImage.gameObject.SetActive(review.isPickUp);
     }
 
-    public override void Initialize()
+    public override void OnInstantiate()
     {
 
     }
