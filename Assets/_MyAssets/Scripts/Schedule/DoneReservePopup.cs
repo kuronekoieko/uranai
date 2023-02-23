@@ -6,28 +6,26 @@ using UnityEngine.UI;
 using TMPro;
 using System.Linq;
 
-public class DoneReservePopup : MonoBehaviour
+public class DoneReservePopup : BasePopup
 {
-    [SerializeField] Button confirmButton;
-
     [SerializeField] TextMeshProUGUI nameText;
     [SerializeField] TextMeshProUGUI startDateTimeText;
     [SerializeField] TextMeshProUGUI durationText;
 
 
-    public void OnStart()
+    public override void OnStart()
     {
-        gameObject.SetActive(false);
-        confirmButton.onClick.AddListener(() =>
-        {
-            UIManager.i.CloseAllModals(4);
-            gameObject.SetActive(false);
-        });
+        base.OnStart();
     }
 
     public void Open(Uranaishi uranaishi, DateTime startDateTime, int durationMin)
     {
-        gameObject.SetActive(true);
+        base.onClickPositiveButton = () =>
+        {
+            UIManager.i.CloseAllModals(4);
+        };
+        base.Open();
+
         nameText.text = uranaishi.name;
         startDateTimeText.text = startDateTime.ToString("MM/dd(ddd) HH:mm");
         durationText.text = durationMin + "分";

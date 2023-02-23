@@ -19,15 +19,20 @@ public class ReserveModal : BaseModal
     [SerializeField] Button confirmButton;
     [SerializeField] Toggle[] durationToggles;
     [SerializeField] DoneReservePopup doneReservePopup;
+    [SerializeField] PurchasePointsPopup purchasePointsPopup;
     int[] reservableMins;
 
     Uranaishi uranaishi;
     DateTime dateTime;
+    int selectedMin;
+    bool isEnoughPoint => SaveData.i.GetSumPoint() > selectedMin * uranaishi.callChargePerMin;
+
 
     public override void OnStart()
     {
         base.OnStart();
         doneReservePopup.OnStart();
+        purchasePointsPopup.OnStart();
 
         reservableMins = new int[durationToggles.Length];
         for (int i = 0; i < reservableMins.Length; i++)
@@ -74,11 +79,11 @@ public class ReserveModal : BaseModal
            .Select(t => t.Index)
            .FirstOrDefault();
 
-        int selectedMin = reservableMins[index];
+        selectedMin = reservableMins[index];
 
         // bool isEnoughPoint = SaveData.i.GetSumPoint() > Constant.Instance.reserveDurationMin * uranaishi.callChargePerMin;
-        bool isEnoughPoint = SaveData.i.GetSumPoint() > selectedMin * uranaishi.callChargePerMin;
 
+        // プッシュ通知がオフのときのポップアップ
 
         if (isEnoughPoint)
         {
@@ -87,7 +92,18 @@ public class ReserveModal : BaseModal
         }
         else
         {
-            Debug.Log("ポイント購入のポップアプ");
+            purchasePointsPopup.Open(uranaishi, selectedMin);
+            purchasePointsPopup.onReturnFromPurchase = OnReturnFromPurchase;
+        }
+    }
+
+    void OnReturnFromPurchase()
+    {
+        ShowClientStatus();
+        //isEnoughPoint = true;
+        if (isEnoughPoint == false)
+        {
+            purchasePointsPopup.Open(uranaishi, selectedMin);
         }
     }
 

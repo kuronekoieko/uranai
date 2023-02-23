@@ -7,7 +7,9 @@ using System.Linq;
 public class CallingManager : MonoBehaviour
 {
     BaseCallingScreen[] baseCallingScreens;
-
+    [SerializeField] PurchasePointsPopup purchasePointsPopup;
+    Uranaishi uranaishi;
+    bool isEnoughPoint => SaveData.i.GetSumPoint() > uranaishi.callChargePerMin * 3;
 
     public void OnStart()
     {
@@ -16,18 +18,18 @@ public class CallingManager : MonoBehaviour
         {
             item.OnStart(this);
         }
+        purchasePointsPopup.OnStart();
     }
 
     public void Open(Uranaishi uranaishi)
     {
         gameObject.SetActive(true);
-
+        this.uranaishi = uranaishi;
         foreach (var item in baseCallingScreens)
         {
             item.Close();
         }
 
-        bool isEnoughPoint = SaveData.i.GetSumPoint() > uranaishi.callChargePerMin * 3;
         //isEnoughPoint = true;
         if (isEnoughPoint)
         {
@@ -35,7 +37,18 @@ public class CallingManager : MonoBehaviour
         }
         else
         {
-            GetScreen<PurchasePointsPopup>().Open(uranaishi);
+            purchasePointsPopup.onReturnFromPurchase = OnReturnFromPurchase;
+            purchasePointsPopup.Open(uranaishi, 3);
+        }
+    }
+
+    void OnReturnFromPurchase()
+    {
+        //isEnoughPoint = true;
+        if (isEnoughPoint)
+        {
+            purchasePointsPopup.Close();
+            GetScreen<ConfirmCallingPopup>().Open(uranaishi);
         }
     }
 

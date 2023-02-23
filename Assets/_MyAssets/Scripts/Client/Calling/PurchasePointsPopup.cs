@@ -3,49 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-public class PurchasePointsPopup : BaseCallingScreen
+public class PurchasePointsPopup : BasePopup
 {
-    [SerializeField] Button purchaseButton;
-    [SerializeField] Button cancelButton;
     [SerializeField] TextMeshProUGUI needText;
+    Uranaishi uranaishi;
 
-    public override void OnStart(CallingManager manager)
+    public Action onReturnFromPurchase { get; set; }
+
+
+    public override void OnStart()
     {
-        base.OnStart(manager);
-
-        purchaseButton.onClick.AddListener(() =>
-        {
-            UIManager.i.GetModal<PurchaseModal>().Open();
-            UIManager.i.GetModal<PurchaseModal>().onClose += OnReturn;
-        });
-        cancelButton.onClick.AddListener(() =>
-        {
-            Close();
-        });
+        base.OnStart();
     }
 
-    public override void Open(Uranaishi uranaishi)
+    public void Open(Uranaishi uranaishi, int minMinutes)
     {
-        base.Open(uranaishi);
-        int point = uranaishi.callChargePerMin * 3;
-        needText.text = $"ご利用には\n最低{point}pt(3分間の電話分)を\n所持している必要があります";
+        this.uranaishi = uranaishi;
+        base.onClickPositiveButton = OnClickPurchaseButton;
+        base.onClickNegativeButton = OnClickCancelButton;
+        base.Open();
+        int point = uranaishi.callChargePerMin * minMinutes;
+        needText.text = $"ご利用には\n最低{point}pt({minMinutes}分間の電話分)を\n所持している必要があります";
     }
 
-    public override void Close()
+    void OnClickPurchaseButton()
     {
-        base.Close();
+        UIManager.i.GetModal<PurchaseModal>().Open();
+        UIManager.i.GetModal<PurchaseModal>().onClose += onReturnFromPurchase;
     }
 
-    void OnReturn()
+    void OnClickCancelButton()
     {
-        bool isEnoughPoint = SaveData.i.GetSumPoint() > uranaishi.callChargePerMin * 3;
-        //isEnoughPoint = true;
-        if (isEnoughPoint)
-        {
-            Close();
-            base.manager.GetScreen<ConfirmCallingPopup>().Open(uranaishi);
-        }
-    }
 
+    }
 }
