@@ -2,10 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.UI;
+using TMPro;
 
 public class ScheduleModal : BaseModal
 {
     [SerializeField] ScheduleSelectManager scheduleSelectManager;
+    [SerializeField] TextMeshProUGUI monthText;
+    [SerializeField] TextMeshProUGUI[] dayTexts;
+
     public override void OnStart()
     {
         base.OnStart();
@@ -16,14 +21,24 @@ public class ScheduleModal : BaseModal
     {
         base.OpenAnim(ModalType.Horizontal);
 
+
+
+        monthText.text = DateTime.Today.ToString("M月");
+
+        for (int i = 0; i < dayTexts.Length; i++)
+        {
+            dayTexts[i].text = DateTime.Today.AddDays(i).ToString("dd\n(ddd)");
+        }
+
+
         List<DateTime[]> dateTimeMatrix = new List<DateTime[]>();
 
-        double span = 30;
+        double span = 20;
         DateTime init = DateTime.Today.AddHours(9);
-        DateTime last = DateTime.Today.AddDays(1).AddHours(4);
+        DateTime last = DateTime.Today.AddDays(1).AddHours(5);
 
 
-        for (DateTime i = init; i <= last; i = i.AddMinutes(span))
+        for (DateTime i = init; i < last; i = i.AddMinutes(span))
         {
             // Debug.Log(i);
             DateTime[] dateTimes = new DateTime[3];
