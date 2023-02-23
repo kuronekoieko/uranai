@@ -21,10 +21,10 @@ public class RowElement : ObjectPoolingElement
         }
     }
 
-    public void Show(DateTime dateTime, bool isLastOfTheHour)
+    public void Show(DateTime[] dateTimes, Uranaishi uranaishi, int span)
     {
-        timeText.text = dateTime.ToShortTimeString();
-
+        timeText.text = dateTimes[0].ToShortTimeString();
+        bool isLastOfTheHour = dateTimes[0].Minute + span == 60;
         lightBorderLE.gameObject.SetActive(!isLastOfTheHour);
         boldBorderLE.gameObject.SetActive(isLastOfTheHour);
 

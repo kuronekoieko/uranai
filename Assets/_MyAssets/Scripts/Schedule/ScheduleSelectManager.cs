@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 
 public class ScheduleSelectManager : ObjectPooling<RowElement>
 {
@@ -9,15 +11,14 @@ public class ScheduleSelectManager : ObjectPooling<RowElement>
         base.OnStart();
     }
 
-    public void ShowElement(History[] histories)
+    public void ShowElement(List<DateTime[]> dateTimeMatrix, Uranaishi uranaishi, int span)
     {
         base.Clear();
-
-        for (int i = 0; i < histories.Length; i++)
+        for (int i = 0; i < dateTimeMatrix.Count; i++)
         {
             var element = base.GetInstance();
             // element.Show(histories[i]);
-            // element.Show();
+            element.Show(dateTimeMatrix[i], uranaishi, span);
         }
     }
 
