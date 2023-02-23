@@ -99,8 +99,6 @@ public class ReserveModal : BaseModal
             return;
         }
 
-
-        doneReservePopup.Open(uranaishi, dateTime, selectedMin);
         ConfirmReserve();
 
     }
@@ -118,6 +116,34 @@ public class ReserveModal : BaseModal
 
     void ConfirmReserve()
     {
+        doneReservePopup.Open(uranaishi, dateTime, selectedMin);
+        SettingPush();
+    }
 
+    private void SettingPush()
+    {
+        //　Androidチャンネルの登録
+        //LocalPushNotification.RegisterChannel(引数1,引数２,引数３);
+        //引数１ Androidで使用するチャンネルID なんでもいい LocalPushNotification.AddSchedule()で使用する
+        //引数2　チャンネルの名前　なんでもいい　アプリ名でも入れておく
+        //引数3　通知の説明 なんでもいい　自分がわかる用に書いておくもの　
+        LocalPushNotification.RegisterChannel("channelId", "PushTest", "通知の説明");
+
+        //通知のクリア
+        LocalPushNotification.AllClear();
+
+        // プッシュ通知の登録
+        //LocalPushNotification.AddSchedule(引数１,引数2,引数3,引数4,引数5);
+        //引数１ プッシュ通知のタイトル
+        //引数2　通知メッセージ
+        //引数3　表示するバッジの数(バッジ数はiOSのみ適用の様子 Androidで数値を入れても問題無い)
+        //引数4　何秒後に表示させるか？
+        //引数5　Androidで使用するチャンネルID　「Androidチャンネルの登録」で登録したチャンネルIDと合わせておく
+        //注意　iOSは45秒経過後からしかプッシュ通知が表示されない  
+
+        //https://www.fenet.jp/dotnet/column/language/8364/
+        TimeSpan interval = dateTime - DateTime.Now;
+        int sec = (int)interval.TotalSeconds;
+        LocalPushNotification.AddSchedule("予約時間になりました。", "予約時間になりました。", 1, sec, "channelId");
     }
 }
