@@ -23,12 +23,11 @@ public class SelectDateTimeButton : MonoBehaviour
     {
         this.uranaishi = uranaishi;
 
-        bool available = uranaishi.reserves.Any(a => a.reservedSDT.dateTime == dateTime);
-        Debug.Log(dateTime);
+        bool reserved = uranaishi.reserves.Any(a => a.reservedSDT.dateTime == dateTime);
 
-        availableObj.SetActive(available);
-        notAvailableObj.SetActive(available == false);
-        button.enabled = available == false;
+        availableObj.SetActive(!reserved);
+        notAvailableObj.SetActive(reserved);
+        button.enabled = reserved;
     }
 
     void OnClickSelectButton()
