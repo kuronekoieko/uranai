@@ -30,7 +30,7 @@ public class RowElement : ObjectPoolingElement
 
         for (int i = 0; i < selectDateTimeButtons.Length; i++)
         {
-            selectDateTimeButtons[i].OnOpen();
+            selectDateTimeButtons[i].OnOpen(dateTimes[i], uranaishi);
         }
     }
 
