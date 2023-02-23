@@ -48,6 +48,6 @@ public class UranaishiModal : BaseModal
 
     void OnClickScheduleButton()
     {
-
+        UIManager.i.GetModal<ScheduleModal>().Open(uranaishi);
     }
 }
