@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-
+using System.Linq;
 
 public class SelectDateTimeButton : MonoBehaviour
 {
@@ -22,7 +22,10 @@ public class SelectDateTimeButton : MonoBehaviour
     public void OnOpen(DateTime dateTime, Uranaishi uranaishi)
     {
         this.uranaishi = uranaishi;
-        bool available = false;
+
+        bool available = uranaishi.reserves.Any(a => a.reservedSDT.dateTime == dateTime);
+        Debug.Log(dateTime);
+
         availableObj.SetActive(available);
         notAvailableObj.SetActive(available == false);
         button.enabled = available == false;

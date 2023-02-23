@@ -15,13 +15,14 @@ public class Uranaishi
     public int callChargePerMin;
     [TextArea(5, 10)] public string message;
     public string belonging;
+    public string twitterURL;
+    public string facebookURL;
+    public string otherURL;
     public string[] expertises = new string[0];
     public string[] divinations = new string[0];
     public Schedule[] schedules = new Schedule[0];
     public List<Review> reviews = new List<Review>();
-    public string twitterURL;
-    public string facebookURL;
-    public string otherURL;
+    public List<Reserve> reserves = new List<Reserve>();
 
     [System.NonSerialized] Sprite _iconSprite;
 
@@ -235,4 +236,11 @@ public enum Sex
     Man,
     Woman,
     None,
+}
+
+[System.Serializable]
+public class Reserve
+{
+    public SerializableDateTime reservedSDT;
+    public string clientName;
 }

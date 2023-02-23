@@ -21,7 +21,7 @@ public class ScheduleModal : BaseModal
     {
         base.OpenAnim(ModalType.Horizontal);
 
-
+        //  Debug.Log(uranaishi.reserves.);
 
         monthText.text = DateTime.Today.ToString("M月");
 
@@ -44,7 +44,7 @@ public class ScheduleModal : BaseModal
             DateTime[] dateTimes = new DateTime[3];
             for (int j = 0; j < dateTimes.Length; j++)
             {
-                dateTimes[j] = i;
+                dateTimes[j] = i.AddDays(j);
             }
             dateTimeMatrix.Add(dateTimes);
         }
