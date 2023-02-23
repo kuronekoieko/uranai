@@ -11,14 +11,14 @@ public class ScheduleSelectManager : ObjectPooling<RowElement>
         base.OnStart();
     }
 
-    public void ShowElement(List<DateTime[]> dateTimeMatrix, Uranaishi uranaishi, int span)
+    public void ShowElement(List<DateTime[]> dateTimeMatrix, Uranaishi uranaishi)
     {
         base.Clear();
         for (int i = 0; i < dateTimeMatrix.Count; i++)
         {
             var element = base.GetInstance();
             // element.Show(histories[i]);
-            element.Show(dateTimeMatrix[i], uranaishi, span);
+            element.Show(dateTimeMatrix[i], uranaishi);
         }
     }
 

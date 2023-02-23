@@ -33,7 +33,7 @@ public class ScheduleModal : BaseModal
 
         List<DateTime[]> dateTimeMatrix = new List<DateTime[]>();
 
-        double span = 20;
+        double span = Constant.Instance.reserveDurationMin;
         DateTime init = DateTime.Today.AddHours(9);
         DateTime last = DateTime.Today.AddDays(1).AddHours(5);
 
@@ -49,7 +49,7 @@ public class ScheduleModal : BaseModal
             dateTimeMatrix.Add(dateTimes);
         }
 
-        scheduleSelectManager.ShowElement(dateTimeMatrix, uranaishi, (int)span);
+        scheduleSelectManager.ShowElement(dateTimeMatrix, uranaishi);
 
     }
 }
