@@ -28,7 +28,10 @@ public class KuchikomiElement : ObjectPoolingElement
     public void Show(Review review)
     {
         uranaishi = review.uranaishi;
-        likeToggleController.OnOpen(uranaishi);
+        likeToggleController.OnOpen(uranaishi, (isOn) =>
+        {
+            if (isOn) LikePopup.i.Show(uranaishi);
+        });
 
 
         iconImage.sprite = null;

@@ -9,9 +9,10 @@ public class LikeToggleController : MonoBehaviour
 {
     Toggle toggle;
     Uranaishi uranaishi;
+    UnityAction<bool> onValueChanged;
 
     public void OnStart()
-    {
+    {      
         toggle = GetComponent<Toggle>();
         toggle.onValueChanged.AddListener(ToggleValueChanged);
 
@@ -23,9 +24,10 @@ public class LikeToggleController : MonoBehaviour
             .AddTo(this.gameObject);
     }
 
-    public void OnOpen(Uranaishi uranaishi)
+    public void OnOpen(Uranaishi uranaishi, UnityAction<bool> onValueChanged = null)
     {
         this.uranaishi = uranaishi;
+        this.onValueChanged = onValueChanged;
         toggle.isOn = SaveData.i.likedUranaishiIdList.Contains(uranaishi.id);
     }
 
@@ -45,6 +47,7 @@ public class LikeToggleController : MonoBehaviour
             SaveData.i.likedUranaishiIdList.Remove(uranaishi.id);
             SaveDataManager.i.Save();
         }
+        if (onValueChanged != null) onValueChanged(isOn);
     }
 
 
