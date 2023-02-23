@@ -99,6 +99,8 @@ public class ReserveModal : BaseModal
             return;
         }
 
+        // 先に予約取られたときの対策
+
         ConfirmReserve();
 
     }

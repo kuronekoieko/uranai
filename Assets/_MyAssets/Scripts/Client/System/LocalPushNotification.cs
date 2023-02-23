@@ -65,7 +65,7 @@ public static class LocalPushNotification
             var areNotificationsEnabled = notificationStatusChecker.Call<bool>("areNotificationsEnabled");
             return areNotificationsEnabled;
 #endif
-            return false;
+            return true;
         }
     }
 
