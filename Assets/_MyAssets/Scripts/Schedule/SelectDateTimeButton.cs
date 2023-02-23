@@ -13,6 +13,7 @@ public class SelectDateTimeButton : MonoBehaviour
     [SerializeField] GameObject notAvailableObj;
 
     Uranaishi uranaishi;
+    DateTime dateTime;
 
     public void OnInstantiate()
     {
@@ -22,16 +23,17 @@ public class SelectDateTimeButton : MonoBehaviour
     public void OnOpen(DateTime dateTime, Uranaishi uranaishi)
     {
         this.uranaishi = uranaishi;
+        this.dateTime = dateTime;
 
         bool reserved = uranaishi.reserves.Any(a => a.reservedSDT.dateTime == dateTime);
 
         availableObj.SetActive(!reserved);
         notAvailableObj.SetActive(reserved);
-        button.enabled = reserved;
+        button.enabled = !reserved;
     }
 
     void OnClickSelectButton()
     {
-
+        UIManager.i.GetModal<ReserveModal>().Open(dateTime, uranaishi);
     }
 }

@@ -21,6 +21,13 @@ public class SaveData
         this.freePoint = freePoint;
     }
 
+    public int GetAvailableDurationMin(int callChargePerMin)
+    {
+        float minuteF = (float)GetSumPoint() / (float)callChargePerMin;
+        int minuteInt = Mathf.FloorToInt(minuteF);
+        return minuteInt;
+    }
+
 
     public int GetSumPoint()
     {

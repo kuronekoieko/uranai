@@ -30,8 +30,7 @@ public class ConfirmCallingPopup : BaseCallingScreen
 
         chargeText.text = uranaishi.callChargePerMin.ToString("N0");
 
-        float minuteF = (float)SaveData.i.GetSumPoint() / (float)uranaishi.callChargePerMin;
-        int minuteInt = Mathf.FloorToInt(minuteF);
+        int minuteInt = SaveData.i.GetAvailableDurationMin(uranaishi.callChargePerMin);
         timeText.text = minuteInt.ToString("N0");
 
     }
