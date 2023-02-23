@@ -30,7 +30,7 @@ public class KuchikomiElement : ObjectPoolingElement
         uranaishi = review.uranaishi;
         likeToggleController.OnOpen(uranaishi, (isOn) =>
         {
-            if (isOn) LikePopup.i.Show(uranaishi);
+            // if (isOn) LikePopup.i.Show(uranaishi);
         });
 
 

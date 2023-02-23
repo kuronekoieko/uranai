@@ -12,11 +12,13 @@ public class HistoryElement : ObjectPoolingElement
     [SerializeField] Text nameTxt;
     [SerializeField] Text durationText;
     [SerializeField] Text dateTimeText;
+    [SerializeField] LikeToggleController likeToggleController;
     Uranaishi uranaishi;
 
     public override void OnInstantiate()
     {
         uranaishiButton.onClick.AddListener(OnClickUranaishiButtonButton);
+        likeToggleController.OnStart();
     }
 
     void OnClickUranaishiButtonButton()
@@ -29,6 +31,11 @@ public class HistoryElement : ObjectPoolingElement
 
         uranaishi = UIManager.i.uranaishiAry
         .FirstOrDefault(uranaishi => uranaishi.id == history.uranaishiId);
+
+        likeToggleController.OnOpen(uranaishi, (isOn) =>
+        {
+            if (isOn) LikePopup.i.Show(uranaishi);
+        });
 
         iconImage.sprite = null;
         uranaishi.GetIcon((sprite) =>

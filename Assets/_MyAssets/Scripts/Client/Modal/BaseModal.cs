@@ -115,6 +115,7 @@ public abstract class BaseModal : MonoBehaviour
             var child = transform.parent.GetChild(i);
             if (child == transform) continue;
             if (child.gameObject.activeSelf == false) continue;
+            if (child.CompareTag("Popup")) continue;
             underModalTf = child;
             break;
         }

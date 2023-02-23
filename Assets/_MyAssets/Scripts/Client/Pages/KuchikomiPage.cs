@@ -7,13 +7,11 @@ using System;
 public class KuchikomiPage : BasePageManager
 {
     [SerializeField] KuchikomiManager kuchikomiManager;
-    [SerializeField] LikePopup likePopup;
     public override void OnStart()
     {
         base.SetPageAction(3);
         kuchikomiManager.OnStart();
         Order();
-        likePopup.OnStart();
     }
 
     public override void OnUpdate()

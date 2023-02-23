@@ -12,6 +12,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] Transform modalsTf;
     [SerializeField] HeaderManager headerManager;
     [SerializeField] UranaishiTestData uranaishiTestData;
+    [SerializeField] LikePopup likePopup;
     public Uranaishi[] uranaishiAry { get; set; }
     public static UIManager i;
     public int activePage { get; set; } = 0;
@@ -41,6 +42,7 @@ public class UIManager : MonoBehaviour
         StartModals();
         StartBannerToggles();
         headerManager.OnStart();
+        likePopup.OnStart();
 
         Application.targetFrameRate = 60;
     }
