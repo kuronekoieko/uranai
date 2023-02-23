@@ -20,6 +20,8 @@ public class ReserveModal : BaseModal
     [SerializeField] Toggle[] durationToggles;
     [SerializeField] DoneReservePopup doneReservePopup;
     [SerializeField] PurchasePointsPopup purchasePointsPopup;
+    [SerializeField] RequirePushNotificationPopup requirePushNotificationPopup;
+
     int[] reservableMins;
 
     Uranaishi uranaishi;
@@ -33,6 +35,7 @@ public class ReserveModal : BaseModal
         base.OnStart();
         doneReservePopup.OnStart();
         purchasePointsPopup.OnStart();
+        requirePushNotificationPopup.OnStart();
 
         reservableMins = new int[durationToggles.Length];
         for (int i = 0; i < reservableMins.Length; i++)
@@ -81,20 +84,25 @@ public class ReserveModal : BaseModal
 
         selectedMin = reservableMins[index];
 
-        // bool isEnoughPoint = SaveData.i.GetSumPoint() > Constant.Instance.reserveDurationMin * uranaishi.callChargePerMin;
-
-        // プッシュ通知がオフのときのポップアップ
-
-        if (isEnoughPoint)
-        {
-            doneReservePopup.Open(uranaishi, dateTime, selectedMin);
-            ConfirmReserve();
-        }
-        else
+        if (!isEnoughPoint)
         {
             purchasePointsPopup.Open(uranaishi, selectedMin);
             purchasePointsPopup.onReturnFromPurchase = OnReturnFromPurchase;
+            return;
         }
+
+        bool eneblePushNotification = false;
+        if (!eneblePushNotification)
+        {
+            // プッシュ通知がオフのときのポップアップ
+            requirePushNotificationPopup.Open();
+            return;
+        }
+
+
+        doneReservePopup.Open(uranaishi, dateTime, selectedMin);
+        ConfirmReserve();
+
     }
 
     void OnReturnFromPurchase()

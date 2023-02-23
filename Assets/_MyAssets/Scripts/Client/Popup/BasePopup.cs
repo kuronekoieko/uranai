@@ -11,8 +11,8 @@ public class BasePopup : MonoBehaviour
     [SerializeField] Button negativeButton;
     [SerializeField] Button positiveButton;
 
-    public Action onClickNegativeButton { get; set; }
-    public Action onClickPositiveButton { get; set; }
+    protected Action onClickNegativeButton { get; set; }
+    protected Action onClickPositiveButton { get; set; }
 
 
     public virtual void OnStart()
@@ -47,7 +47,7 @@ public class BasePopup : MonoBehaviour
         OnClose();
     }
 
-    protected virtual void Open()
+    public virtual void Open()
     {
         // 今いる自分の階層の一番下に移動して、一番手前に表示されます。
         transform.SetAsLastSibling();
