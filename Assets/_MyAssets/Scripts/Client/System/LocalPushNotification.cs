@@ -7,6 +7,7 @@ using Unity.Notifications.iOS;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
 /// <summary>
 /// https://marumaro7.hatenablog.com/entry/localpush
@@ -52,8 +53,24 @@ public static class LocalPushNotification
 #endif
     }
 
+    public static bool Enabled
+    {
+        get
+        {
+#if UNITY_IOS
+            return UnityEngine.iOS.NotificationServices.enabledNotificationTypes != UnityEngine.iOS.NotificationType.None;
+#elif UNITY_ANDROID
+            const string notificationStatusClass = " パッケージネームを入れる.notification.NotificationStatusChecker";
+            var notificationStatusChecker = new AndroidJavaObject(notificationStatusClass);
+            var areNotificationsEnabled = notificationStatusChecker.Call<bool>("areNotificationsEnabled");
+            return areNotificationsEnabled;
+#endif
+            return false;
+        }
+    }
 
-    static IEnumerator RequestAuthorization()
+
+    public static IEnumerator RequestAuthorization()
     {
 #if UNITY_IOS
         var authorizationOption = AuthorizationOption.Alert | AuthorizationOption.Badge;

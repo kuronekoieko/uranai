@@ -91,8 +91,8 @@ public class ReserveModal : BaseModal
             return;
         }
 
-        bool eneblePushNotification = false;
-        if (!eneblePushNotification)
+
+        if (!LocalPushNotification.Enabled)
         {
             // プッシュ通知がオフのときのポップアップ
             requirePushNotificationPopup.Open();

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Cysharp.Threading.Tasks;
 
 public class RequirePushNotificationPopup : BasePopup
 {
@@ -20,8 +21,10 @@ public class RequirePushNotificationPopup : BasePopup
         base.Open();
     }
 
-    void OnClickSettingPNButton()
+    async void OnClickSettingPNButton()
     {
+        await LocalPushNotification.RequestAuthorization();
+        base.Close();
     }
 
 
