@@ -7,11 +7,13 @@ using System;
 public class KuchikomiPage : BasePageManager
 {
     [SerializeField] KuchikomiManager kuchikomiManager;
+    [SerializeField] LikePopup likePopup;
     public override void OnStart()
     {
         base.SetPageAction(3);
         kuchikomiManager.OnStart();
         Order();
+        likePopup.OnStart();
     }
 
     public override void OnUpdate()
@@ -26,14 +28,11 @@ public class KuchikomiPage : BasePageManager
     protected override void OnOpen()
     {
         gameObject.SetActive(true);
-
-
     }
 
 
     void Order()
     {
-
         Review[] reviews = Utils.OrderForKuchikomi(UIManager.i.uranaishiAry);
         kuchikomiManager.AddElement(reviews);
 

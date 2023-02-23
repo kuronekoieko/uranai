@@ -20,6 +20,7 @@ public class LikePopup : MonoBehaviour
         }
     }
     RectTransform rectTransform;
+    Tween delayTween;
     Tween closeTween;
 
     public void OnStart()
@@ -34,13 +35,17 @@ public class LikePopup : MonoBehaviour
     public void Show(Uranaishi uranaishi)
     {
         text.text = $"{uranaishi.name}先生を「お気に入り」に登録しました";
+        // 今いる自分の階層の一番下に移動して、一番手前に表示されます。
+        transform.SetAsLastSibling();
         ShowAnim();
-        closeTween = DOVirtual.DelayedCall(3, () => Close());
+        delayTween.Kill();
+        delayTween = DOVirtual.DelayedCall(3, () => Close());
     }
 
 
     void ShowAnim()
     {
+        closeTween.Kill(true);
         rectTransform.position = hiddenPos;
         gameObject.SetActive(true);
         rectTransform
@@ -50,8 +55,8 @@ public class LikePopup : MonoBehaviour
 
     public void Close()
     {
-        closeTween.Kill();
-        rectTransform
+        delayTween.Kill();
+        closeTween = rectTransform
             .DOMoveY(hiddenPos.y, 0.3f)
             .SetEase(Ease.OutCirc)
             .OnComplete(() =>
