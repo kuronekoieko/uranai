@@ -105,8 +105,6 @@ public class ReserveModal : BaseModal
             return;
         }
 
-        // 先に予約取られたときの対策
-
         ConfirmReserve();
 
     }
@@ -124,18 +122,22 @@ public class ReserveModal : BaseModal
 
     async void ConfirmReserve()
     {
-        doneReservePopup.Open(uranaishi, dateTime, selectedMin);
-        SettingPush();
-
         Schedule[] schedules = uranaishi.schedules
         .Where(s => dateTime <= s.startSDT.dateTime)
         .Where(s => s.startSDT.dateTime < dateTime.AddMinutes(selectedMin))
         .ToArray();
+
+        if (schedules.Any(s => s.scheduleStatus != ScheduleStatus.Free))
+        {
+            Debug.LogError("予約不可能な時間が含まれています");
+            return;
+        }
+
         foreach (var schedule in schedules)
         {
             schedule.scheduleStatus = ScheduleStatus.Reserved;
         }
-        
+
         await FirebaseDatabaseManager.i.SetUserData(uranaishi);
 
         Reserve reserve = new Reserve();
@@ -144,6 +146,9 @@ public class ReserveModal : BaseModal
         reserve.durationMin = selectedMin;
         SaveData.i.reserves.Add(reserve);
         SaveDataManager.i.Save();
+
+        doneReservePopup.Open(uranaishi, dateTime, selectedMin);
+        SettingPush();
     }
 
 
