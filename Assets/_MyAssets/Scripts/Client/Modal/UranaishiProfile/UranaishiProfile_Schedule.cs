@@ -24,9 +24,9 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
             titleContentTexts[i].gameObject.SetActive(false);
         }
         var schedulesGroupList = uranaishi.schedules
-            .Where(schedule => schedule.start.IsFutureFromNow())
-            .OrderBy(schedule => schedule.start.dateTime)
-            .GroupBy(schedule => schedule.start.dateTime?.Date)
+            .Where(schedule => schedule.startSDT.IsFutureFromNow())
+            .OrderBy(schedule => schedule.startSDT.dateTime)
+            .GroupBy(schedule => schedule.startSDT.dateTime?.Date)
             .Take(titleContentTexts.Count);
 
         for (int i = 0; i < schedulesGroupList.Count(); i++)
@@ -36,9 +36,9 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
             string dateText = "";
             foreach (var schedule in group)
             {
-                text += schedule.start.dateTime.ToStringIncludeEmpty("HH:mm")
+                text += schedule.startSDT.dateTime.ToStringIncludeEmpty("HH:mm")
                 + "～" + schedule.endDT.ToString("HH:mm") + "\n";
-                dateText = schedule.start.dateTime.ToStringIncludeEmpty("M月d日(ddd)");
+                dateText = schedule.startSDT.dateTime.ToStringIncludeEmpty("M月d日(ddd)");
             }
             text = text.TrimEnd('\n');
             titleContentTexts[i].gameObject.SetActive(true);

@@ -30,24 +30,24 @@ public class Uranaishi
         DateTime today = DateTime.Today;
         // 古いスケジュールを削除
         // 念のため、予約可能日を超えた時間も削除
-        schedules.RemoveAll(s => s.start.dateTime < today || s.start.dateTime > today.AddDays(days));
+        schedules.RemoveAll(s => s.startSDT.dateTime < today || s.startSDT.dateTime > today.AddDays(days));
 
         // 4日間のスケジュールを作成
         if (schedules.Count == 0)
         {
             Schedule schedule = new Schedule();
-            schedule.start.dateTime = today;
+            schedule.startSDT.dateTime = today;
             schedules.Add(schedule);
         }
 
 
         while (true)
         {
-            DateTime lastDT = schedules[schedules.Count - 1].start.dateTime.Value;
+            DateTime lastDT = schedules[schedules.Count - 1].startSDT.dateTime.Value;
             Schedule schedule = new Schedule();
-            schedule.start.dateTime = lastDT.AddMinutes(reserveDurationMin);
+            schedule.startSDT.dateTime = lastDT.AddMinutes(reserveDurationMin);
 
-            if (schedule.start.dateTime >= today.AddDays(days))
+            if (schedule.startSDT.dateTime >= today.AddDays(days))
             {
                 break;
             }
@@ -88,11 +88,11 @@ public class Uranaishi
                 return "本日終了";
             case UranaishiStatus.DatTime:
                 Schedule schedule = schedules
-                    .Where(schedule => schedule.start.IsFutureFromNow())
-                    .OrderBy(schedule => schedule.start.dateTime)
+                    .Where(schedule => schedule.startSDT.IsFutureFromNow())
+                    .OrderBy(schedule => schedule.startSDT.dateTime)
                     .FirstOrDefault();
                 if (schedule == null) return "本日終了";
-                return schedule.start.dateTime.ToStringIncludeEmpty("M/dd HH:mm～");
+                return schedule.startSDT.dateTime.ToStringIncludeEmpty("M/dd HH:mm～");
             default:
                 return "";
         }
@@ -160,14 +160,17 @@ public enum UranaishiStatus
 [System.Serializable]
 public class Schedule
 {
-    public Schedule()
-    {
-        start = new SerializableDateTime();
-    }
-    public SerializableDateTime start;
-    public DateTime endDT => start.dateTime.Value.AddMinutes(Constant.Instance.reserveDurationMin);
-    public bool reserved;
+    public SerializableDateTime startSDT = new SerializableDateTime();
+    public DateTime endDT => startSDT.dateTime.Value.AddMinutes(Constant.Instance.reserveDurationMin);
+    public ScheduleStatus scheduleStatus = ScheduleStatus.Free;
+}
 
+[System.Serializable]
+public enum ScheduleStatus
+{
+    Free = 0,
+    Reserved = 1,
+    Closed = 2,
 }
 
 

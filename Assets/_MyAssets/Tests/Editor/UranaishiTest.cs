@@ -23,12 +23,12 @@ public class UranaishiTest
         uranaishi.CheckSchedules(reserveDurationMin, days);
         for (int i = 0; i < uranaishi.schedules.Count; i++)
         {
-            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
-            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
-            Assert.That(uranaishi.schedules[i].reserved == false);
+            Debug.Log(uranaishi.schedules[i].startSDT.dateTime + " " + uranaishi.schedules[i].scheduleStatus);
+            Assert.That(uranaishi.schedules[i].startSDT.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].scheduleStatus == ScheduleStatus.Free);
         }
         Assert.That(uranaishi.schedules.Count == sumCount);
-        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].start.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
+        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].startSDT.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
     }
 
     /// <summary>
@@ -49,8 +49,8 @@ public class UranaishiTest
         for (int i = 0; i < sumCount; i++)
         {
             Schedule schedule = new Schedule();
-            schedule.start.dateTime = startDT;
-            schedule.reserved = true;
+            schedule.startSDT.dateTime = startDT;
+            schedule.scheduleStatus = ScheduleStatus.Reserved;
             startDT = startDT.AddMinutes(reserveDurationMin);
             schedules.Add(schedule);
         }
@@ -61,12 +61,12 @@ public class UranaishiTest
 
         for (int i = 0; i < uranaishi.schedules.Count; i++)
         {
-            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
-            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
-            Assert.That(uranaishi.schedules[i].reserved == false);
+            Debug.Log(uranaishi.schedules[i].startSDT.dateTime + " " + uranaishi.schedules[i].scheduleStatus);
+            Assert.That(uranaishi.schedules[i].startSDT.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].scheduleStatus == ScheduleStatus.Free);
         }
         Assert.That(uranaishi.schedules.Count == sumCount);
-        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].start.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
+        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].startSDT.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
 
     }
 
@@ -88,8 +88,8 @@ public class UranaishiTest
         for (int i = 0; i < sumCount; i++)
         {
             Schedule schedule = new Schedule();
-            schedule.start.dateTime = startDT;
-            schedule.reserved = true;
+            schedule.startSDT.dateTime = startDT;
+            schedule.scheduleStatus = ScheduleStatus.Reserved;
             startDT = startDT.AddMinutes(reserveDurationMin);
             schedules.Add(schedule);
         }
@@ -101,12 +101,12 @@ public class UranaishiTest
 
         for (int i = 0; i < uranaishi.schedules.Count; i++)
         {
-            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
-            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
-            Assert.That(uranaishi.schedules[i].reserved == false);
+            Debug.Log(uranaishi.schedules[i].startSDT.dateTime + " " + uranaishi.schedules[i].scheduleStatus);
+            Assert.That(uranaishi.schedules[i].startSDT.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].scheduleStatus == ScheduleStatus.Free);
         }
         Assert.That(uranaishi.schedules.Count == sumCount);
-        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].start.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
+        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].startSDT.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
 
     }
 
@@ -128,8 +128,8 @@ public class UranaishiTest
         for (int i = 0; i < sumCount; i++)
         {
             Schedule schedule = new Schedule();
-            schedule.start.dateTime = startDT;
-            schedule.reserved = false;
+            schedule.startSDT.dateTime = startDT;
+            schedule.scheduleStatus = ScheduleStatus.Free;
             startDT = startDT.AddMinutes(reserveDurationMin);
             schedules.Add(schedule);
         }
@@ -141,12 +141,12 @@ public class UranaishiTest
 
         for (int i = 0; i < uranaishi.schedules.Count; i++)
         {
-            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
-            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
-            Assert.That(uranaishi.schedules[i].reserved == false);
+            Debug.Log(uranaishi.schedules[i].startSDT.dateTime + " " + uranaishi.schedules[i].scheduleStatus);
+            Assert.That(uranaishi.schedules[i].startSDT.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].scheduleStatus == ScheduleStatus.Free);
         }
         Assert.That(uranaishi.schedules.Count == sumCount);
-        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].start.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
+        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].startSDT.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
 
     }
 
@@ -168,8 +168,8 @@ public class UranaishiTest
         for (int i = 0; i < sumCount; i++)
         {
             Schedule schedule = new Schedule();
-            schedule.start.dateTime = startDT;
-            schedule.reserved = true;
+            schedule.startSDT.dateTime = startDT;
+            schedule.scheduleStatus = ScheduleStatus.Reserved;
             startDT = startDT.AddMinutes(reserveDurationMin);
             schedules.Add(schedule);
         }
@@ -181,14 +181,14 @@ public class UranaishiTest
 
         for (int i = 0; i < uranaishi.schedules.Count; i++)
         {
-            bool reserved = uranaishi.schedules[i].start.dateTime < DateTime.Today.AddDays(3);
-            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
-            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
-            Assert.That(uranaishi.schedules[i].reserved == reserved);
-
+            bool reserved = uranaishi.schedules[i].startSDT.dateTime < DateTime.Today.AddDays(3);
+            ScheduleStatus scheduleStatus = reserved ? ScheduleStatus.Reserved : ScheduleStatus.Free;
+            Debug.Log(uranaishi.schedules[i].startSDT.dateTime + " " + uranaishi.schedules[i].scheduleStatus);
+            Assert.That(uranaishi.schedules[i].startSDT.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].scheduleStatus == scheduleStatus);
         }
         Assert.That(uranaishi.schedules.Count == sumCount);
-        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].start.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
+        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].startSDT.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
 
     }
 
@@ -210,8 +210,8 @@ public class UranaishiTest
         for (int i = 0; i < sumCount; i++)
         {
             Schedule schedule = new Schedule();
-            schedule.start.dateTime = startDT;
-            schedule.reserved = true;
+            schedule.startSDT.dateTime = startDT;
+            schedule.scheduleStatus = ScheduleStatus.Reserved;
             startDT = startDT.AddMinutes(reserveDurationMin);
             schedules.Add(schedule);
         }
@@ -222,12 +222,12 @@ public class UranaishiTest
 
         for (int i = 0; i < uranaishi.schedules.Count; i++)
         {
-            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
-            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
-            Assert.That(uranaishi.schedules[i].reserved == true);
+            Debug.Log(uranaishi.schedules[i].startSDT.dateTime + " " + uranaishi.schedules[i].scheduleStatus);
+            Assert.That(uranaishi.schedules[i].startSDT.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].scheduleStatus == ScheduleStatus.Reserved);
         }
         Assert.That(uranaishi.schedules.Count == sumCount);
-        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].start.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
+        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].startSDT.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
 
     }
 
