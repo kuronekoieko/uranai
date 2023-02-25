@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 public class UranaishiProfile_Schedule : BaseUranaishiProfile
 {
@@ -23,22 +24,54 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
         {
             titleContentTexts[i].gameObject.SetActive(false);
         }
-        var schedulesGroupList = uranaishi.schedules
+        Period closedPeriod = new Period();
+        closedPeriod.startDT = new DateTime(2000, 1, 1, 5, 0, 0);
+        closedPeriod.endDT = new DateTime(2000, 1, 1, 9, 0, 0);
+
+
+        var freeDateTimes = uranaishi.schedules
             .Where(schedule => schedule.startSDT.IsFutureFromNow())
+            .Where(schedule => schedule.scheduleStatus == ScheduleStatus.Free)
+            .Where(schedule => schedule.startSDT.dateTime.Value.TimeOfDay < closedPeriod.startDT.Value.TimeOfDay
+                || schedule.startSDT.dateTime.Value.TimeOfDay > closedPeriod.endDT.Value.TimeOfDay)
             .OrderBy(schedule => schedule.startSDT.dateTime)
-            .GroupBy(schedule => schedule.startSDT.dateTime?.Date)
+            .Select(schedule => schedule.startSDT.dateTime)
+            .ToArray();
+
+
+        Period period = null;
+        List<Period> periods = new List<Period>();
+        foreach (var startDT in freeDateTimes)
+        {
+
+            if (period == null || period.endDT != startDT)
+            {
+                period = new Period();
+                period.startDT = startDT;
+                period.endDT = startDT.Value.AddMinutes(Constant.Instance.reserveDurationMin);
+                periods.Add(period);
+                continue;
+            }
+
+            period.endDT = period.endDT.Value.AddMinutes(Constant.Instance.reserveDurationMin);
+        }
+
+
+        var periodGroupList = periods
+            .GroupBy(period => period.startDT?.Date)
             .Take(titleContentTexts.Count);
 
-        for (int i = 0; i < schedulesGroupList.Count(); i++)
+
+        for (int i = 0; i < periodGroupList.Count(); i++)
         {
-            var group = schedulesGroupList.ElementAt(i);
+            var group = periodGroupList.ElementAt(i);
             string text = "";
             string dateText = "";
-            foreach (var schedule in group)
+            foreach (var p in group)
             {
-                text += schedule.startSDT.dateTime.ToStringIncludeEmpty("HH:mm")
-                + "～" + schedule.endDT.ToString("HH:mm") + "\n";
-                dateText = schedule.startSDT.dateTime.ToStringIncludeEmpty("M月d日(ddd)");
+                text += p.startDT.ToStringIncludeEmpty("HH:mm")
+                + "～" + p.endDT.ToStringIncludeEmpty("HH:mm") + "\n";
+                dateText = p.startDT.ToStringIncludeEmpty("M月d日(ddd)");
             }
             text = text.TrimEnd('\n');
             titleContentTexts[i].gameObject.SetActive(true);
@@ -48,6 +81,14 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
         }
 
 
+    }
+
+
+
+    class Period
+    {
+        public DateTime? startDT;
+        public DateTime? endDT;
     }
 
 
