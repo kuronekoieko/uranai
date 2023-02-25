@@ -46,14 +46,13 @@ public class Uranaishi
             DateTime lastDT = schedules[schedules.Count - 1].start.dateTime.Value;
             Schedule schedule = new Schedule();
             schedule.start.dateTime = lastDT.AddMinutes(reserveDurationMin);
-            schedules.Add(schedule);
 
-            if (schedule.start.dateTime.Value.AddMinutes(reserveDurationMin) >= today.AddDays(days))
+            if (schedule.start.dateTime >= today.AddDays(days))
             {
                 break;
             }
+            schedules.Add(schedule);
         }
-
     }
 
     public async void GetIcon(UnityAction<Sprite> onComplete)

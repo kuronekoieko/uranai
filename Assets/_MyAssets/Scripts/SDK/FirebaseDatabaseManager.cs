@@ -89,6 +89,7 @@ public class FirebaseDatabaseManager : Singleton<FirebaseDatabaseManager>
                     {
                         review.uranaishi = uranaishi;
                     }
+                    uranaishi.CheckSchedules(Constant.Instance.reserveDurationMin, 4);
                     uranaishiList.Add(uranaishi);
                     // Debug.Log(data.GetRawJsonValue());
 
