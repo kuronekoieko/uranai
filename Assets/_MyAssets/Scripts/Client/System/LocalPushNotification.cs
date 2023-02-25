@@ -1,7 +1,7 @@
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 using Unity.Notifications.Android;
 #endif
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
 using Unity.Notifications.iOS;
 #endif
 using System;
@@ -19,7 +19,7 @@ public static class LocalPushNotification
     // Androidで使用するプッシュ通知用のチャンネルを登録する。    
     public static void RegisterChannel(string cannelId, string title, string description)
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
         // チャンネルの登録
         var channel = new AndroidNotificationChannel()
         {
@@ -39,12 +39,12 @@ public static class LocalPushNotification
     /// 通知をすべてクリアーします。   
     public static void AllClear()
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
         // Androidの通知をすべて削除します。
         AndroidNotificationCenter.CancelAllScheduledNotifications();
         AndroidNotificationCenter.CancelAllNotifications();
 #endif
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
         // iOSの通知をすべて削除します。
         iOSNotificationCenter.RemoveAllScheduledNotifications();
         iOSNotificationCenter.RemoveAllDeliveredNotifications();
@@ -57,9 +57,10 @@ public static class LocalPushNotification
     {
         get
         {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
             return UnityEngine.iOS.NotificationServices.enabledNotificationTypes != UnityEngine.iOS.NotificationType.None;
-#elif UNITY_ANDROID
+#elif UNITY_ANDROID && !UNITY_EDITOR
+            Debug.Log(0);
             const string notificationStatusClass = " パッケージネームを入れる.notification.NotificationStatusChecker";
             var notificationStatusChecker = new AndroidJavaObject(notificationStatusClass);
             var areNotificationsEnabled = notificationStatusChecker.Call<bool>("areNotificationsEnabled");
@@ -72,7 +73,7 @@ public static class LocalPushNotification
 
     public static IEnumerator RequestAuthorization()
     {
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
         var authorizationOption = AuthorizationOption.Alert | AuthorizationOption.Badge;
         using (var req = new AuthorizationRequest(authorizationOption, true))
         {
@@ -98,17 +99,17 @@ public static class LocalPushNotification
     // プッシュ通知を登録します。    
     public static void AddSchedule(string title, string message, int badgeCount, int elapsedTime, string cannelId)
     {
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
         SetAndroidNotification(title, message, badgeCount, elapsedTime, cannelId);
 #endif
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
         SetIOSNotification(title, message, badgeCount, elapsedTime);
 #endif
     }
 
 
 
-#if UNITY_IOS
+#if UNITY_IOS && !UNITY_EDITOR
     // 通知を登録(iOS)
     static private void SetIOSNotification(string title, string message, int badgeCount, int elapsedTime)
     {
@@ -132,7 +133,7 @@ public static class LocalPushNotification
 
 
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
 
     // 通知を登録(Android)   
     static private void SetAndroidNotification(string title, string message, int badgeCount, int elapsedTime, string cannelId)
