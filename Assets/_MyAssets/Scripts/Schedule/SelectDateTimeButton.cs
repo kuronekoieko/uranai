@@ -25,7 +25,8 @@ public class SelectDateTimeButton : MonoBehaviour
         this.uranaishi = uranaishi;
         this.dateTime = dateTime;
 
-        bool reserved = uranaishi.reserves.Any(a => a.reservedSDT.dateTime == dateTime);
+        bool reserved = uranaishi.schedules
+        .Any(s => s.start.dateTime == dateTime && s.reserved);
 
         availableObj.SetActive(!reserved);
         notAvailableObj.SetActive(reserved);

@@ -20,11 +20,41 @@ public class Uranaishi
     public string otherURL;
     public string[] expertises = new string[0];
     public string[] divinations = new string[0];
-    public Schedule[] schedules = new Schedule[0];
+    public List<Schedule> schedules = new List<Schedule>();
     public List<Review> reviews = new List<Review>();
-    public List<Reserve> reserves = new List<Reserve>();
 
     [System.NonSerialized] Sprite _iconSprite;
+
+    public void CheckSchedules(int reserveDurationMin, int days)
+    {
+        DateTime today = DateTime.Today;
+        // 古いスケジュールを削除
+        // 念のため、予約可能日を超えた時間も削除
+        schedules.RemoveAll(s => s.start.dateTime < today || s.start.dateTime > today.AddDays(days));
+
+        // 4日間のスケジュールを作成
+        if (schedules.Count == 0)
+        {
+            Schedule schedule = new Schedule();
+            schedule.start.dateTime = today;
+            schedules.Add(schedule);
+        }
+
+
+        while (true)
+        {
+            DateTime lastDT = schedules[schedules.Count - 1].start.dateTime.Value;
+            Schedule schedule = new Schedule();
+            schedule.start.dateTime = lastDT.AddMinutes(reserveDurationMin);
+            schedules.Add(schedule);
+
+            if (schedule.start.dateTime.Value.AddMinutes(reserveDurationMin) >= today.AddDays(days))
+            {
+                break;
+            }
+        }
+
+    }
 
     public async void GetIcon(UnityAction<Sprite> onComplete)
     {
@@ -131,8 +161,14 @@ public enum UranaishiStatus
 [System.Serializable]
 public class Schedule
 {
+    public Schedule()
+    {
+        start = new SerializableDateTime();
+    }
     public SerializableDateTime start;
-    public SerializableDateTime end;
+    public DateTime endDT => start.dateTime.Value.AddMinutes(Constant.Instance.reserveDurationMin);
+    public bool reserved;
+
 }
 
 
@@ -241,6 +277,6 @@ public enum Sex
 [System.Serializable]
 public class Reserve
 {
-    public SerializableDateTime reservedSDT;
-    public string clientName;
+    public Schedule[] schedules;
+    public string uranaishiId;
 }

@@ -9,11 +9,189 @@ using System;
 public class UranaishiTest
 {
 
+    /// <summary>
+    /// スケジュールが元々0個の場合
+    /// </summary>
     [Test]
-    public void DateTime_0()
+    public void CheckSchedules_0()
     {
+        Uranaishi uranaishi = new Uranaishi();
+        int reserveDurationMin = Constant.Instance.reserveDurationMin;
+        int days = 4;
+        int sumCount = 60 / reserveDurationMin * 24 * days;
+
+        uranaishi.CheckSchedules(reserveDurationMin, days);
+        for (int i = 0; i < uranaishi.schedules.Count; i++)
+        {
+            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
+            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].reserved == false);
+        }
+        Assert.That(uranaishi.schedules.Count == sumCount);
+
+        //int sumCount = 69 / reserveDurationMin * 24 * 4 + 1;
+
+        // Assert.That(uranaishi.schedules.Count == sumCount);
+    }
+
+    /// <summary>
+    /// スケジュールが10日前からのしか入っていなくて、全部予約済みの場合
+    /// </summary>
+    [Test]
+    public void CheckSchedules_1()
+    {
+        int reserveDurationMin = Constant.Instance.reserveDurationMin;
+        int days = 4;
+        int sumCount = 60 / reserveDurationMin * 24 * days;
+
+        Uranaishi uranaishi = new Uranaishi();
+
+        DateTime startDT = DateTime.Today.AddDays(-10);
+
+        List<Schedule> schedules = new List<Schedule>();
+        for (int i = 0; i < sumCount; i++)
+        {
+            Schedule schedule = new Schedule();
+            schedule.start.dateTime = startDT;
+            schedule.reserved = true;
+            startDT = startDT.AddMinutes(reserveDurationMin);
+            schedules.Add(schedule);
+        }
+        uranaishi.schedules = schedules;
+
+        uranaishi.CheckSchedules(reserveDurationMin, days);
+
+
+        for (int i = 0; i < uranaishi.schedules.Count; i++)
+        {
+            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
+            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].reserved == false);
+        }
+        Assert.That(uranaishi.schedules.Count == sumCount);
 
     }
+
+    /// <summary>
+    /// スケジュールが10日後の場合
+    /// </summary>
+    [Test]
+    public void CheckSchedules_2()
+    {
+        int reserveDurationMin = Constant.Instance.reserveDurationMin;
+        int days = 4;
+        int sumCount = 60 / reserveDurationMin * 24 * days;
+
+        Uranaishi uranaishi = new Uranaishi();
+
+        DateTime startDT = DateTime.Today.AddDays(10);
+
+        List<Schedule> schedules = new List<Schedule>();
+        for (int i = 0; i < sumCount; i++)
+        {
+            Schedule schedule = new Schedule();
+            schedule.start.dateTime = startDT;
+            schedule.reserved = true;
+            startDT = startDT.AddMinutes(reserveDurationMin);
+            schedules.Add(schedule);
+        }
+        uranaishi.schedules = schedules;
+
+
+        uranaishi.CheckSchedules(reserveDurationMin, days);
+
+
+        for (int i = 0; i < uranaishi.schedules.Count; i++)
+        {
+            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
+            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].reserved == false);
+        }
+        Assert.That(uranaishi.schedules.Count == sumCount);
+
+    }
+
+    /// <summary>
+    /// 一日前から3日間のスケジュールがある場合
+    /// </summary>
+    [Test]
+    public void CheckSchedules_3()
+    {
+        int reserveDurationMin = Constant.Instance.reserveDurationMin;
+        int days = 4;
+        int sumCount = 60 / reserveDurationMin * 24 * days;
+
+        Uranaishi uranaishi = new Uranaishi();
+
+        DateTime startDT = DateTime.Today.AddDays(-1);
+
+        List<Schedule> schedules = new List<Schedule>();
+        for (int i = 0; i < sumCount; i++)
+        {
+            Schedule schedule = new Schedule();
+            schedule.start.dateTime = startDT;
+            schedule.reserved = false;
+            startDT = startDT.AddMinutes(reserveDurationMin);
+            schedules.Add(schedule);
+        }
+        uranaishi.schedules = schedules;
+
+
+        uranaishi.CheckSchedules(reserveDurationMin, days);
+
+
+        for (int i = 0; i < uranaishi.schedules.Count; i++)
+        {
+            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
+            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].reserved == false);
+        }
+        Assert.That(uranaishi.schedules.Count == sumCount);
+
+    }
+
+    /// <summary>
+    /// 前日から3日間がすべて予約済みになってる場合
+    /// </summary>
+    [Test]
+    public void CheckSchedules_4()
+    {
+        int reserveDurationMin = Constant.Instance.reserveDurationMin;
+        int days = 4;
+        int sumCount = 60 / reserveDurationMin * 24 * days;
+
+        Uranaishi uranaishi = new Uranaishi();
+
+        DateTime startDT = DateTime.Today.AddDays(-1);
+
+        List<Schedule> schedules = new List<Schedule>();
+        for (int i = 0; i < sumCount; i++)
+        {
+            Schedule schedule = new Schedule();
+            schedule.start.dateTime = startDT;
+            schedule.reserved = true;
+            startDT = startDT.AddMinutes(reserveDurationMin);
+            schedules.Add(schedule);
+        }
+        uranaishi.schedules = schedules;
+
+
+        uranaishi.CheckSchedules(reserveDurationMin, days);
+
+
+        for (int i = 0; i < uranaishi.schedules.Count; i++)
+        {
+            bool reserved = uranaishi.schedules[i].start.dateTime < DateTime.Today.AddDays(3);
+            Debug.Log(uranaishi.schedules[i].start.dateTime + " " + uranaishi.schedules[i].reserved);
+            Assert.That(uranaishi.schedules[i].start.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].reserved == reserved);
+
+        }
+        Assert.That(uranaishi.schedules.Count == sumCount);
+
+    }
+
+
 
 }
 

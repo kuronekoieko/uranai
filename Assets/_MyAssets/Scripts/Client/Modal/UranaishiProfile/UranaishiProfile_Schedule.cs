@@ -37,7 +37,7 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
             foreach (var schedule in group)
             {
                 text += schedule.start.dateTime.ToStringIncludeEmpty("HH:mm")
-                + "～" + schedule.end.dateTime.ToStringIncludeEmpty("HH:mm") + "\n";
+                + "～" + schedule.endDT.ToString("HH:mm") + "\n";
                 dateText = schedule.start.dateTime.ToStringIncludeEmpty("M月d日(ddd)");
             }
             text = text.TrimEnd('\n');
