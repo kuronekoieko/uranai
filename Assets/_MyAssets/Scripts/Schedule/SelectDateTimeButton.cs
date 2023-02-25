@@ -26,7 +26,9 @@ public class SelectDateTimeButton : MonoBehaviour
         this.dateTime = dateTime;
 
         bool isFree = uranaishi.schedules
-        .Any(s => s.startSDT.dateTime == dateTime && s.scheduleStatus == ScheduleStatus.Free);
+        .Any(s => s.startSDT.dateTime == dateTime
+            && s.scheduleStatus == ScheduleStatus.Free
+            && s.startSDT.dateTime > DateTime.Now);
 
         availableObj.SetActive(isFree);
         notAvailableObj.SetActive(!isFree);
