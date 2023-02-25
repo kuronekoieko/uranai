@@ -12,7 +12,7 @@ public class LikeToggleController : MonoBehaviour
     UnityAction<bool> onValueChanged;
 
     public void OnStart()
-    {      
+    {
         toggle = GetComponent<Toggle>();
         toggle.onValueChanged.AddListener(ToggleValueChanged);
 

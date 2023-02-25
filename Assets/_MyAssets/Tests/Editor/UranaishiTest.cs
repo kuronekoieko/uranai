@@ -231,6 +231,45 @@ public class UranaishiTest
 
     }
 
+    /// <summary>
+    /// datetimeにnullが入っている場合
+    /// </summary>
+    [Test]
+    public void CheckSchedules_6()
+    {
+        int reserveDurationMin = Constant.Instance.reserveDurationMin;
+        int days = 4;
+        int sumCount = 60 / reserveDurationMin * 24 * days;
+
+        Uranaishi uranaishi = new Uranaishi();
+
+        List<Schedule> schedules = new List<Schedule>();
+        for (int i = 0; i < sumCount; i++)
+        {
+            Schedule schedule = new Schedule();
+            schedule.startSDT.dateTime = null;
+            schedule.scheduleStatus = ScheduleStatus.Reserved;
+            schedules.Add(schedule);
+        }
+        uranaishi.schedules = schedules;
+
+        LogAssert.ignoreFailingMessages = true;
+        //LogAssert.Expect(LogType.Error, "日付のパース失敗 n/a");
+        uranaishi.CheckSchedules(reserveDurationMin, days);
+        //LogAssert.NoUnexpectedReceived();
+
+
+        for (int i = 0; i < uranaishi.schedules.Count; i++)
+        {
+            Debug.Log(uranaishi.schedules[i].startSDT.dateTime + " " + uranaishi.schedules[i].scheduleStatus);
+            Assert.That(uranaishi.schedules[i].startSDT.dateTime == DateTime.Today.AddMinutes(reserveDurationMin * i));
+            Assert.That(uranaishi.schedules[i].scheduleStatus == ScheduleStatus.Free);
+        }
+        Assert.That(uranaishi.schedules.Count == sumCount);
+        Assert.That(uranaishi.schedules[uranaishi.schedules.Count - 1].startSDT.dateTime == DateTime.Today.AddDays(days).AddMinutes(-reserveDurationMin));
+
+    }
+
 }
 
 public class SerializableDateTimeTest

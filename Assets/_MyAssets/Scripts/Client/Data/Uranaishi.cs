@@ -30,7 +30,9 @@ public class Uranaishi
         DateTime today = DateTime.Today;
         // 古いスケジュールを削除
         // 念のため、予約可能日を超えた時間も削除
-        schedules.RemoveAll(s => s.startSDT.dateTime < today || s.startSDT.dateTime > today.AddDays(days));
+        schedules.RemoveAll(s => s.startSDT.dateTime < today
+            || s.startSDT.dateTime > today.AddDays(days)
+            || s.startSDT.dateTime == null);
 
         // 4日間のスケジュールを作成
         if (schedules.Count == 0)
