@@ -26,7 +26,19 @@ public class ReserveModal : BaseModal
 
     Uranaishi uranaishi;
     DateTime dateTime;
-    int selectedMin;
+    int selectedMin
+    {
+        get
+        {
+            // nullのときは0が帰ってくる
+            int selectedMinIndex = durationToggles
+               .Select((t, i) => new { Content = t, Index = i })
+               .Where(ano => ano.Content.isOn)
+               .Select(t => t.Index)
+               .FirstOrDefault();
+            return reservableMins[selectedMinIndex];
+        }
+    }
     bool isEnoughPoint => SaveData.i.GetSumPoint() > selectedMin * uranaishi.callChargePerMin;
 
 
@@ -76,14 +88,6 @@ public class ReserveModal : BaseModal
 
     void OnClickConfirmButton()
     {
-        int index = durationToggles
-           .Select((t, i) => new { Content = t, Index = i })
-           .Where(ano => ano.Content.isOn)
-           .Select(t => t.Index)
-           .FirstOrDefault();
-
-        selectedMin = reservableMins[index];
-
         if (!isEnoughPoint)
         {
             purchasePointsPopup.Open(uranaishi, selectedMin);
