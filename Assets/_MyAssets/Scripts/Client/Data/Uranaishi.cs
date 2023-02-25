@@ -21,16 +21,53 @@ public class Uranaishi
     public string[] expertises = new string[0];
     public string[] divinations = new string[0];
     public List<Schedule> schedules = new List<Schedule>();
+    public List<DailySchedule> scheduleMatrix = new List<DailySchedule>();
     public List<Review> reviews = new List<Review>();
 
     [System.NonSerialized] Sprite _iconSprite;
+
+    public void CheckScheduleMatrix()
+    {
+        scheduleMatrix = new List<DailySchedule>();
+
+        double span = Constant.Instance.reserveDurationMin;
+        int days = Constant.Instance.reserveDays;
+
+        DateTime init = DateTime.Today.AddHours(9);
+        DateTime last = DateTime.Today.AddDays(1).AddHours(5);
+
+        // 0:00-5:00 前日扱い
+        // 5:00-9:00 前日扱い
+        // 9:00-0:00 その日扱い
+        if (DateTime.Now < init)
+        {
+            init = init.AddDays(-1);
+            last = last.AddDays(-1);
+        }
+
+        for (int j = 0; j < days; j++)
+        {
+            DailySchedule dailySchedule = new DailySchedule();
+
+            for (DateTime i = init; i < last; i = i.AddMinutes(span))
+            {
+                Schedule schedule = new Schedule();
+                schedule.startSDT.dateTime = i.AddDays(j);
+                dailySchedule.schedules.Add(schedule);
+                // Debug.Log(i + " " + schedule.startSDT.dateTime);
+            }
+            scheduleMatrix.Add(dailySchedule);
+
+        }
+
+    }
 
     public void CheckSchedules(int reserveDurationMin, int days)
     {
         DateTime today = DateTime.Today;
         // 古いスケジュールを削除
         // 念のため、予約可能日を超えた時間も削除
-        schedules.RemoveAll(s => s.startSDT.dateTime < today
+        schedules.RemoveAll(s => s.startSDT.dateTime < today.AddDays(-1)
             || s.startSDT.dateTime > today.AddDays(days)
             || s.startSDT.dateTime == null);
 
@@ -38,7 +75,7 @@ public class Uranaishi
         if (schedules.Count == 0)
         {
             Schedule schedule = new Schedule();
-            schedule.startSDT.dateTime = today;
+            schedule.startSDT.dateTime = today.AddDays(-1);
             schedules.Add(schedule);
         }
 
@@ -167,6 +204,16 @@ public class Schedule
     public ScheduleStatus scheduleStatus = ScheduleStatus.Free;
     //public string clientName;
 }
+[System.Serializable]
+public class DailySchedule
+{
+    public List<Schedule> schedules;
+    public DailySchedule()
+    {
+        schedules = new List<Schedule>();
+    }
+}
+
 
 [System.Serializable]
 public enum ScheduleStatus

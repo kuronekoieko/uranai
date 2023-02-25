@@ -10,6 +10,7 @@ public class Constant : SingletonScriptableObject<Constant>
     public ReadOnlyValue<string>[] divinations;
     public ReadOnlyValue<List<ChargeInfo>> chargeInfos;
     public int reserveDurationMin;
+    public int reserveDays;
 
     [Button]
     void InitChargeInfos()

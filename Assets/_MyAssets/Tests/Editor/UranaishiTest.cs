@@ -17,7 +17,7 @@ public class UranaishiTest
     {
         Uranaishi uranaishi = new Uranaishi();
         int reserveDurationMin = Constant.Instance.reserveDurationMin;
-        int days = 4;
+        int days = Constant.Instance.reserveDays;
         int sumCount = 60 / reserveDurationMin * 24 * days;
 
         uranaishi.CheckSchedules(reserveDurationMin, days);
@@ -38,7 +38,7 @@ public class UranaishiTest
     public void CheckSchedules_1()
     {
         int reserveDurationMin = Constant.Instance.reserveDurationMin;
-        int days = 4;
+        int days = Constant.Instance.reserveDays;
         int sumCount = 60 / reserveDurationMin * 24 * days;
 
         Uranaishi uranaishi = new Uranaishi();
@@ -77,7 +77,7 @@ public class UranaishiTest
     public void CheckSchedules_2()
     {
         int reserveDurationMin = Constant.Instance.reserveDurationMin;
-        int days = 4;
+        int days = Constant.Instance.reserveDays;
         int sumCount = 60 / reserveDurationMin * 24 * days;
 
         Uranaishi uranaishi = new Uranaishi();
@@ -117,7 +117,7 @@ public class UranaishiTest
     public void CheckSchedules_3()
     {
         int reserveDurationMin = Constant.Instance.reserveDurationMin;
-        int days = 4;
+        int days = Constant.Instance.reserveDays;
         int sumCount = 60 / reserveDurationMin * 24 * days;
 
         Uranaishi uranaishi = new Uranaishi();
@@ -157,7 +157,7 @@ public class UranaishiTest
     public void CheckSchedules_4()
     {
         int reserveDurationMin = Constant.Instance.reserveDurationMin;
-        int days = 4;
+        int days = Constant.Instance.reserveDays;
         int sumCount = 60 / reserveDurationMin * 24 * days;
 
         Uranaishi uranaishi = new Uranaishi();
@@ -199,7 +199,7 @@ public class UranaishiTest
     public void CheckSchedules_5()
     {
         int reserveDurationMin = Constant.Instance.reserveDurationMin;
-        int days = 4;
+        int days = Constant.Instance.reserveDays;
         int sumCount = 60 / reserveDurationMin * 24 * days;
 
         Uranaishi uranaishi = new Uranaishi();
@@ -238,7 +238,7 @@ public class UranaishiTest
     public void CheckSchedules_6()
     {
         int reserveDurationMin = Constant.Instance.reserveDurationMin;
-        int days = 4;
+        int days = Constant.Instance.reserveDays;
         int sumCount = 60 / reserveDurationMin * 24 * days;
 
         Uranaishi uranaishi = new Uranaishi();
