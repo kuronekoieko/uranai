@@ -12,6 +12,7 @@ public class SaveData
     public int purchasedPoint;
     public int freePoint;
     public List<History> histories = new List<History>();
+    public List<Reserve> reserves = new List<Reserve>();
 
 
 
@@ -74,4 +75,12 @@ public class History
         startCallingSDT.dateTime = startCallingDT;
         this.uranaishiId = uranaishiId;
     }
+}
+
+[System.Serializable]
+public class Reserve
+{
+    public SerializableDateTime startSDT = new SerializableDateTime();
+    public int durationMin;
+    public string uranaishiId;
 }

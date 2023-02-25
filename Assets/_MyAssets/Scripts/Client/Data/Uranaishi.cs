@@ -165,6 +165,7 @@ public class Schedule
     public SerializableDateTime startSDT = new SerializableDateTime();
     public DateTime endDT => startSDT.dateTime.Value.AddMinutes(Constant.Instance.reserveDurationMin);
     public ScheduleStatus scheduleStatus = ScheduleStatus.Free;
+    //public string clientName;
 }
 
 [System.Serializable]
@@ -276,11 +277,4 @@ public enum Sex
     Man,
     Woman,
     None,
-}
-
-[System.Serializable]
-public class Reserve
-{
-    public Schedule[] schedules;
-    public string uranaishiId;
 }

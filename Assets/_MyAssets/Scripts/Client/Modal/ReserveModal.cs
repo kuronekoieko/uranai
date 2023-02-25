@@ -26,7 +26,7 @@ public class ReserveModal : BaseModal
 
     Uranaishi uranaishi;
     DateTime dateTime;
-    int selectedMin
+    int selectedMinIndex
     {
         get
         {
@@ -36,9 +36,11 @@ public class ReserveModal : BaseModal
                .Where(ano => ano.Content.isOn)
                .Select(t => t.Index)
                .FirstOrDefault();
-            return reservableMins[selectedMinIndex];
+            return selectedMinIndex;
         }
     }
+
+    int selectedMin => reservableMins[selectedMinIndex];
     bool isEnoughPoint => SaveData.i.GetSumPoint() > selectedMin * uranaishi.callChargePerMin;
 
 
@@ -120,11 +122,30 @@ public class ReserveModal : BaseModal
     }
 
 
-    void ConfirmReserve()
+    async void ConfirmReserve()
     {
         doneReservePopup.Open(uranaishi, dateTime, selectedMin);
         SettingPush();
+
+        Schedule[] schedules = uranaishi.schedules
+        .Where(s => dateTime <= s.startSDT.dateTime)
+        .Where(s => s.startSDT.dateTime < dateTime.AddMinutes(selectedMin))
+        .ToArray();
+        foreach (var schedule in schedules)
+        {
+            schedule.scheduleStatus = ScheduleStatus.Reserved;
+        }
+        
+        await FirebaseDatabaseManager.i.SetUserData(uranaishi);
+
+        Reserve reserve = new Reserve();
+        reserve.uranaishiId = uranaishi.id;
+        reserve.startSDT.dateTime = dateTime;
+        reserve.durationMin = selectedMin;
+        SaveData.i.reserves.Add(reserve);
+        SaveDataManager.i.Save();
     }
+
 
     private void SettingPush()
     {
