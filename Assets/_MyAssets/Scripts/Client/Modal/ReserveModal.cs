@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using Cysharp.Threading.Tasks;
 
 public class ReserveModal : BaseModal
 {
@@ -20,7 +21,6 @@ public class ReserveModal : BaseModal
     [SerializeField] Toggle[] durationToggles;
     [SerializeField] DoneReservePopup doneReservePopup;
     [SerializeField] PurchasePointsPopup purchasePointsPopup;
-    [SerializeField] RequirePushNotificationPopup requirePushNotificationPopup;
 
     int[] reservableMins;
 
@@ -49,7 +49,6 @@ public class ReserveModal : BaseModal
         base.OnStart();
         doneReservePopup.OnStart();
         purchasePointsPopup.OnStart();
-        requirePushNotificationPopup.OnStart();
 
         reservableMins = new int[durationToggles.Length];
         for (int i = 0; i < reservableMins.Length; i++)
@@ -101,12 +100,22 @@ public class ReserveModal : BaseModal
         if (!LocalPushNotification.Enabled)
         {
             // プッシュ通知がオフのときのポップアップ
-            requirePushNotificationPopup.Open();
+            CommonPopup.i.Show(
+                "プッシュ通知が\nオフになっています",
+                "プッシュ通知をオンにしてください",
+                "OK",
+                onClickPositiveButton: RequestPushNotification
+            );
             return;
         }
 
         ConfirmReserve();
 
+    }
+
+    async void RequestPushNotification()
+    {
+        await LocalPushNotification.RequestAuthorization();
     }
 
     void OnReturnFromPurchase()
@@ -131,7 +140,12 @@ public class ReserveModal : BaseModal
 
         if (schedules.Any(s => s.scheduleStatus != ScheduleStatus.Free))
         {
-            Debug.LogError("予約不可能な時間が含まれています");
+            CommonPopup.i.Show(
+                "予約不可能な時間が含まれています",
+                "",
+                "OK",
+                ""
+            );
             return;
         }
 

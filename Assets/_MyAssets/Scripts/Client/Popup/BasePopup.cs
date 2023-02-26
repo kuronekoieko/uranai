@@ -8,8 +8,8 @@ using System;
 
 public class BasePopup : MonoBehaviour
 {
-    [SerializeField] Button negativeButton;
-    [SerializeField] Button positiveButton;
+    [SerializeField] protected Button negativeButton;
+    [SerializeField] protected Button positiveButton;
 
     protected Action onClickNegativeButton { get; set; }
     protected Action onClickPositiveButton { get; set; }
@@ -20,6 +20,7 @@ public class BasePopup : MonoBehaviour
         gameObject.SetActive(false);
         negativeButton.onClick.AddListener(OnClickNegativeButton);
         positiveButton.onClick.AddListener(OnClickPositiveButton);
+        tag = "Popup";
     }
 
     public void Close()
