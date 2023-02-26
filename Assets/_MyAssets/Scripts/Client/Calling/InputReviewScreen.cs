@@ -90,7 +90,7 @@ public class InputReviewScreen : BaseCallingScreen
 
         uranaishi.reviews.Add(review);
 
-        // 占い師が同時に操作してると上書きされる可能性があるので、レビューだけ書き換えたい
+        // TODO: 占い師が同時に操作してると上書きされる可能性があるので、レビューだけ書き換えたい
         await FirebaseDatabaseManager.i.SetUserData(uranaishi);
 
         SaveData.i.ConsumePoints(giftPoint);
