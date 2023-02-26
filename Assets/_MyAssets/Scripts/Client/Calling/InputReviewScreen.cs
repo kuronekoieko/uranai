@@ -64,7 +64,7 @@ public class InputReviewScreen : BaseCallingScreen
         //スクロールの一番上に行くように
         scrollRect.verticalNormalizedPosition = 1;
         myPointText.text = $"所持ポイント : {SaveData.i.GetSumPoint()}pt";
-
+        inputReviewStarManager.ChangeView(4);
         uranaishiNameText.text = uranaishi.name;
         uranaishi.GetIcon((sprite) =>
         {
