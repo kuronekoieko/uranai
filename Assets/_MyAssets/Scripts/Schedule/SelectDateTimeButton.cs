@@ -20,15 +20,15 @@ public class SelectDateTimeButton : MonoBehaviour
         button.onClick.AddListener(OnClickSelectButton);
     }
 
-    public void OnOpen(DateTime dateTime, Uranaishi uranaishi)
+    public void OnOpen(Schedule schedule, Uranaishi uranaishi)
     {
+        DateTime dateTime = schedule.startSDT.dateTime.Value;
         this.uranaishi = uranaishi;
         this.dateTime = dateTime;
 
-        bool isFree = uranaishi.schedules
-        .Any(s => s.startSDT.dateTime == dateTime
-            && s.scheduleStatus == ScheduleStatus.Free
-            && s.startSDT.IsFutureFromNow());
+        bool isFree = schedule.startSDT.dateTime != null
+            && schedule.scheduleStatus == ScheduleStatus.Free
+            && schedule.startSDT.IsFutureFromNow();
 
         availableObj.SetActive(isFree);
         notAvailableObj.SetActive(!isFree);

@@ -21,16 +21,17 @@ public class RowElement : ObjectPoolingElement
         }
     }
 
-    public void Show(DateTime[] dateTimes, Uranaishi uranaishi)
+    public void Show(Schedule[] schedules, Uranaishi uranaishi)
     {
-        timeText.text = dateTimes[0].ToShortTimeString();
-        bool isLastOfTheHour = dateTimes[0].Minute + Constant.Instance.reserveDurationMin == 60;
+        DateTime dateTime = schedules[0].startSDT.dateTime.Value;
+        timeText.text = dateTime.ToShortTimeString();
+        bool isLastOfTheHour = dateTime.Minute + Constant.Instance.reserveDurationMin == 60;
         lightBorderLE.gameObject.SetActive(!isLastOfTheHour);
         boldBorderLE.gameObject.SetActive(isLastOfTheHour);
 
         for (int i = 0; i < selectDateTimeButtons.Length; i++)
         {
-            selectDateTimeButtons[i].OnOpen(dateTimes[i], uranaishi);
+            selectDateTimeButtons[i].OnOpen(schedules[i], uranaishi);
         }
     }
 

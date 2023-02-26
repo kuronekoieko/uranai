@@ -26,14 +26,9 @@ public class UranaishiProfile_Schedule : BaseUranaishiProfile
             titleContentTexts[i].gameObject.SetActive(false);
         }
 
-        for (int i = 0; i < uranaishi.scheduleMatrix.Count; i++)
+        for (int i = 0; i < uranaishi.dailySchedules.Count; i++)
         {
-            var schedules = uranaishi.scheduleMatrix[i].schedules;
-
-            foreach (var item in schedules)
-            {
-                Debug.Log(item.startSDT.dateTime);
-            }
+            var schedules = uranaishi.dailySchedules[i].schedules;
 
             var freeDateTimes = schedules
                 .Where(schedule => schedule.startSDT.IsFutureFromNow())

@@ -20,16 +20,13 @@ public class Uranaishi
     public string otherURL;
     public string[] expertises = new string[0];
     public string[] divinations = new string[0];
-    public List<Schedule> schedules = new List<Schedule>();
-    public List<DailySchedule> scheduleMatrix = new List<DailySchedule>();
+    public List<DailySchedule> dailySchedules = new List<DailySchedule>();
     public List<Review> reviews = new List<Review>();
 
     [System.NonSerialized] Sprite _iconSprite;
 
     public void CheckScheduleMatrix()
     {
-        scheduleMatrix = new List<DailySchedule>();
-
         double span = Constant.Instance.reserveDurationMin;
         int days = Constant.Instance.reserveDays;
 
@@ -45,7 +42,13 @@ public class Uranaishi
             last = last.AddDays(-1);
         }
 
-        for (int j = 0; j < days; j++)
+        // 古いスケジュールを削除
+        // 念のため、予約可能日を超えた時間も削除
+        dailySchedules.RemoveAll(d => d.schedules[0].startSDT.dateTime < init
+            || d.schedules[0].startSDT.dateTime > last.AddDays(days));
+
+
+        for (int j = dailySchedules.Count; j < days; j++)
         {
             DailySchedule dailySchedule = new DailySchedule();
 
@@ -56,43 +59,21 @@ public class Uranaishi
                 dailySchedule.schedules.Add(schedule);
                 // Debug.Log(i + " " + schedule.startSDT.dateTime);
             }
-            scheduleMatrix.Add(dailySchedule);
+            dailySchedules.Add(dailySchedule);
 
         }
 
     }
 
-    public void CheckSchedules(int reserveDurationMin, int days)
+    public DailySchedule GetDailyScheduleIncludes(DateTime dateTime)
     {
-        DateTime today = DateTime.Today;
-        // 古いスケジュールを削除
-        // 念のため、予約可能日を超えた時間も削除
-        schedules.RemoveAll(s => s.startSDT.dateTime < today.AddDays(-1)
-            || s.startSDT.dateTime > today.AddDays(days)
-            || s.startSDT.dateTime == null);
-
-        // 4日間のスケジュールを作成
-        if (schedules.Count == 0)
-        {
-            Schedule schedule = new Schedule();
-            schedule.startSDT.dateTime = today.AddDays(-1);
-            schedules.Add(schedule);
-        }
-
-
-        while (true)
-        {
-            DateTime lastDT = schedules[schedules.Count - 1].startSDT.dateTime.Value;
-            Schedule schedule = new Schedule();
-            schedule.startSDT.dateTime = lastDT.AddMinutes(reserveDurationMin);
-
-            if (schedule.startSDT.dateTime >= today.AddDays(days))
-            {
-                break;
-            }
-            schedules.Add(schedule);
-        }
+        DailySchedule dailySchedule = dailySchedules
+            .Where(d => d.schedules[0].startSDT.dateTime <= dateTime)
+            .Where(d => dateTime <= d.schedules.LastOrDefault().startSDT.dateTime.Value.AddMinutes(Constant.Instance.reserveDurationMin))
+            .FirstOrDefault();
+        return dailySchedule;
     }
+
 
     public async void GetIcon(UnityAction<Sprite> onComplete)
     {
@@ -126,7 +107,8 @@ public class Uranaishi
             case UranaishiStatus.Closed:
                 return "本日終了";
             case UranaishiStatus.DatTime:
-                Schedule schedule = schedules
+                DailySchedule dailySchedule = GetDailyScheduleIncludes(DateTime.Now);
+                Schedule schedule = dailySchedule.schedules
                     .Where(schedule => schedule.startSDT.IsFutureFromNow())
                     .OrderBy(schedule => schedule.startSDT.dateTime)
                     .FirstOrDefault();

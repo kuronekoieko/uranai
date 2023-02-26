@@ -122,7 +122,9 @@ public class ReserveModal : BaseModal
 
     async void ConfirmReserve()
     {
-        Schedule[] schedules = uranaishi.schedules
+        DailySchedule dailySchedule = uranaishi.GetDailyScheduleIncludes(dateTime);
+
+        Schedule[] schedules = dailySchedule.schedules
         .Where(s => dateTime <= s.startSDT.dateTime)
         .Where(s => s.startSDT.dateTime < dateTime.AddMinutes(selectedMin))
         .ToArray();

@@ -30,26 +30,45 @@ public class ScheduleModal : BaseModal
             dayTexts[i].text = DateTime.Today.AddDays(i).ToString("dd\n(ddd)");
         }
 
+        /* List<DateTime[]> dateTimeMatrix = new List<DateTime[]>();
 
-        List<DateTime[]> dateTimeMatrix = new List<DateTime[]>();
-
-        double span = Constant.Instance.reserveDurationMin;
-        DateTime init = DateTime.Today.AddHours(9);
-        DateTime last = DateTime.Today.AddDays(1).AddHours(5);
+                double span = Constant.Instance.reserveDurationMin;
+                DateTime init = DateTime.Today.AddHours(9);
+                DateTime last = DateTime.Today.AddDays(1).AddHours(5);
 
 
-        for (DateTime i = init; i < last; i = i.AddMinutes(span))
+                for (DateTime i = init; i < last; i = i.AddMinutes(span))
+                {
+                    // Debug.Log(i);
+                    DateTime[] dateTimes = new DateTime[3];
+                    for (int j = 0; j < dateTimes.Length; j++)
+                    {
+                        dateTimes[j] = i.AddDays(j);
+                    }
+                    dateTimeMatrix.Add(dateTimes);
+                }*/
+
+        int column = 3;
+
+
+        List<Schedule[]> scheduleMatrix = new List<Schedule[]>();
+
+        for (int j = 0; j < uranaishi.dailySchedules[0].schedules.Count; j++)
         {
-            // Debug.Log(i);
-            DateTime[] dateTimes = new DateTime[3];
-            for (int j = 0; j < dateTimes.Length; j++)
+            Schedule[] schedulesOfSameTime = new Schedule[column];
+
+            for (int i = 0; i < schedulesOfSameTime.Length; i++)
             {
-                dateTimes[j] = i.AddDays(j);
+                schedulesOfSameTime[i] = uranaishi.dailySchedules[i].schedules[j];
+
             }
-            dateTimeMatrix.Add(dateTimes);
+            scheduleMatrix.Add(schedulesOfSameTime);
         }
 
-        scheduleSelectManager.ShowElement(dateTimeMatrix, uranaishi);
+
+
+
+        scheduleSelectManager.ShowElement(scheduleMatrix, uranaishi);
 
     }
 }
