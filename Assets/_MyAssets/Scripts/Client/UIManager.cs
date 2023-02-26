@@ -43,6 +43,7 @@ public class UIManager : MonoBehaviour
         StartBannerToggles();
         headerManager.OnStart();
         likePopup.OnStart();
+        CommonPopup.i.OnStart();
 
         Application.targetFrameRate = 60;
     }

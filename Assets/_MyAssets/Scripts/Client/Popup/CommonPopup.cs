@@ -11,13 +11,15 @@ public class CommonPopup : BasePopup
     [SerializeField] TextMeshProUGUI messageText;
     [SerializeField] TextMeshProUGUI pButtonText;
     [SerializeField] TextMeshProUGUI nButtonText;
-    public static CommonPopup i;
-
-    private void Start()
+    public static CommonPopup i
     {
-        i = this;
-        base.OnStart();
+        get
+        {
+            if (_i == null) _i = FindObjectOfType<CommonPopup>(true);
+            return _i;
+        }
     }
+    static CommonPopup _i;
 
     public void Show(
         string title,
