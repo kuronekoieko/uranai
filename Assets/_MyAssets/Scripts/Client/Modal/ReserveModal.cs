@@ -165,6 +165,7 @@ public class ReserveModal : BaseModal
 
         doneReservePopup.Open(uranaishi, dateTime, selectedMin);
         SettingPush();
+
     }
 
 
