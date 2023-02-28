@@ -60,8 +60,7 @@ public static class LocalPushNotification
 #if UNITY_IOS && !UNITY_EDITOR
             return UnityEngine.iOS.NotificationServices.enabledNotificationTypes != UnityEngine.iOS.NotificationType.None;
 #elif UNITY_ANDROID && !UNITY_EDITOR
-            Debug.Log(0);
-            const string notificationStatusClass = " パッケージネームを入れる.notification.NotificationStatusChecker";
+            string notificationStatusClass = Application.identifier + ".notification.NotificationStatusChecker";
             var notificationStatusChecker = new AndroidJavaObject(notificationStatusClass);
             var areNotificationsEnabled = notificationStatusChecker.Call<bool>("areNotificationsEnabled");
             return areNotificationsEnabled;
