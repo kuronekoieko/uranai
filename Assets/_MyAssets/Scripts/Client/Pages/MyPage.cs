@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class MyPage : BasePageManager
 {
-    [SerializeField] Button historyButton;
+    [SerializeField] Button reservedLisButton;
     [SerializeField] Button tutorialButton;
     [SerializeField] Button helpButton;
     [SerializeField] Button twitterButton;
@@ -16,7 +16,7 @@ public class MyPage : BasePageManager
     {
         base.SetPageAction(4);
 
-        historyButton.onClick.AddListener(OnClickHistoryButton);
+        reservedLisButton.onClick.AddListener(OnClickReservedLisButton);
         tutorialButton.onClick.AddListener(OnClickTutorialButton);
         helpButton.onClick.AddListener(OnClickHelpButton);
         twitterButton.onClick.AddListener(OnClickTwitterButton);
@@ -39,8 +39,9 @@ public class MyPage : BasePageManager
     }
 
 
-    void OnClickHistoryButton()
+    void OnClickReservedLisButton()
     {
+        UIManager.i.GetModal<ReservedListModal>().Open();
 
     }
 

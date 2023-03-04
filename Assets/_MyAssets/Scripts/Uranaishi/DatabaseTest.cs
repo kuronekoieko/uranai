@@ -24,7 +24,7 @@ public class DatabaseTest : MonoBehaviour
         imageButton.onClick.AddListener(SetIcon);
 
         Debug.Log("ユーザーデータ取得開始");
-        await FirebaseDatabaseManager.i.GetUserData(uranaishi);
+        uranaishi = await FirebaseDatabaseManager.i.GetUserData(uranaishi.id);
         Debug.Log("ユーザーデータ取得終了");
 
         userNameIF.text = uranaishi.name.ToString();

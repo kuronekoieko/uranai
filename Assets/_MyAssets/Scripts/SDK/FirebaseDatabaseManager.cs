@@ -39,9 +39,10 @@ public class FirebaseDatabaseManager : Singleton<FirebaseDatabaseManager>
         //reference.Child("users").Push().SetRawJsonValueAsync(json);
     }
 
-    public async Task GetUserData(Uranaishi uranaishi)
+    public async Task<Uranaishi> GetUserData(string uranaishiId)
     {
-        await reference.Child("users").Child(uranaishi.id)
+        Uranaishi uranaishi = null;
+        await reference.Child("users").Child(uranaishiId)
         .GetValueAsync().ContinueWithOnMainThread(task =>
         {
             if (task.IsFaulted)
@@ -52,10 +53,13 @@ public class FirebaseDatabaseManager : Singleton<FirebaseDatabaseManager>
             {
                 DataSnapshot snapshot = task.Result;
                 Debug.Log(snapshot.GetRawJsonValue());
+                uranaishi = new Uranaishi();
                 JsonUtility.FromJsonOverwrite(snapshot.GetRawJsonValue(), uranaishi);
                 // Do something with snapshot...
             }
         });
+
+        return uranaishi;
     }
 
 

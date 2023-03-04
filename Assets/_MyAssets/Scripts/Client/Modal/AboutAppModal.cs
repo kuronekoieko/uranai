@@ -32,22 +32,19 @@ public class AboutAppModal : BaseModal
 
     void OnClickPrivacyPolicyButton()
     {
-
+        ChromeCustomTabs.OpenURL("");
     }
 
     void OnClickTokushouhouButton()
     {
-
-    }
-    void OnClickIdButton()
-    {
-        // 
+        ChromeCustomTabs.OpenURL("");
     }
     void OnClickLicenseButton()
     {
+        ChromeCustomTabs.OpenURL("");
     }
     void OnClickCancelMembershipButton()
     {
-
+        ChromeCustomTabs.OpenURL("");
     }
 }
