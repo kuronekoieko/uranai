@@ -11,6 +11,9 @@ public class MyPage : BasePageManager
     [SerializeField] Button twitterButton;
     [SerializeField] Button ratingButton;
     [SerializeField] Button aboutButton;
+    [SerializeField] SetProfileButton setProfileButton_Me;
+    [SerializeField] SetProfileButton setProfileButton_Other;
+
 
     public override void OnStart()
     {
@@ -22,6 +25,8 @@ public class MyPage : BasePageManager
         twitterButton.onClick.AddListener(OnClickTwitterButton);
         ratingButton.onClick.AddListener(OnClickRatingButton);
         aboutButton.onClick.AddListener(OnClickAboutButton);
+        setProfileButton_Me.OnStart();
+        setProfileButton_Other.OnStart();
     }
 
     public override void OnUpdate()

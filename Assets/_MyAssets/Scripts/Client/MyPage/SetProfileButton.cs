@@ -1,18 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class SetProfileButton : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Button button;
+
+    public void OnStart()
     {
-        
+        button.onClick.AddListener(OnClickButton);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnClickButton()
     {
-        
+        UIManager.i.GetModal<EditProfileModal>().Open();
     }
+
+
 }
