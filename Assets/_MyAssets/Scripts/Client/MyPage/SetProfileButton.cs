@@ -7,15 +7,17 @@ using TMPro;
 public class SetProfileButton : MonoBehaviour
 {
     [SerializeField] Button button;
-
-    public void OnStart()
+    bool isMe;
+    public void OnStart(bool isMe)
     {
         button.onClick.AddListener(OnClickButton);
+        this.isMe = isMe;
     }
+
 
     void OnClickButton()
     {
-        UIManager.i.GetModal<EditProfileModal>().Open();
+        UIManager.i.GetModal<EditProfileModal>().Open(isMe);
     }
 
 

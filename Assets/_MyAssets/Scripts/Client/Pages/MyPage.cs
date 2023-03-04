@@ -25,8 +25,8 @@ public class MyPage : BasePageManager
         twitterButton.onClick.AddListener(OnClickTwitterButton);
         ratingButton.onClick.AddListener(OnClickRatingButton);
         aboutButton.onClick.AddListener(OnClickAboutButton);
-        setProfileButton_Me.OnStart();
-        setProfileButton_Other.OnStart();
+        setProfileButton_Me.OnStart(true);
+        setProfileButton_Other.OnStart(false);
     }
 
     public override void OnUpdate()

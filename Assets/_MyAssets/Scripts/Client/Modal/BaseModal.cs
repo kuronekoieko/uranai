@@ -53,6 +53,7 @@ public abstract class BaseModal : MonoBehaviour
 
     void OnClickReturnButton()
     {
+        if (onClose != null) onClose.Invoke();
 
         rectTransform
             .DOMoveX(Screen.width * 1.5f, 0.3f)

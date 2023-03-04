@@ -13,8 +13,8 @@ public class SaveData
     public int freePoint;
     public List<History> histories = new List<History>();
     public List<Reserve> reserves = new List<Reserve>();
-
-
+    public Profile myProfile = new Profile();
+    public Profile crushProfile = new Profile();
 
     public SaveData(int freePoint, int purchasedPoint = 0)
     {
@@ -83,4 +83,24 @@ public class Reserve
     public SerializableDateTime startSDT = new SerializableDateTime();
     public int durationMin;
     public string uranaishiId;
+}
+
+[System.Serializable]
+public enum BloodType
+{
+    A = 0,
+    B = 1,
+    AB = 2,
+    O = 3,
+    Unknown = 4
+}
+
+[System.Serializable]
+public class Profile
+{
+    public string firstName;
+    public string lastName;
+    public SerializableDateTime birthDaySDT = new SerializableDateTime();
+    public Sex sex = Sex.None;
+    public BloodType bloodType = BloodType.Unknown;
 }
