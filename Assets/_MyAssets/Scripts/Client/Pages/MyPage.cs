@@ -63,7 +63,7 @@ public class MyPage : BasePageManager
     }
     void OnClickAboutButton()
     {
-
+        UIManager.i.GetModal<AboutAppModal>().Open();
     }
 
 
