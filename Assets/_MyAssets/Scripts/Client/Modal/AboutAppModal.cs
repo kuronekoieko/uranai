@@ -2,23 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class AboutAppModal : BaseModal
 {
     [SerializeField] Button privacyPolicyButton;
     [SerializeField] Button tokushouhouButton;
-    [SerializeField] Button idButton;
     [SerializeField] Button licenseButton;
     [SerializeField] Button cancelMembershipButton;
+    [SerializeField] TextMeshProUGUI userIdText;
+    [SerializeField] TextMeshProUGUI appVersionText;
+
     public override void OnStart()
     {
         base.OnStart();
 
         privacyPolicyButton.onClick.AddListener(OnClickPrivacyPolicyButton);
         tokushouhouButton.onClick.AddListener(OnClickTokushouhouButton);
-        idButton.onClick.AddListener(OnClickIdButton);
         licenseButton.onClick.AddListener(OnClickLicenseButton);
         cancelMembershipButton.onClick.AddListener(OnClickCancelMembershipButton);
+        userIdText.text = "仮のユーザーID";// TODO
+        appVersionText.text = Application.version.ToString();
     }
 
     public void Open()
@@ -37,6 +41,7 @@ public class AboutAppModal : BaseModal
     }
     void OnClickIdButton()
     {
+        // 
     }
     void OnClickLicenseButton()
     {
