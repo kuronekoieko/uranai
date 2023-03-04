@@ -5,15 +5,23 @@ using UnityEngine.UI;
 
 public class MyPage : BasePageManager
 {
-    [SerializeField] Button purchaseButton;
+    [SerializeField] Button historyButton;
+    [SerializeField] Button tutorialButton;
+    [SerializeField] Button helpButton;
+    [SerializeField] Button twitterButton;
+    [SerializeField] Button ratingButton;
+    [SerializeField] Button aboutButton;
 
     public override void OnStart()
     {
         base.SetPageAction(4);
-        purchaseButton.onClick.AddListener(() =>
-        {
-            UIManager.i.GetModal<PurchaseModal>().Open();
-        });
+
+        historyButton.onClick.AddListener(OnClickHistoryButton);
+        tutorialButton.onClick.AddListener(OnClickTutorialButton);
+        helpButton.onClick.AddListener(OnClickHelpButton);
+        twitterButton.onClick.AddListener(OnClickTwitterButton);
+        ratingButton.onClick.AddListener(OnClickRatingButton);
+        aboutButton.onClick.AddListener(OnClickAboutButton);
     }
 
     public override void OnUpdate()
@@ -29,4 +37,33 @@ public class MyPage : BasePageManager
     {
         gameObject.SetActive(true);
     }
+
+
+    void OnClickHistoryButton()
+    {
+
+    }
+
+    void OnClickTutorialButton()
+    {
+
+    }
+    void OnClickHelpButton()
+    {
+
+    }
+    void OnClickTwitterButton()
+    {
+
+    }
+    void OnClickRatingButton()
+    {
+
+    }
+    void OnClickAboutButton()
+    {
+
+    }
+
+
 }
