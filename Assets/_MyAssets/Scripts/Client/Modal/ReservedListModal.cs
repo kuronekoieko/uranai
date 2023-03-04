@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Linq;
+using System;
 
 public class ReservedListModal : BaseModal
 {
@@ -19,6 +20,13 @@ public class ReservedListModal : BaseModal
     public void Open()
     {
         base.OpenAnim();
-        reservedInfoManager.ShowElement(SaveData.i.reserves.ToArray());
+
+        Reserve[] reserves = SaveData.i.reserves
+            .Where(r => r.startSDT.dateTime != null)
+            .Where(r => r.startSDT.dateTime.Value.AddMinutes(r.durationMin) > DateTime.Now)
+            .OrderByDescending(r => r.startSDT.dateTime)
+            .ToArray();
+
+        reservedInfoManager.ShowElement(reserves);
     }
 }
