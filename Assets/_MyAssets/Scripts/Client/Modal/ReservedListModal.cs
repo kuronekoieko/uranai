@@ -9,11 +9,13 @@ using System;
 public class ReservedListModal : BaseModal
 {
     [SerializeField] ReservedInfoManager reservedInfoManager;
+    [SerializeField] Button rulesButton;
 
     public override void OnStart()
     {
         base.OnStart();
         reservedInfoManager.OnStart();
+        rulesButton.onClick.AddListener(OnClickRulesButton);
 
     }
 
@@ -28,5 +30,10 @@ public class ReservedListModal : BaseModal
             .ToArray();
 
         reservedInfoManager.ShowElement(reserves);
+    }
+
+    void OnClickRulesButton()
+    {
+        ChromeCustomTabs.OpenURL("");
     }
 }
