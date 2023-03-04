@@ -13,10 +13,9 @@ public abstract class BaseModal : MonoBehaviour
         Horizontal,
         Vertical
     }
-    [SerializeField] Button xButton;
-    [SerializeField] Button returnButton;
+    [SerializeField] string title;
     [SerializeField] ScrollRect scrollRect;
-
+    ModalCommon modalCommon;
     RectTransform rectTransform;
     Vector3 initPos;
     RectTransform underScreen;
@@ -24,11 +23,13 @@ public abstract class BaseModal : MonoBehaviour
 
     public virtual void OnStart()
     {
+        modalCommon = GetComponentInChildren<ModalCommon>(true);
         rectTransform = GetComponent<RectTransform>();
+        modalCommon.titleText.text = title;
         initPos = rectTransform.position;
         gameObject.SetActive(false);
-        xButton.onClick.AddListener(OnClickXButton);
-        returnButton.onClick.AddListener(OnClickReturnButton);
+        modalCommon.xButton.onClick.AddListener(OnClickXButton);
+        modalCommon.returnButton.onClick.AddListener(OnClickReturnButton);
     }
 
     public void Clear()
@@ -79,8 +80,8 @@ public abstract class BaseModal : MonoBehaviour
         // 今いる自分の階層の一番下に移動して、一番手前に表示されます。
         transform.SetAsLastSibling();
 
-        xButton.gameObject.SetActive(modalType == ModalType.Vertical);
-        returnButton.gameObject.SetActive(modalType != ModalType.Vertical);
+        modalCommon.xButton.gameObject.SetActive(modalType == ModalType.Vertical);
+        modalCommon.returnButton.gameObject.SetActive(modalType != ModalType.Vertical);
         switch (modalType)
         {
             case ModalType.Vertical:
