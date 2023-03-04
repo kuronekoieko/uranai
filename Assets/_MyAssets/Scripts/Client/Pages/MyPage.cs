@@ -50,15 +50,16 @@ public class MyPage : BasePageManager
     }
     void OnClickHelpButton()
     {
-
+        ChromeCustomTabs.OpenURL("ヘルプのURL");
     }
     void OnClickTwitterButton()
     {
-
+        Application.OpenURL("公式twitterのURL");
     }
     void OnClickRatingButton()
     {
-
+        // https://kingmo.jp/kumonos/unity-inappreview-ios-android/
+        StartCoroutine(InAppReviewManager.RequestReview());
     }
     void OnClickAboutButton()
     {
