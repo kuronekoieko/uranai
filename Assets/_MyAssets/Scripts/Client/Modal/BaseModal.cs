@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using DG.Tweening;
 using UnityEngine.Events;
 using System;
+using Cysharp.Threading.Tasks;
 
 public abstract class BaseModal : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public abstract class BaseModal : MonoBehaviour
     Vector3 initPos;
     RectTransform underScreen;
     public Action onClose { get; set; }
+    public bool isShowPopupOnClose { get; set; }
+
 
     public virtual void OnStart()
     {
@@ -32,6 +35,17 @@ public abstract class BaseModal : MonoBehaviour
         modalCommon.returnButton.onClick.AddListener(OnClickReturnButton);
     }
 
+    async UniTask PopupAsync()
+    {
+        if (!isShowPopupOnClose) return;
+        await CommonPopup.i.ShowAsync(
+          "編集を終了しますか？",
+          "編集中の内容は反映されません",
+          "はい",
+          "いいえ"
+      );
+    }
+
     public void Clear()
     {
         rectTransform.position = initPos;
@@ -39,8 +53,11 @@ public abstract class BaseModal : MonoBehaviour
     }
 
 
-    void OnClickXButton()
+    async void OnClickXButton()
     {
+
+        await PopupAsync();
+
         if (onClose != null) onClose.Invoke();
         rectTransform
             .DOMoveY(-Screen.height / 2f, 0.3f)
@@ -51,8 +68,10 @@ public abstract class BaseModal : MonoBehaviour
             });
     }
 
-    void OnClickReturnButton()
+    async void OnClickReturnButton()
     {
+        await PopupAsync();
+
         if (onClose != null) onClose.Invoke();
 
         rectTransform

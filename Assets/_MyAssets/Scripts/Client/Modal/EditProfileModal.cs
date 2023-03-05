@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using Cysharp.Threading.Tasks;
 
 public class EditProfileModal : BaseModal
 {
@@ -20,6 +21,7 @@ public class EditProfileModal : BaseModal
     public override void OnStart()
     {
         base.OnStart();
+        base.isShowPopupOnClose = true;
         saveButton.onClick.AddListener(OnClickSaveButton);
 
         List<string> sexOptions = new List<string>();
@@ -38,19 +40,12 @@ public class EditProfileModal : BaseModal
         bloodTypeDropdown.ClearOptions();
         bloodTypeDropdown.AddOptions(bloodTypeOptions);
 
-        onClose = () =>
-        {
-            CommonPopup.i.Show(
-                title: "評価を投稿します。\nよろしいですか？",
-                message: "",
-                positive: "はい",
-                negative: "いいえ"
-            );
-        };
+
     }
 
     public void Open(bool isMe)
     {
+
         base.OpenAnim();
         this.isMe = isMe;
 
@@ -65,6 +60,19 @@ public class EditProfileModal : BaseModal
             "選択する" : birthDay.ToStringIncludeEmpty("yyyy年MM月dd日");
         sexDropdown.value = (int)profile.sex;
         bloodTypeDropdown.value = (int)profile.bloodType;
+
+
+
+    }
+
+    async UniTask A()
+    {
+        await CommonPopup.i.ShowAsync(
+          "編集を終了しますか？",
+          "編集中の内容は反映されません",
+          "はい",
+          "いいえ"
+      );
     }
 
     void OnClickSaveButton()
