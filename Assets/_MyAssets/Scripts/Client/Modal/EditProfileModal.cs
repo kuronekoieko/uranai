@@ -87,10 +87,9 @@ public class EditProfileModal : BaseModal
 
     void OnClickBirthdayButton()
     {
-
-        AndroidNativePicker.ShowDatePicker((year, month, day) =>
+        NativeDatePicker.ShowDatePicker((dateTime) =>
         {
-            DateTime? birthDay = new DateTime(year, month, day);
+            DateTime? birthDay = dateTime;
             profile.birthDaySDT.dateTime = birthDay;
             birthdayText.text = birthDay.ToStringIncludeEmpty("yyyy年MM月dd日");
         });
