@@ -67,6 +67,11 @@ public class EditProfileModal : BaseModal
 
     void OnClickSaveButton()
     {
+        profile.firstName = firstNameIF.text;
+        profile.lastName = lastNameIF.text;
+        // profile.birthDaySDT.dateTime =
+        profile.sex = (Sex)Enum.ToObject(typeof(Sex), sexDropdown.value);
+        profile.bloodType = (BloodType)Enum.ToObject(typeof(BloodType), bloodTypeDropdown.value);
 
         if (isMe)
         {
@@ -77,7 +82,7 @@ public class EditProfileModal : BaseModal
             SaveData.i.crushProfile = profile;
         }
         SaveDataManager.i.Save();
-        
+
     }
 
 }
