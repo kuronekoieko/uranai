@@ -35,7 +35,7 @@ public class SetProfileButton : MonoBehaviour
         string sexName = "性別";
         if (profile.sex != Sex.None)
         {
-            sexName = Utils.GetSexName(profile.sex);
+            sexName = Utils.GetSexNameDic()[profile.sex];
         }
 
         string birthdayName = profile.birthDaySDT.dateTime.ToStringIncludeEmpty("yyyy年MM月dd日");

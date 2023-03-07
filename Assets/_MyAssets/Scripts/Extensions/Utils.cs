@@ -51,19 +51,25 @@ public static class Utils
         return reviews;
     }
 
-    public static string GetSexName(Sex sex)
+    public static Dictionary<Sex, string> GetSexNameDic()
     {
-        switch (sex)
-        {
-            case Sex.Man:
-                return "男性";
-            case Sex.Woman:
-                return "女性";
-            case Sex.None:
-                return "";
-            default:
-                return "";
-        }
+        var dic = new Dictionary<Sex, string>();
+        dic.Add(Sex.Man, "男性");
+        dic.Add(Sex.Woman, "女性");
+        dic.Add(Sex.None, "");
+        return dic;
+    }
+
+    public static Dictionary<BloodType, string> GetBloodTypeNameDic()
+    {
+        var dic = new Dictionary<BloodType, string>();
+        dic.Add(BloodType.A, "A型");
+        dic.Add(BloodType.B, "B型");
+        dic.Add(BloodType.AB, "AB型");
+        dic.Add(BloodType.O, "O型");
+        dic.Add(BloodType.Unknown, "未選択");
+        return dic;
+
     }
 
 }

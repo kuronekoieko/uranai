@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using Cysharp.Threading.Tasks;
+using DeadMosquito.AndroidGoodies;
+using System.Linq;
 
 public class EditProfileModal : BaseModal
 {
@@ -13,8 +15,10 @@ public class EditProfileModal : BaseModal
     [SerializeField] TMP_InputField lastNameIF;
     [SerializeField] Button birthdayButton;
     [SerializeField] TextMeshProUGUI birthdayText;
-    [SerializeField] TMP_Dropdown sexDropdown;
-    [SerializeField] TMP_Dropdown bloodTypeDropdown;
+    [SerializeField] Button selectSexButton;
+    [SerializeField] TextMeshProUGUI sexText;
+    [SerializeField] Button selectBloodTypeButton;
+    [SerializeField] TextMeshProUGUI bloodTypeText;
     [SerializeField] Button saveButton;
     bool isMe;
     Profile profile;
@@ -23,24 +27,9 @@ public class EditProfileModal : BaseModal
         base.OnStart();
         base.isShowPopupOnClose = true;
         saveButton.onClick.AddListener(OnClickSaveButton);
-
-        List<string> sexOptions = new List<string>();
-        sexOptions.Add("男性");
-        sexOptions.Add("女性");
-        sexOptions.Add("未選択");
-        sexDropdown.ClearOptions();
-        sexDropdown.AddOptions(sexOptions);
-
-        List<string> bloodTypeOptions = new List<string>();
-        bloodTypeOptions.Add("A型");
-        bloodTypeOptions.Add("B型");
-        bloodTypeOptions.Add("AB型");
-        bloodTypeOptions.Add("O型");
-        bloodTypeOptions.Add("未選択");
-        bloodTypeDropdown.ClearOptions();
-        bloodTypeDropdown.AddOptions(bloodTypeOptions);
-
         birthdayButton.onClick.AddListener(OnClickBirthdayButton);
+        selectSexButton.onClick.AddListener(OnClickSelectSexButton);
+        selectBloodTypeButton.onClick.AddListener(OnClickSelectBloodTypeButton);
     }
 
     public void Open(bool isMe)
@@ -58,8 +47,9 @@ public class EditProfileModal : BaseModal
 
         birthdayText.text = birthDay == null ?
             "選択する" : birthDay.ToStringIncludeEmpty("yyyy年MM月dd日");
-        sexDropdown.value = (int)profile.sex;
-        bloodTypeDropdown.value = (int)profile.bloodType;
+        string sexName = Utils.GetSexNameDic()[profile.sex];
+        sexText.text = sexName == "" ? "未選択" : sexName;
+        bloodTypeText.text = Utils.GetBloodTypeNameDic()[profile.bloodType];
 
 
 
@@ -69,9 +59,6 @@ public class EditProfileModal : BaseModal
     {
         profile.firstName = firstNameIF.text;
         profile.lastName = lastNameIF.text;
-        // profile.birthDaySDT.dateTime =
-        profile.sex = (Sex)Enum.ToObject(typeof(Sex), sexDropdown.value);
-        profile.bloodType = (BloodType)Enum.ToObject(typeof(BloodType), bloodTypeDropdown.value);
 
         if (isMe)
         {
@@ -95,6 +82,47 @@ public class EditProfileModal : BaseModal
         });
 
         Debug.Log("日付ピッカー表示");
+    }
+
+    void OnClickSelectSexButton()
+    {
+        List<string> sexOptions = new List<string>(Utils.GetSexNameDic().Values);
+
+
+        AGAlertDialog.ShowSingleItemChoiceDialog(
+            "性別",
+            sexOptions.ToArray(),
+            0,
+            (colorIndex) =>
+            {
+                profile.sex = (Sex)Enum.ToObject(typeof(Sex), colorIndex);
+            },
+            "選択",
+            () =>
+            {
+
+            });
+    }
+
+
+    void OnClickSelectBloodTypeButton()
+    {
+        List<string> bloodTypeOptions = new List<string>(Utils.GetBloodTypeNameDic().Values);
+
+
+        AGAlertDialog.ShowSingleItemChoiceDialog(
+            "血液型",
+            bloodTypeOptions.ToArray(),
+            0,
+            (colorIndex) =>
+            {
+                profile.bloodType = (BloodType)Enum.ToObject(typeof(BloodType), colorIndex);
+            },
+            "選択",
+            () =>
+            {
+
+            });
     }
 
 }
