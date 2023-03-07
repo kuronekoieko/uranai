@@ -51,4 +51,19 @@ public static class Utils
         return reviews;
     }
 
+    public static string GetSexName(Sex sex)
+    {
+        switch (sex)
+        {
+            case Sex.Man:
+                return "男性";
+            case Sex.Woman:
+                return "女性";
+            case Sex.None:
+                return "";
+            default:
+                return "";
+        }
+    }
+
 }

@@ -65,16 +65,6 @@ public class EditProfileModal : BaseModal
 
     }
 
-    async UniTask A()
-    {
-        await CommonPopup.i.ShowAsync(
-          "編集を終了しますか？",
-          "編集中の内容は反映されません",
-          "はい",
-          "いいえ"
-      );
-    }
-
     void OnClickSaveButton()
     {
 
@@ -87,6 +77,7 @@ public class EditProfileModal : BaseModal
             SaveData.i.crushProfile = profile;
         }
         SaveDataManager.i.Save();
+        
     }
 
 }

@@ -484,3 +484,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   button: {fileID: 2944065889267837539}
+  nameText: {fileID: 2944065888677963710}
+  subText: {fileID: 2944065888422893605}
