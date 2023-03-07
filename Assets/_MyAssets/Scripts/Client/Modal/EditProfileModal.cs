@@ -82,7 +82,7 @@ public class EditProfileModal : BaseModal
             SaveData.i.crushProfile = profile;
         }
         SaveDataManager.i.Save();
-
+        base.Close();
     }
 
 }

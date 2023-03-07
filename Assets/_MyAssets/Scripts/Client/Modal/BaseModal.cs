@@ -22,7 +22,7 @@ public abstract class BaseModal : MonoBehaviour
     RectTransform underScreen;
     public Action onClose { get; set; }
     public bool isShowPopupOnClose { get; set; }
-
+    ModalType modalType;
 
     public virtual void OnStart()
     {
@@ -59,6 +59,11 @@ public abstract class BaseModal : MonoBehaviour
         await PopupAsync();
 
         if (onClose != null) onClose.Invoke();
+        VerticalCloseAnim();
+    }
+
+    void VerticalCloseAnim()
+    {
         rectTransform
             .DOMoveY(-Screen.height / 2f, 0.3f)
             .SetEase(Ease.OutCirc)
@@ -74,6 +79,11 @@ public abstract class BaseModal : MonoBehaviour
 
         if (onClose != null) onClose.Invoke();
 
+        HorizontalCloseAnim();
+    }
+
+    void HorizontalCloseAnim()
+    {
         rectTransform
             .DOMoveX(Screen.width * 1.5f, 0.3f)
             .SetEase(Ease.OutCirc)
@@ -89,11 +99,26 @@ public abstract class BaseModal : MonoBehaviour
                 .DOMoveX(Screen.width / 2f, 0.3f)
                 .SetEase(Ease.OutCirc);
         }
+    }
 
+    protected void Close()
+    {
+        switch (modalType)
+        {
+            case ModalType.Vertical:
+                VerticalCloseAnim();
+                break;
+            case ModalType.Horizontal:
+                HorizontalCloseAnim();
+                break;
+            default:
+                break;
+        }
     }
 
     protected virtual void OpenAnim(ModalType modalType = ModalType.Vertical)
     {
+        this.modalType = modalType;
         onClose = null;
         //スクロールの一番上に行くように
         scrollRect.verticalNormalizedPosition = 1;
@@ -105,10 +130,10 @@ public abstract class BaseModal : MonoBehaviour
         switch (modalType)
         {
             case ModalType.Vertical:
-                VerticalAnim();
+                VerticalOpenAnim();
                 break;
             case ModalType.Horizontal:
-                HorizontalAnim();
+                HorizontalOpenAnim();
                 break;
             default:
                 break;
@@ -117,7 +142,7 @@ public abstract class BaseModal : MonoBehaviour
 
     }
 
-    void VerticalAnim()
+    void VerticalOpenAnim()
     {
         Vector3 pos = initPos;
         pos.y = -Screen.height / 2f;
@@ -128,7 +153,7 @@ public abstract class BaseModal : MonoBehaviour
             .SetEase(Ease.OutCirc);
     }
 
-    void HorizontalAnim()
+    void HorizontalOpenAnim()
     {
         Transform underModalTf = null;
         for (int i = transform.parent.childCount - 1; i >= 0; i--)
