@@ -47,13 +47,22 @@ public class EditProfileModal : BaseModal
 
         birthdayText.text = birthDay == null ?
             "選択する" : birthDay.ToStringIncludeEmpty("yyyy年MM月dd日");
+        SetSexText();
+        SetBloodTypeText();
+    }
+
+    void SetSexText()
+    {
         string sexName = Utils.GetSexNameDic()[profile.sex];
         sexText.text = sexName == "" ? "未選択" : sexName;
-        bloodTypeText.text = Utils.GetBloodTypeNameDic()[profile.bloodType];
-
-
-
     }
+
+    void SetBloodTypeText()
+    {
+        string bloodTypeName = Utils.GetBloodTypeNameDic()[profile.bloodType];
+        bloodTypeText.text = bloodTypeName == "" ? "未選択" : bloodTypeName;
+    }
+
 
     void OnClickSaveButton()
     {
@@ -96,6 +105,7 @@ public class EditProfileModal : BaseModal
             (colorIndex) =>
             {
                 profile.sex = (Sex)Enum.ToObject(typeof(Sex), colorIndex);
+                SetSexText();
             },
             "選択",
             () =>
@@ -117,6 +127,7 @@ public class EditProfileModal : BaseModal
             (colorIndex) =>
             {
                 profile.bloodType = (BloodType)Enum.ToObject(typeof(BloodType), colorIndex);
+                SetBloodTypeText();
             },
             "選択",
             () =>
