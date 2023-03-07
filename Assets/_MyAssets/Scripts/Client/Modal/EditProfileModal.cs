@@ -25,11 +25,13 @@ public class EditProfileModal : BaseModal
     public override void OnStart()
     {
         base.OnStart();
-        base.isShowPopupOnClose = true;
         saveButton.onClick.AddListener(OnClickSaveButton);
         birthdayButton.onClick.AddListener(OnClickBirthdayButton);
         selectSexButton.onClick.AddListener(OnClickSelectSexButton);
         selectBloodTypeButton.onClick.AddListener(OnClickSelectBloodTypeButton);
+        base.modalCommon.xButton.onClick.RemoveAllListeners();
+        base.modalCommon.xButton.onClick.AddListener(OnClose);
+
     }
 
     public void Open(bool isMe)
@@ -135,5 +137,21 @@ public class EditProfileModal : BaseModal
 
             });
     }
+
+    void OnClose()
+    {
+        // todo 無編集のときに、ポップアップを出さない
+        CommonPopup.i.Show(
+          "編集を終了しますか？",
+          "編集中の内容は反映されません",
+          "はい",
+          "いいえ"
+          , () =>
+          {
+              base.Close();
+          }
+      );
+    }
+
 
 }

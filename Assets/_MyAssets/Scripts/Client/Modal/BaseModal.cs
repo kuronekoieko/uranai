@@ -16,12 +16,11 @@ public abstract class BaseModal : MonoBehaviour
     }
     [SerializeField] string title;
     [SerializeField] ScrollRect scrollRect;
-    ModalCommon modalCommon;
+    public ModalCommon modalCommon { get; private set; }
     RectTransform rectTransform;
     Vector3 initPos;
     RectTransform underScreen;
     public Action onClose { get; set; }
-    public bool isShowPopupOnClose { get; set; }
     ModalType modalType;
 
     public virtual void OnStart()
@@ -35,16 +34,7 @@ public abstract class BaseModal : MonoBehaviour
         modalCommon.returnButton.onClick.AddListener(OnClickReturnButton);
     }
 
-    async UniTask PopupAsync()
-    {
-        if (!isShowPopupOnClose) return;
-        await CommonPopup.i.ShowAsync(
-          "編集を終了しますか？",
-          "編集中の内容は反映されません",
-          "はい",
-          "いいえ"
-      );
-    }
+
 
     public void Clear()
     {
@@ -53,11 +43,8 @@ public abstract class BaseModal : MonoBehaviour
     }
 
 
-    async void OnClickXButton()
+    void OnClickXButton()
     {
-
-        await PopupAsync();
-
         if (onClose != null) onClose.Invoke();
         VerticalCloseAnim();
     }
@@ -73,10 +60,8 @@ public abstract class BaseModal : MonoBehaviour
             });
     }
 
-    async void OnClickReturnButton()
+    void OnClickReturnButton()
     {
-        await PopupAsync();
-
         if (onClose != null) onClose.Invoke();
 
         HorizontalCloseAnim();
@@ -103,6 +88,8 @@ public abstract class BaseModal : MonoBehaviour
 
     protected void Close()
     {
+        if (onClose != null) onClose.Invoke();
+
         switch (modalType)
         {
             case ModalType.Vertical:
