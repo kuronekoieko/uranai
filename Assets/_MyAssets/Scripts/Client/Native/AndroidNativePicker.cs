@@ -17,7 +17,9 @@ public static class AndroidNativePicker
         int year = DateTime.Now.Year;
         int month = DateTime.Now.Month;
         int day = DateTime.Now.Day;
+        // http://fantom1x.blog130.fc2.com/blog-entry-302.html
         AndroidJavaObject dialog = new AndroidJavaObject("android.app.DatePickerDialog", GetActivity(),
+            16973939,// android:Theme.Holo.Light.Dialog
             new AndroidNativePicker.OnDateSetListenerPoxy(callback), year, month, day);
         dialog.Call("show");
     }
@@ -68,7 +70,7 @@ public static class AndroidNativePicker
 
         void onDateSet(AndroidJavaObject view, int year, int month, int dayOfMonth)
         {
-            _onDatePicked(year, month, dayOfMonth);
+            _onDatePicked(year, month + 1, dayOfMonth);
         }
     }
 

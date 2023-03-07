@@ -40,7 +40,7 @@ public class EditProfileModal : BaseModal
         bloodTypeDropdown.ClearOptions();
         bloodTypeDropdown.AddOptions(bloodTypeOptions);
 
-
+        birthdayButton.onClick.AddListener(OnClickBirthdayButton);
     }
 
     public void Open(bool isMe)
@@ -83,6 +83,19 @@ public class EditProfileModal : BaseModal
         }
         SaveDataManager.i.Save();
         base.Close();
+    }
+
+    void OnClickBirthdayButton()
+    {
+
+        AndroidNativePicker.ShowDatePicker((year, month, day) =>
+        {
+            DateTime? birthDay = new DateTime(year, month, day);
+            profile.birthDaySDT.dateTime = birthDay;
+            birthdayText.text = birthDay.ToStringIncludeEmpty("yyyy年MM月dd日");
+        });
+
+        Debug.Log("日付ピッカー表示");
     }
 
 }
