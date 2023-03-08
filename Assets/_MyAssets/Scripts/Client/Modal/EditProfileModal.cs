@@ -7,7 +7,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using DeadMosquito.AndroidGoodies;
 using System.Linq;
-
+using UniRx;
 
 public class EditProfileModal : BaseModal
 {
@@ -23,6 +23,15 @@ public class EditProfileModal : BaseModal
     [SerializeField] Button saveButton;
     bool isMe;
     Profile profile;
+    bool isEdited
+    {
+        get
+        {
+            if (profile == null) return false;
+            return !profile.Equals(SaveData.i.GetProfile(isMe));
+        }
+    }
+
     public override void OnStart()
     {
         base.OnStart();
@@ -41,6 +50,10 @@ public class EditProfileModal : BaseModal
             profile.lastName = str;
         });
 
+        profile = null;
+        this.ObserveEveryValueChanged(_isEdited => isEdited)
+            .Subscribe(_isEdited => saveButton.interactable = _isEdited)
+            .AddTo(this.gameObject);
     }
 
     public void Open(bool isMe)
@@ -141,7 +154,7 @@ public class EditProfileModal : BaseModal
     {
         // 無編集のときに、ポップアップを出さない
 
-        if (profile.Equals(SaveData.i.GetProfile(isMe)))
+        if (!isEdited)
         {
             base.Close();
             return;

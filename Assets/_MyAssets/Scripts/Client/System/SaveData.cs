@@ -133,7 +133,6 @@ public class Profile : IEquatable<Profile>
             birthDaySDT.dateTime == other.birthDaySDT.dateTime &&
             sex == other.sex &&
             bloodType == other.bloodType;
-
     }
 
     public Profile(Profile profile = null)
