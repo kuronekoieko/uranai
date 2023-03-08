@@ -239,7 +239,7 @@ public class SerializableDateTime
             }
             else
             {
-                Debug.LogError("日付のパース失敗 " + dateTimeStr);
+                Debug.LogWarning("日付のパース失敗 " + dateTimeStr);
                 return null;
             }
         }

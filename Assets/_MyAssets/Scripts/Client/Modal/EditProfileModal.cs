@@ -8,6 +8,7 @@ using Cysharp.Threading.Tasks;
 using DeadMosquito.AndroidGoodies;
 using System.Linq;
 
+
 public class EditProfileModal : BaseModal
 {
     [SerializeField] TextMeshProUGUI titleText;
@@ -70,15 +71,6 @@ public class EditProfileModal : BaseModal
     {
         profile.firstName = firstNameIF.text;
         profile.lastName = lastNameIF.text;
-
-        if (isMe)
-        {
-            SaveData.i.myProfile = profile;
-        }
-        else
-        {
-            SaveData.i.crushProfile = profile;
-        }
         SaveDataManager.i.Save();
         base.Close();
     }

@@ -96,11 +96,26 @@ public enum BloodType
 }
 
 [System.Serializable]
-public class Profile
+public class Profile : IEquatable<Profile>
 {
     public string firstName;
     public string lastName;
     public SerializableDateTime birthDaySDT = new SerializableDateTime();
     public Sex sex = Sex.None;
     public BloodType bloodType = BloodType.Unknown;
+
+    public bool Equals(Profile other)
+    {
+        if (other == null)
+        {
+            return false;
+        }
+
+        return firstName == other.firstName &&
+            lastName == other.lastName &&
+            birthDaySDT.dateTime == other.birthDaySDT.dateTime &&
+            sex == other.sex &&
+            bloodType == other.bloodType;
+
+    }
 }

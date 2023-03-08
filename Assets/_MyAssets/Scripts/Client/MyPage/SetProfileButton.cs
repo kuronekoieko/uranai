@@ -11,17 +11,19 @@ public class SetProfileButton : MonoBehaviour
     [SerializeField] TextMeshProUGUI subText;
 
     bool isMe;
+    Profile profile;
+
     public void OnStart(bool isMe)
     {
         button.onClick.AddListener(OnClickButton);
         this.isMe = isMe;
 
-        Profile profile = isMe ? SaveData.i.myProfile : SaveData.i.crushProfile;
+        profile = isMe ? SaveData.i.myProfile : SaveData.i.crushProfile;
 
-        Set(profile);
+        Set();
     }
 
-    void Set(Profile profile)
+    void Set()
     {
         if (profile.firstName.Length > 0)
         {
@@ -49,6 +51,7 @@ public class SetProfileButton : MonoBehaviour
     void OnClickButton()
     {
         UIManager.i.GetModal<EditProfileModal>().Open(isMe);
+        UIManager.i.GetModal<EditProfileModal>().onClose = Set;
     }
 
 
