@@ -32,6 +32,14 @@ public class EditProfileModal : BaseModal
         selectBloodTypeButton.onClick.AddListener(OnClickSelectBloodTypeButton);
         base.modalCommon.xButton.onClick.RemoveAllListeners();
         base.modalCommon.xButton.onClick.AddListener(OnClose);
+        firstNameIF.onValueChanged.AddListener((str) =>
+        {
+            profile.firstName = str;
+        });
+        lastNameIF.onValueChanged.AddListener((str) =>
+        {
+            profile.lastName = str;
+        });
 
     }
 
@@ -69,11 +77,7 @@ public class EditProfileModal : BaseModal
 
     void OnClickSaveButton()
     {
-        profile.firstName = firstNameIF.text;
-        profile.lastName = lastNameIF.text;
-
         SaveData.i.SetProfile(isMe, profile);
-
         SaveDataManager.i.Save();
         base.Close();
     }
@@ -135,7 +139,14 @@ public class EditProfileModal : BaseModal
 
     void OnClose()
     {
-        // todo 無編集のときに、ポップアップを出さない
+        // 無編集のときに、ポップアップを出さない
+
+        if (profile.Equals(SaveData.i.GetProfile(isMe)))
+        {
+            base.Close();
+            return;
+        }
+
         CommonPopup.i.Show(
           "編集を終了しますか？",
           "編集中の内容は反映されません",
