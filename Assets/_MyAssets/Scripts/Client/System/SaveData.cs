@@ -60,6 +60,23 @@ public class SaveData
 
     }
 
+    public Profile GetProfile(bool isMe)
+    {
+        return isMe ? myProfile : crushProfile;
+    }
+    public void SetProfile(bool isMe, Profile profile)
+    {
+        if (isMe)
+        {
+            myProfile = profile;
+        }
+        else
+        {
+            crushProfile = profile;
+        }
+    }
+
+
 }
 
 [System.Serializable]
@@ -96,7 +113,7 @@ public enum BloodType
 }
 
 [System.Serializable]
-public class Profile : IEquatable<Profile>
+public class Profile
 {
     public string firstName;
     public string lastName;
@@ -104,18 +121,13 @@ public class Profile : IEquatable<Profile>
     public Sex sex = Sex.None;
     public BloodType bloodType = BloodType.Unknown;
 
-    public bool Equals(Profile other)
+    public Profile(Profile profile = null)
     {
-        if (other == null)
-        {
-            return false;
-        }
-
-        return firstName == other.firstName &&
-            lastName == other.lastName &&
-            birthDaySDT.dateTime == other.birthDaySDT.dateTime &&
-            sex == other.sex &&
-            bloodType == other.bloodType;
-
+        if (profile == null) return;
+        firstName = profile.firstName;
+        lastName = profile.lastName;
+        birthDaySDT.dateTime = profile.birthDaySDT.dateTime;
+        sex = profile.sex;
+        bloodType = profile.bloodType;
     }
 }

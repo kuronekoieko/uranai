@@ -41,7 +41,7 @@ public class EditProfileModal : BaseModal
         base.OpenAnim();
         this.isMe = isMe;
 
-        profile = isMe ? SaveData.i.myProfile : SaveData.i.crushProfile;
+        profile = new Profile(SaveData.i.GetProfile(isMe));
 
         titleText.text = (isMe ? "自分" : "相手") + "の情報";
         firstNameIF.text = profile.firstName;
@@ -71,6 +71,9 @@ public class EditProfileModal : BaseModal
     {
         profile.firstName = firstNameIF.text;
         profile.lastName = lastNameIF.text;
+
+        SaveData.i.SetProfile(isMe, profile);
+
         SaveDataManager.i.Save();
         base.Close();
     }

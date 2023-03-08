@@ -11,20 +11,19 @@ public class SetProfileButton : MonoBehaviour
     [SerializeField] TextMeshProUGUI subText;
 
     bool isMe;
-    Profile profile;
 
     public void OnStart(bool isMe)
     {
         button.onClick.AddListener(OnClickButton);
         this.isMe = isMe;
 
-        profile = isMe ? SaveData.i.myProfile : SaveData.i.crushProfile;
-
         Set();
     }
 
     void Set()
     {
+        Profile profile = SaveData.i.GetProfile(isMe);
+
         if (profile.firstName.Length > 0)
         {
             nameText.text = profile.firstName + " " + profile.lastName;
